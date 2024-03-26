@@ -4,6 +4,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
+import 'package:mafatih/features/intro/intro_screen.dart';
 import 'package:mafatih/l10n/locale_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                     SvgPicture.asset(
                       width: width * 0.25,
                       height: width * 0.25,
-                      Images.mafatihLogoEn,
+                      isEnglishLang ? Images.mafatihLogoEn : Images.mafatihLogoAr,
                     ),
 
                     SizedBox(height: height * 0.1),
@@ -139,6 +140,13 @@ class ChooseLanguageScreen extends StatelessWidget {
                       child: SimpleButton(
                         text: l10n.getStarted,
                         callback: () async {
+
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const IntroScreen(),
+                            ),
+                          );
+
                         },
                       ),
                     ),

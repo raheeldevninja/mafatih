@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/features/choose_language/choose_language_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,6 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final languageCode = AppLocalizations.of(context)!.localeName;
+    final isEnglishLang = languageCode == 'en';
+
 
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
@@ -35,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: SvgPicture.asset(
                 width: width * 0.25,
                 height: width * 0.25,
-                Images.mafatihLogoEn,
+                isEnglishLang ? Images.mafatihLogoEn : Images.mafatihLogoAr,
               ),
             ),
 

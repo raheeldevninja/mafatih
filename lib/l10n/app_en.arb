@@ -1,6 +1,12 @@
 {
     "getStarted": "Get Started",
     "choose_language": "Choose language",
+
+    "intro_title": "Find Best Place To Stay In Good Price",
+    "intro_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc",
+
+
+
     "home": "Home",
     "categories": "Categories",
     "designers": "Designers",
