@@ -6,6 +6,16 @@
     "intro_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc",
 
 
+    "dontHaveAccount" : "Don't have an account?",
+    "signUpBtnText" : "Sign Up",
+    "loginBtnText" : "Login to your Account",
+    "emptyPasswordValidation" : "Please enter your password",
+    "passwordLengthValidation" : "Password must be at least 6 characters",
+    "emptyPhoneValidation" : "Please enter your phone number",
+    "selectCountryCodeHeading" : "Select Country Code",
+
+
+
 
     "home": "Home",
     "categories": "Categories",
@@ -21,6 +31,7 @@
     "notifications": "Notifications",
     "settings": "Settings",
     "login": "Login",
+    "loginSubTitle": "Login to your Account",
     "logout": "Logout",
     "noNotifications": "No notifications",
     "faq": "FAQs",
@@ -30,7 +41,7 @@
     "loginToContinue": "Login to Continue",
     "emailPhoneLabel": "Email / Phone Number ",
     "passwordLabel": "Password ",
-    "forgotPassword": "Forgot Password",
+    "forgotPassword": "Forgot Password?",
     "registerAsSeller": "Register as seller",
     "settingsTitle": "Settings",
     "language": "Language",
@@ -85,7 +96,7 @@
     "editAddressBtn": "Edit",
     "addNewAddress": "Add New Address",
     "addressLabel": "Address",
-    "phoneLabel": "Phone",
+    "phoneNoLabel": "Phone Number",
     "addAddress": "Add Address",
     "updateAddress": "Update Address",
     "contactPersonName": "Contact Person Name",

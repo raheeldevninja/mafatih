@@ -4,6 +4,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
+import 'package:mafatih/features/auth/login_screen.dart';
 
 
 class IntroScreen extends StatelessWidget {
@@ -73,6 +74,14 @@ class IntroScreen extends StatelessWidget {
               child: SimpleButton(
                 text: l10n.getStarted,
                 callback: () async {
+
+                  ///navigate to login screen
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+
                 },
               ),
             ),
