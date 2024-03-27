@@ -14,6 +14,14 @@
     "emptyPhoneValidation" : "Please enter your phone number",
     "selectCountryCodeHeading" : "Select Country Code",
 
+    "registerAccountSubHeading" : "Register an Account",
+    "passwordDoNotMatch" : "Passwords do not match",
+    "fullNameLabel" : "Full Name",
+    "optionalHint" : "Optional",
+    "emptyFullNameValidation" : "Please enter your full name",
+    "emptyEmailValidation" : "Please enter email",
+    "invalidEmailValidation" : "Invalid Email",
+    "alreadyHaveAccount" : "Already have an account?",
 
 
 

@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/ui/AppTextField.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/features/auth/register_screen.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _phoneNumberController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
-  bool obscureText = true;
+  bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
   String selectedCountryCode = '+966';
 
   @override
@@ -31,14 +35,13 @@ class _LoginScreenState extends State<LoginScreen> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
-    print('language: ${l10n.localeName}');
-
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
-        title: Text(l10n.login, style: const TextStyle(fontWeight: FontWeight.w500)),
+        surfaceTintColor: Colors.transparent,
+        title: Text(l10n.register, style: const TextStyle(fontWeight: FontWeight.w500)),
         centerTitle: true,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -58,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      body: ListView(
+      body: Column(
         children: [
 
           ///header
@@ -74,16 +77,18 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(l10n.loginSubTitle),
+                Text(l10n.registerAccountSubHeading),
               ],
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          Expanded(
             child: Form(
               key: _formKey,
-              child: Column(
+              child: ListView(
+                padding: const EdgeInsets.all(16.0),
+                shrinkWrap: true,
+                primary: true,
                 children: [
 
                   Widgets.labels(l10n.phoneNoLabel),
@@ -91,7 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 10,
                   ),
 
-                  //rounded corner with border text form field
                   TextFormField(
                     controller: _phoneNumberController,
                     maxLines: 1,
@@ -145,6 +149,56 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
 
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Widgets.labels(l10n.fullNameLabel),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  AppTextField(
+                      controller: _fullNameController,
+                      keyboardType: TextInputType.text,
+                      hintText: l10n.optionalHint,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return l10n.emptyFullNameValidation;
+                        }
+                        return null;
+                      },
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Widgets.labels(l10n.emailLabel),
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  AppTextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: l10n.optionalHint,
+                    validator: (value) {
+
+
+                      if (value!.isEmpty) {
+                        return l10n.emptyEmailValidation;
+                      }
+                      else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                          .hasMatch(value)) {
+                        return l10n.invalidEmailValidation;
+                      }
+
+                      return null;
+                    },
+                  ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -156,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   TextFormField(
                     controller: _passwordController,
-                    obscureText: obscureText,
+                    obscureText: obscurePassword,
                     maxLines: 1,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -168,11 +222,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
-                            obscureText = !obscureText;
+                            obscurePassword = !obscurePassword;
                           });
                         },
                         icon: Icon(
-                          obscureText ? Icons.visibility : Icons.visibility_off,
+                          obscurePassword ? Icons.visibility : Icons.visibility_off,
                           color: Colors.grey,
                         ),
                       ),
@@ -204,34 +258,81 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
 
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Widgets.labels(l10n.confirmPassword),
                   const SizedBox(
                     height: 10,
                   ),
 
-                  //forgot password
-                  Align(
-                    alignment: l10n.localeName == 'en' ? Alignment.centerRight : Alignment.centerLeft,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: AppColors.primaryColor,
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    obscureText: obscureConfirmPassword,
+                    maxLines: 1,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: AppColors.secondaryColor,
+                      contentPadding: const EdgeInsets.all(12.0),
+                      hintText: l10n.confirmPasswordHint,
+                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            obscureConfirmPassword = !obscureConfirmPassword;
+                          });
+                        },
+                        icon: Icon(
+                          obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
                       ),
-                      onPressed: () {},
-                      child: Text(l10n.forgotPassword),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(0.3), width: 1.0),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: AppColors.lightGrey, width: 1.0),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
                     ),
+                    validator: (value) {
+
+                      if (value == null || value.isEmpty) {
+                        return l10n.emptyPasswordValidation;
+                      }
+                      else if (value.length < 6) {
+                        return l10n.passwordLengthValidation;
+                      }
+                      else if (value != _passwordController.text) {
+                        return l10n.passwordDoNotMatch;
+                      }
+
+                      return null;
+
+                    },
                   ),
 
 
                   SizedBox(
-                    height: height * 0.25,
+                    height: height * 0.05,
                   ),
 
 
-                  //login button
+                  //register button
                   SizedBox(
                     width: double.infinity,
                     height: 60,
                     child: SimpleButton(
-                      text: l10n.loginBtnText,
+                      text: l10n.register,
                       callback: () {
 
                         if (_formKey.currentState!.validate()) {
@@ -250,18 +351,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(l10n.dontHaveAccount),
+                      Text(l10n.alreadyHaveAccount),
                       TextButton(
                           onPressed: () {
-
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ),
-                            );
-
+                            Navigator.pop(context);
                           },
-                          child: Text(l10n.signUpBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline),  )
+                          child: Text(l10n.login, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline),  )
                       ),
                     ],
                   ),
@@ -327,7 +422,10 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
 
     _phoneNumberController.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
 }

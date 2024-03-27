@@ -5,6 +5,7 @@ class AppTextField extends StatelessWidget {
   const AppTextField({
     required this.controller,
     required this.keyboardType,
+    required this.validator,
     this.hintText,
     super.key,
   });
@@ -12,6 +13,8 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? hintText;
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +42,7 @@ class AppTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
         ),
       ),
-      validator: (value) {
-
-      },
+      validator: validator,
     );
   }
 }

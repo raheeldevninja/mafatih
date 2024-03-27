@@ -13,6 +13,15 @@
     "emptyPhoneValidation" : "يرجى إدخال رقم الهاتف الخاص بك",
     "selectCountryCodeHeading" : "حدد رمز البلد",
 
+    "registerAccountSubHeading" : "تسجيل حساب",
+    "passwordDoNotMatch" : "كلمة المرور غير مطابقة",
+    "fullNameLabel" : "الاسم الكامل",
+    "optionalHint" : "خياري",
+    "emptyFullNameValidation" : "من فضلك ادخل اسمك الكامل",
+    "emptyEmailValidation" : "الرجاء إدخال البريد الإلكتروني",
+    "invalidEmailValidation" : "بريد إلكتروني خاطئ",
+    "alreadyHaveAccount" : "هل لديك حساب؟",
+
     "home": "بيت",
     "categories": "فئات",
     "designers": "المصممين",
