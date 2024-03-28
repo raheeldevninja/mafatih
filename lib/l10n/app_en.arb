@@ -24,6 +24,12 @@
     "alreadyHaveAccount" : "Already have an account?",
 
 
+    "exploreNav": "Explore",
+    "addNav": "Add",
+    "listingNav": "Listing",
+    "chatNav": "Chat",
+    "servicesNav": "Services",
+
 
     "home": "Home",
     "categories": "Categories",
@@ -33,6 +39,9 @@
     "newArrivals": "New Arrivals",
     "mostWanted": "Most Wanted",
     "searchHint": "Search ...",
+
+
+
 
     "bag": "Bag",
     "myOrders": "My Orders",

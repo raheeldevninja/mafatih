@@ -7,6 +7,7 @@ import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/auth/forgot_password_screen.dart';
 import 'package:mafatih/features/auth/register_screen.dart';
+import 'package:mafatih/features/home/home_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -174,6 +175,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       callback: () {
 
                         if (_formKey.currentState!.validate()) {
+
+                          ///Navigate to home screen
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                          );
+
+
 
                         }
 

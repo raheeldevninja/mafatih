@@ -22,6 +22,12 @@
     "invalidEmailValidation" : "بريد إلكتروني خاطئ",
     "alreadyHaveAccount" : "هل لديك حساب؟",
 
+    "exploreNav": "يستكشف",
+    "addNav": "يضيف",
+    "listingNav": "قائمة",
+    "chatNav": "محادثة",
+    "servicesNav": "خدمات",
+
     "home": "بيت",
     "categories": "فئات",
     "designers": "المصممين",
