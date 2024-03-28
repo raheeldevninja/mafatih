@@ -10,5 +10,8 @@ class Images {
   static const String listingIcon = 'assets/icons/listing_icon.svg';
   static const String chatIcon = 'assets/icons/chat_icon.svg';
   static const String servicesIcon = 'assets/icons/services_icon.svg';
+  static const String searchIcon = 'assets/icons/search_icon.svg';
+  static const String filterIcon = 'assets/icons/filter_icon.svg';
+  static const String projectsIcon = 'assets/icons/projects_icon.svg';
 
 }

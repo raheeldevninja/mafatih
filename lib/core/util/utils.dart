@@ -1,11 +1,41 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/models/main_menu.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Utils {
+
+  static List<MainMenu> mainMenu = [
+    MainMenu(
+      title: 'For Sale',
+      icon: Images.projectsIcon,
+    ),
+    MainMenu(
+      title: 'For Rent',
+      icon: Images.projectsIcon,
+    ),
+    MainMenu(
+      title: 'Request Your Property',
+      icon: Images.projectsIcon,
+    ),
+    MainMenu(
+      title: 'For Sale',
+      icon: Images.projectsIcon,
+    ),
+    MainMenu(
+      title: 'For Rent',
+      icon: Images.projectsIcon,
+    ),
+    MainMenu(
+      title: 'Request Your Property',
+      icon: Images.projectsIcon,
+    ),
+  ];
+
 
   //bottom navigation
   static PersistentTabController controller =
