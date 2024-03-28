@@ -279,6 +279,7 @@
     "forgotPasswordHeading": "هل نسيت كلمة السر",
     "enterEmailToContinue": "أدخل بريدك الإلكتروني للمتابعة",
     "verifyBtnText": "يؤكد",
+    "verifyNumberLabel": "التحقق من رقمك",
 
     "otpVerificationHeading": "التحقق من OTP",
     "enterFourDigitCode": "أدخل الرمز المكون من 4 أرقام المرسل إلى رقم هاتفك. ستنتهي صلاحية الرمز خلال 60 ثانية.",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/AppTextField.dart';
+import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -64,23 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Column(
         children: [
 
-          ///header
-          Container(
-            height: 50,
-            decoration: const BoxDecoration(
-              color: AppColors.secondaryColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(l10n.registerAccountSubHeading),
-              ],
-            ),
-          ),
+          Header(subTitle: l10n.registerAccountSubHeading),
 
           Expanded(
             child: Form(

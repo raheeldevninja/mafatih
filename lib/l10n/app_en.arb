@@ -282,6 +282,8 @@
     "forgotPasswordHeading": "Forgot Password",
     "enterEmailToContinue": "Enter your Email to continue",
     "verifyBtnText": "Verify",
+    "verifyNumberLabel": "Verify your number",
+
 
     "otpVerificationHeading": "OTP Verification",
     "enterFourDigitCode": "Enter 4 digit code sent to your phone number. The code will expire in 60 seconds.",
