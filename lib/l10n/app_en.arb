@@ -286,8 +286,13 @@
 
 
     "otpVerificationHeading": "OTP Verification",
+    "verifyOTPSubTitle": "Enter OTP code",
     "enterFourDigitCode": "Enter 4 digit code sent to your phone number. The code will expire in 60 seconds.",
     "setNewPasswordBtnText": "Set New Password",
+    "otpCodeLabel": "OTP code",
+    "otpCodeHint": "Enter your OTP code",
+    "emptyOTPValidation": "Please enter OTP code",
+
 
     "orderLabel": "Order",
     "trackOrderTitle": "Track Order",

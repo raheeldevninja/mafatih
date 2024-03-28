@@ -282,8 +282,12 @@
     "verifyNumberLabel": "التحقق من رقمك",
 
     "otpVerificationHeading": "التحقق من OTP",
+    "verifyOTPSubTitle": "أدخل رمز OTP",
     "enterFourDigitCode": "أدخل الرمز المكون من 4 أرقام المرسل إلى رقم هاتفك. ستنتهي صلاحية الرمز خلال 60 ثانية.",
     "setNewPasswordBtnText": "تعيين كلمة مرور جديدة",
+    "otpCodeLabel": "رمز مكتب المدعي العام",
+    "otpCodeHint": "أدخل رمز OTP الخاص بك",
+    "emptyOTPValidation": "الرجاء إدخال رمز OTP",
 
     "orderLabel": "طلب",
     "trackOrderTitle": "ترتيب المسار",
