@@ -38,6 +38,27 @@ class Utils {
   }
 
 
+  static void showSimpleDialog(BuildContext context, String title, String message, VoidCallback onOkPressed) {
+
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: onOkPressed,
+              child: Text(l10n.okBtnText),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   //month num to month name 3 chars
   static String monthNumToName(int monthNum) {
     switch (monthNum) {

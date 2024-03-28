@@ -284,6 +284,12 @@
     "verifyBtnText": "Verify",
     "verifyNumberLabel": "Verify your number",
     "resendOTPBtnText": "Resend OTP",
+    "resetBtnText": "Reset",
+    "resetPasswordTitle": "Reset Password",
+    "resetPasswordMessage": "Reset Password Successfully",
+    "newPasswordTitle": "New Password",
+    "newPasswordSubTitle": "Enter new password",
+
 
 
     "otpVerificationHeading": "OTP Verification",

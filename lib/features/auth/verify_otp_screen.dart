@@ -5,6 +5,7 @@ import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/auth/new_password_screen.dart';
 
 
 class VerifyOTPScreen extends StatefulWidget {
@@ -70,7 +71,6 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                     height: 10,
                   ),
 
-                  //rounded corner with border text form field
                   AppTextField(
                     controller: _otpController,
                     keyboardType: TextInputType.number,
@@ -124,7 +124,11 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
               if (_formKey.currentState!.validate()) {
 
                 ///Navigate to new password screen
-
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const NewPasswordScreen(),
+                  ),
+                );
 
               }
 

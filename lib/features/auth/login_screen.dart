@@ -34,6 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
+    final canGoBack = Navigator.canPop(context);
+
     print('language: ${l10n.localeName}');
 
     return Scaffold(
@@ -43,12 +45,16 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: AppColors.secondaryColor,
         title: Text(l10n.login, style: const TextStyle(fontWeight: FontWeight.w500)),
         centerTitle: true,
-        leading: Padding(
+        leading: canGoBack ? Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             onTap: () {
-              Navigator.pop(context);
+
+              if(Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+
             },
             child: Container(
               decoration: const BoxDecoration(
@@ -59,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
             ),
           ),
-        ),
+        ) : null,
       ),
       body: ListView(
         children: [

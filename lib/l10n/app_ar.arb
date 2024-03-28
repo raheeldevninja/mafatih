@@ -281,6 +281,12 @@
     "verifyBtnText": "يؤكد",
     "verifyNumberLabel": "التحقق من رقمك",
     "resendOTPBtnText": "إعادة إرسال كلمة المرور لمرة واحدة",
+    "resetBtnText": "إعادة ضبط",
+    "resetPasswordTitle": "إعادة تعيين كلمة المرور",
+    "resetPasswordMessage": "إعادة تعيين كلمة المرور بنجاح",
+    "newPasswordTitle": "كلمة المرور الجديدة",
+    "newPasswordSubTitle": "أدخل كلمة المرور الجديدة",
+
 
     "otpVerificationHeading": "التحقق من OTP",
     "verifyOTPSubTitle": "أدخل رمز OTP",
