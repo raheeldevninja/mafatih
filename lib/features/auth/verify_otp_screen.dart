@@ -85,6 +85,21 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                     },
                   ),
 
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  ///resend otp button
+                  Align(
+                    alignment: l10n.localeName == 'en' ? Alignment.centerRight : Alignment.centerLeft,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.primaryColor,
+                      ),
+                      onPressed: () {},
+                      child: Text(l10n.resendOTPBtnText),
+                    ),
+                  ),
 
                 ],
               ),

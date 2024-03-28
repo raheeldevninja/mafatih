@@ -283,6 +283,7 @@
     "enterEmailToContinue": "Enter your Email to continue",
     "verifyBtnText": "Verify",
     "verifyNumberLabel": "Verify your number",
+    "resendOTPBtnText": "Resend OTP",
 
 
     "otpVerificationHeading": "OTP Verification",

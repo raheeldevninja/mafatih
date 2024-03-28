@@ -280,6 +280,7 @@
     "enterEmailToContinue": "أدخل بريدك الإلكتروني للمتابعة",
     "verifyBtnText": "يؤكد",
     "verifyNumberLabel": "التحقق من رقمك",
+    "resendOTPBtnText": "إعادة إرسال كلمة المرور لمرة واحدة",
 
     "otpVerificationHeading": "التحقق من OTP",
     "verifyOTPSubTitle": "أدخل رمز OTP",
