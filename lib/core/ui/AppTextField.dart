@@ -7,6 +7,11 @@ class AppTextField extends StatelessWidget {
     required this.keyboardType,
     required this.validator,
     this.hintText,
+    this.isPassword = false,
+    this.isPhone = false,
+    this.obscureText = false,
+    this.visibilityCallback,
+    this.countryPickerCallback,
     super.key,
   });
 
@@ -14,13 +19,20 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final String? hintText;
 
+  final bool isPassword;
+  final bool isPhone;
+  final bool? obscureText;
+
   final String? Function(String?)? validator;
+  final VoidCallback? visibilityCallback;
+  final VoidCallback? countryPickerCallback;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       maxLines: 1,
+      obscureText: obscureText ?? false,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         filled: true,
@@ -41,6 +53,33 @@ class AppTextField extends StatelessWidget {
               color: AppColors.lightGrey, width: 1.0),
           borderRadius: BorderRadius.circular(12.0),
         ),
+        prefixIcon: isPhone ? Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+
+            const SizedBox(width: 16),
+
+            InkWell(
+              onTap: countryPickerCallback,
+              child: const Text('+966', style: TextStyle(color: Colors.grey)),),
+
+            Container(
+              height: 20,
+              width: 1,
+              color: Colors.grey,
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+            ),
+
+          ],
+        ) : null,
+        suffixIcon: isPassword ? IconButton(
+          onPressed: visibilityCallback,
+          icon: Icon(
+            obscureText! ? Icons.visibility : Icons.visibility_off,
+            color: Colors.grey,
+          ),
+        ) : null,
+
       ),
       validator: validator,
     );

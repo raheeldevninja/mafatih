@@ -96,55 +96,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 10,
                   ),
 
-                  TextFormField(
+                  AppTextField(
                     controller: _phoneNumberController,
-                    maxLines: 1,
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(12.0),
-                      prefixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-
-                          const SizedBox(width: 16),
-
-                          InkWell(
-                            onTap: () {
-                              _showCountryCodeBottomSheet();
-                            },
-                            child: const Text('+966', style: TextStyle(color: Colors.grey)),),
-
-                          Container(
-                            height: 20,
-                            width: 1,
-                            color: Colors.grey,
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                          ),
-
-                        ],
-                      ),
-                      hintText: '',
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3), width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: AppColors.lightGrey, width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
+                    hintText: '',
+                    isPhone: true,
+                    countryPickerCallback: _showCountryCodeBottomSheet,
                     validator: (value) {
+
                       if (value!.isEmpty) {
                         return l10n.emptyPhoneValidation;
                       }
+
                       return null;
                     },
                   ),
@@ -208,42 +171,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 10,
                   ),
 
-                  TextFormField(
+                  AppTextField(
                     controller: _passwordController,
-                    obscureText: obscurePassword,
-                    maxLines: 1,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(12.0),
-                      hintText: l10n.passwordHint,
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscurePassword = !obscurePassword;
-                          });
-                        },
-                        icon: Icon(
-                          obscurePassword ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3), width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: AppColors.lightGrey, width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
+                    hintText: l10n.passwordHint,
+                    isPassword: true,
+                    obscureText: obscurePassword,
+                    visibilityCallback: () {
+                      setState(() {
+                        obscurePassword = !obscurePassword;
+                      });
+                    },
                     validator: (value) {
 
                       if (value == null || value.isEmpty) {
@@ -254,7 +192,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
 
                       return null;
-
                     },
                   ),
 
@@ -268,42 +205,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 10,
                   ),
 
-                  TextFormField(
+                  AppTextField(
                     controller: _confirmPasswordController,
-                    obscureText: obscureConfirmPassword,
-                    maxLines: 1,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(12.0),
-                      hintText: l10n.confirmPasswordHint,
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscureConfirmPassword = !obscureConfirmPassword;
-                          });
-                        },
-                        icon: Icon(
-                          obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3), width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: AppColors.lightGrey, width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
+                    hintText: l10n.passwordHint,
+                    isPassword: true,
+                    obscureText: obscureConfirmPassword,
+                    visibilityCallback: () {
+                      setState(() {
+                        obscureConfirmPassword = !obscureConfirmPassword;
+                      });
+                    },
                     validator: (value) {
 
                       if (value == null || value.isEmpty) {
@@ -317,7 +229,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
 
                       return null;
-
                     },
                   ),
 

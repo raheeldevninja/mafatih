@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/ui/AppTextField.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -92,58 +93,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //rounded corner with border text form field
-                  TextFormField(
+                  AppTextField(
                     controller: _phoneNumberController,
-                    maxLines: 1,
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(12.0),
-                      prefixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-
-                          const SizedBox(width: 16),
-
-                          InkWell(
-                            onTap: () {
-                              _showCountryCodeBottomSheet();
-                            },
-                            child: const Text('+966', style: TextStyle(color: Colors.grey)),),
-
-                          Container(
-                            height: 20,
-                            width: 1,
-                            color: Colors.grey,
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                          ),
-
-                        ],
-                      ),
-                      hintText: '',
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3), width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: AppColors.lightGrey, width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
+                    hintText: '',
+                    isPhone: true,
+                    countryPickerCallback: _showCountryCodeBottomSheet,
                     validator: (value) {
+
                       if (value!.isEmpty) {
                         return l10n.emptyPhoneValidation;
                       }
+
                       return null;
                     },
                   ),
+
 
                   const SizedBox(
                     height: 20,
@@ -154,42 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 10,
                   ),
 
-                  TextFormField(
+                  AppTextField(
                     controller: _passwordController,
-                    obscureText: obscureText,
-                    maxLines: 1,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.secondaryColor,
-                      contentPadding: const EdgeInsets.all(12.0),
-                      hintText: l10n.passwordHint,
-                      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                          });
-                        },
-                        icon: Icon(
-                          obscureText ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3), width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: AppColors.lightGrey, width: 1.0),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
+                    hintText: l10n.passwordHint,
+                    isPassword: true,
+                    obscureText: obscureText,
+                    visibilityCallback: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
                     validator: (value) {
 
                       if (value == null || value.isEmpty) {
@@ -200,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
 
                       return null;
-
                     },
                   ),
 
