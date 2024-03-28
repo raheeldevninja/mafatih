@@ -5,7 +5,8 @@ import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:mafatih/core/util/utils.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -114,6 +115,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             callback: () {
 
               if (_formKey.currentState!.validate()) {
+
+                Utils.showCustomSnackBar(context, 'OTP sent', ContentType.success);
 
               }
 
