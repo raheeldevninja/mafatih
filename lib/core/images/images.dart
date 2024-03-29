@@ -12,6 +12,10 @@ class Images {
   static const String servicesIcon = 'assets/icons/services_icon.svg';
   static const String searchIcon = 'assets/icons/search_icon.svg';
   static const String filterIcon = 'assets/icons/filter_icon.svg';
+  static const String distanceIcon = 'assets/icons/distance_icon.svg';
+  static const String searchByLocationIcon = 'assets/icons/search_by_location_icon.svg';
+  static const String currentLocationIcon = 'assets/icons/current_location_icon.svg';
+  static const String selectedLocationIcon = 'assets/icons/selected_location_icon.svg';
 
   //list page main list icons
   static const String forSaleIcon = 'assets/icons/for_sale_icon.svg';
