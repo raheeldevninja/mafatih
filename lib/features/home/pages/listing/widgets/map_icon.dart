@@ -7,12 +7,14 @@ class MapIcon extends StatelessWidget {
     required this.onTap,
     this.width = 50,
     this.height = 50,
+    this.backgroundColor = AppColors.secondaryColor,
     super.key,
   });
 
   final double width;
   final double height;
   final Widget icon;
+  final Color? backgroundColor;
   final VoidCallback onTap;
 
   @override

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,7 +7,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/AppTextField.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/util/utils.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
@@ -38,6 +41,14 @@ class _ListingPageState extends State<ListingPage> {
       zoom: 18,
   );
 
+  bool _isDistanceBottomSheetVisible = false;
+
+  //distance
+  final _startLocationController = TextEditingController();
+  final _endLocationController = TextEditingController();
+
+  //search by location
+  final _cityAndDistrictController = TextEditingController();
 
   @override
   void initState() {
@@ -105,6 +116,7 @@ class _ListingPageState extends State<ListingPage> {
           GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
+            zoomControlsEnabled: false,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
@@ -122,12 +134,13 @@ class _ListingPageState extends State<ListingPage> {
                 children: [
 
                   MapIcon(
-                    width: 100,
-                    height: 40,
+                    width: 120,
+                    height: 36,
                     onTap: () {},
                     icon: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
                         SvgPicture.asset(
@@ -136,18 +149,27 @@ class _ListingPageState extends State<ListingPage> {
 
                         const SizedBox(width: 8),
 
-                        const Expanded(child: Text('Riyadh', overflow: TextOverflow.ellipsis, maxLines: 1,),),
+                        const Flexible(child: Text('Riyadh', overflow: TextOverflow.ellipsis, maxLines: 1,),),
 
                       ],
                     ),
                   ),
 
                   MapIcon(
-                    onTap: () {},
+                    //backgroundColor: _isDistanceBottomSheetVisible ? AppColors.primaryColor : AppColors.secondaryColor,
+                    onTap: () {
+
+                      /*setState(() {
+                        _isDistanceBottomSheetVisible = !_isDistanceBottomSheetVisible;
+                      });*/
+
+                      _showDistanceBetweenTwoPointsBottomSheet();
+                    },
                     icon: SvgPicture.asset(
                       width: 20,
                       height: 20,
                       Images.distanceIcon,
+                      //color: _isDistanceBottomSheetVisible ? AppColors.whiteColor : AppColors.greyColor,
                     ),
                   ),
 
@@ -180,12 +202,13 @@ class _ListingPageState extends State<ListingPage> {
                   ),
 
                   MapIcon(
-                    onTap: () {},
+                    onTap: () {
+                      _showSearchByLocationBottomSheet();
+                    },
                     icon: SvgPicture.asset(
                     width: 20,
                     height: 20,
                     Images.searchByLocationIcon,
-
                   ),
                   ),
 
@@ -215,6 +238,256 @@ class _ListingPageState extends State<ListingPage> {
   Future<void> _goToRiyadh() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+
+
+  void _showDistanceBetweenTwoPointsBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+
+      backgroundColor: AppColors.secondaryColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 350,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+
+          child: Column(
+            children: [
+
+              Container(
+                width: 100,
+                height: 5,
+                margin: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  const Text('Distance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+
+                  InkWell(
+                    onTap: () {
+
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+
+                        SvgPicture.asset(
+                          Images.chooseMapIcon,
+                          width: 20,
+                          height: 20,
+                          color: AppColors.primaryColor,
+                        ),
+
+                        const SizedBox(width: 8),
+
+                        const Text('Choose from map', style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
+                          decorationColor: AppColors.primaryColor,
+                        ),),
+
+                      ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+
+              const SizedBox(height: 40,),
+
+
+              //start location
+              Row(
+                children: [
+                  Expanded(child: AppTextField(controller: _startLocationController, keyboardType: TextInputType.text, hintText: 'Your Location', validator: (value) {},)),
+                  const SizedBox(width: 10),
+                  SvgPicture.asset(
+                    Images.currentLocationIcon,
+                    width: 20,
+                    height: 20,
+                    color: AppColors.greyColor,
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              Row(
+                children: [
+                  Expanded(child: AppTextField(controller: _endLocationController, keyboardType: TextInputType.text, hintText: '5 B Sector Near Alshablan Medical ', validator: (value) {},)),
+                  const SizedBox(width: 10),
+                  SvgPicture.asset(
+                    Images.selectedLocationIcon,
+                    width: 20,
+                    height: 20,
+                    color: AppColors.greyColor,
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: 'Find Now', callback: () {})),
+
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSearchByLocationBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+
+      backgroundColor: AppColors.secondaryColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 350,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+
+          child: Column(
+            children: [
+
+              Container(
+                width: 100,
+                height: 5,
+                margin: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text('Search By Location', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                ],
+              ),
+
+              const SizedBox(height: 20,),
+
+
+              AppTextField(controller: _cityAndDistrictController, keyboardType: TextInputType.text, hintText: 'Enter and City & District', validator: (value) {},),
+
+              const SizedBox(height: 20),
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+
+
+                  ///use current location button
+                  InkWell(
+                    onTap: () {
+
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+
+                        SvgPicture.asset(
+                          Images.currentLocationIcon,
+                          width: 20,
+                          height: 20,
+                          color: AppColors.greyColor,
+                        ),
+
+                        const SizedBox(width: 4),
+
+                        const Text('Use current location', style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.blackColor, decoration: TextDecoration.underline,
+                          decorationColor: AppColors.blackColor,
+                        ),),
+
+                      ],
+                    ),
+                  ),
+
+                  ///choose from map button
+                  InkWell(
+                    onTap: () {
+
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+
+                        SvgPicture.asset(
+                          Images.chooseMapIcon,
+                          width: 20,
+                          height: 20,
+                          color: AppColors.primaryColor,
+                        ),
+
+                        const SizedBox(width: 4),
+
+                        const Text('Choose from map', style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
+                          decorationColor: AppColors.primaryColor,
+                        ),),
+
+                      ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+
+              const Spacer(),
+
+              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: 'Search', callback: () {})),
+
+              const SizedBox(height: 40),
+
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _startLocationController.dispose();
+    _endLocationController.dispose();
   }
 
 }
