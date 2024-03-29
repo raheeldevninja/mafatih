@@ -28,6 +28,16 @@
     "chatNav": "محادثة",
     "servicesNav": "خدمات",
 
+    "distanceHeading": "مسافة",
+    "yourLocationHint": "موقعك",
+    "findNowBtnText": "أجد الآن",
+    "chooseFromMapBtnText": "اختر من الخريطة",
+
+    "searchByLocationHeading": "البحث حسب الموقع",
+    "cityDistrictHint": "أدخل والمدينة والمنطقة",
+    "userCurrentLocation": "استخدام الموقع الحالي",
+    "searchBtnText": "يبحث",
+
     "home": "بيت",
     "categories": "فئات",
     "designers": "المصممين",

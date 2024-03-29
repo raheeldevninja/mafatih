@@ -242,6 +242,9 @@ class _ListingPageState extends State<ListingPage> {
 
 
   void _showDistanceBetweenTwoPointsBottomSheet() {
+
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
 
@@ -281,7 +284,7 @@ class _ListingPageState extends State<ListingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  const Text('Distance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  Text(l10n.distanceHeading, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
 
                   InkWell(
                     onTap: () {
@@ -300,7 +303,7 @@ class _ListingPageState extends State<ListingPage> {
 
                         const SizedBox(width: 8),
 
-                        const Text('Choose from map', style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
+                        Text(l10n.chooseFromMapBtnText, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
                           decorationColor: AppColors.primaryColor,
                         ),),
 
@@ -318,7 +321,7 @@ class _ListingPageState extends State<ListingPage> {
               //start location
               Row(
                 children: [
-                  Expanded(child: AppTextField(controller: _startLocationController, keyboardType: TextInputType.text, hintText: 'Your Location', validator: (value) {},)),
+                  Expanded(child: AppTextField(controller: _startLocationController, keyboardType: TextInputType.text, hintText: l10n.yourLocationHint, validator: (value) {},)),
                   const SizedBox(width: 10),
                   SvgPicture.asset(
                     Images.currentLocationIcon,
@@ -346,7 +349,7 @@ class _ListingPageState extends State<ListingPage> {
 
               const SizedBox(height: 20),
 
-              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: 'Find Now', callback: () {})),
+              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: l10n.findNowBtnText, callback: () {})),
 
             ],
           ),
@@ -356,6 +359,9 @@ class _ListingPageState extends State<ListingPage> {
   }
 
   void _showSearchByLocationBottomSheet() {
+
+    final l10n = AppLocalizations.of(context)!;
+
     showModalBottomSheet(
       context: context,
 
@@ -394,14 +400,14 @@ class _ListingPageState extends State<ListingPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text('Search By Location', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  Text(l10n.searchByLocationHeading, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 ],
               ),
 
               const SizedBox(height: 20,),
 
 
-              AppTextField(controller: _cityAndDistrictController, keyboardType: TextInputType.text, hintText: 'Enter and City & District', validator: (value) {},),
+              AppTextField(controller: _cityAndDistrictController, keyboardType: TextInputType.text, hintText: l10n.cityDistrictHint, validator: (value) {},),
 
               const SizedBox(height: 20),
 
@@ -409,7 +415,6 @@ class _ListingPageState extends State<ListingPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
 
 
                   ///use current location button
@@ -430,7 +435,7 @@ class _ListingPageState extends State<ListingPage> {
 
                         const SizedBox(width: 4),
 
-                        const Text('Use current location', style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.blackColor, decoration: TextDecoration.underline,
+                        Text(l10n.userCurrentLocation, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.blackColor, decoration: TextDecoration.underline,
                           decorationColor: AppColors.blackColor,
                         ),),
 
@@ -456,7 +461,7 @@ class _ListingPageState extends State<ListingPage> {
 
                         const SizedBox(width: 4),
 
-                        const Text('Choose from map', style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
+                        Text(l10n.chooseFromMapBtnText, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
                           decorationColor: AppColors.primaryColor,
                         ),),
 
@@ -470,7 +475,7 @@ class _ListingPageState extends State<ListingPage> {
 
               const Spacer(),
 
-              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: 'Search', callback: () {})),
+              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: l10n.searchBtnText, callback: () {})),
 
               const SizedBox(height: 40),
 
