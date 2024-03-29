@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class Header extends StatelessWidget {
   const Header({
-    required this.subTitle,
+    required this.content,
     super.key});
 
-  final String subTitle;
+  final Widget content;
 
   @override
   Widget build(BuildContext context) {
-
-    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       height: 50,
@@ -25,7 +22,7 @@ class Header extends StatelessWidget {
         ),
       ),
       alignment: Alignment.center,
-      child: Text(subTitle),
+      child: content,
     );
   }
 }

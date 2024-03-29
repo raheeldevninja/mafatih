@@ -63,7 +63,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
       body: ListView(
         children: [
 
-          Header(subTitle: l10n.newPasswordSubTitle),
+          Header(content: Text(l10n.newPasswordSubTitle)),
 
           Padding(
             padding: const EdgeInsets.all(16.0),

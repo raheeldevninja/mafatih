@@ -65,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Column(
         children: [
 
-          Header(subTitle: l10n.registerAccountSubHeading),
+          Header(content: Text(l10n.registerAccountSubHeading)),
 
           Expanded(
             child: Form(

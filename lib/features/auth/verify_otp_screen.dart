@@ -57,7 +57,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
       body: ListView(
         children: [
 
-          Header(subTitle: l10n.verifyOTPSubTitle),
+          Header(content: Text(l10n.verifyOTPSubTitle)),
 
           Padding(
             padding: const EdgeInsets.all(16.0),

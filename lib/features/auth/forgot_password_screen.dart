@@ -63,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: ListView(
         children: [
 
-          Header(subTitle: l10n.verifyNumberLabel),
+          Header(content: Text(l10n.verifyNumberLabel)),
 
           Padding(
             padding: const EdgeInsets.all(16.0),

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/util/utils.dart';
 
 
@@ -68,10 +69,7 @@ class _ListingPageState extends State<ListingPage> {
       body: Column(
         children: [
 
-          SizedBox(height: 20),
-
-          //horizontal listview
-          SizedBox(
+          Header(content: SizedBox(
             height: 40,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -133,7 +131,7 @@ class _ListingPageState extends State<ListingPage> {
                 );
               },
             ),
-          ),
+          ),),
 
 
         ],

@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: ListView(
         children: [
 
-          Header(subTitle: l10n.loginSubTitle),
+          Header(content: Text(l10n.loginSubTitle)),
 
           Padding(
             padding: const EdgeInsets.all(16.0),
