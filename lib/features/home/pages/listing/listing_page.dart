@@ -129,7 +129,7 @@ class _ListingPageState extends State<ListingPage> {
 
                         const SizedBox(width: 8),
 
-                        Expanded(child: Text('Riyadh' * 3, overflow: TextOverflow.ellipsis, maxLines: 1,),),
+                        const Expanded(child: Text('Riyadh', overflow: TextOverflow.ellipsis, maxLines: 1,),),
 
                       ],
                     ),
@@ -141,7 +141,6 @@ class _ListingPageState extends State<ListingPage> {
                       width: 20,
                       height: 20,
                       Images.distanceIcon,
-
                     ),
                   ),
 
