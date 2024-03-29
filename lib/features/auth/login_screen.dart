@@ -21,8 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _phoneNumberController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _phoneNumberController = TextEditingController(text: '12345678');
+  final _passwordController = TextEditingController(text: '12345678');
 
   bool obscureText = true;
   String selectedCountryCode = '+966';

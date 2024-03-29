@@ -12,6 +12,13 @@ class Images {
   static const String servicesIcon = 'assets/icons/services_icon.svg';
   static const String searchIcon = 'assets/icons/search_icon.svg';
   static const String filterIcon = 'assets/icons/filter_icon.svg';
+
+  //list page main list icons
+  static const String forSaleIcon = 'assets/icons/for_sale_icon.svg';
+  static const String forRentIcon = 'assets/icons/for_rent_icon.svg';
   static const String projectsIcon = 'assets/icons/projects_icon.svg';
+  static const String dailyIcon = 'assets/icons/daily_icon.svg';
+  static const String menuIcon = 'assets/icons/menu_icon.svg';
+
 
 }

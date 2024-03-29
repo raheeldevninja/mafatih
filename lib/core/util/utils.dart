@@ -12,26 +12,30 @@ class Utils {
   static List<MainMenu> mainMenu = [
     MainMenu(
       title: 'For Sale',
-      icon: Images.projectsIcon,
+      icon: Images.forSaleIcon,
     ),
     MainMenu(
       title: 'For Rent',
+      icon: Images.forRentIcon,
+    ),
+    MainMenu(
+      title: 'Projects',
       icon: Images.projectsIcon,
     ),
     MainMenu(
       title: 'Request Your Property',
+      icon: Images.dailyIcon,
+    ),
+    MainMenu(
+      title: 'Agents',
       icon: Images.projectsIcon,
     ),
     MainMenu(
-      title: 'For Sale',
+      title: 'Advertise With Us',
       icon: Images.projectsIcon,
     ),
     MainMenu(
-      title: 'For Rent',
-      icon: Images.projectsIcon,
-    ),
-    MainMenu(
-      title: 'Request Your Property',
+      title: 'Real Estate Services',
       icon: Images.projectsIcon,
     ),
   ];

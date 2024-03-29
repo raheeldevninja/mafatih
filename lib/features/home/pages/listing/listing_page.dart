@@ -5,6 +5,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/util/utils.dart';
+import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 
 
 class ListingPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class ListingPage extends StatefulWidget {
 
 class _ListingPageState extends State<ListingPage> {
 
+  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -30,9 +32,20 @@ class _ListingPageState extends State<ListingPage> {
     final isEnglishLang = languageCode == 'en';
 
     return Scaffold(
+
       backgroundColor: AppColors.secondaryBgColor,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
+        leading: IconButton(
+          onPressed: () {
+
+          },
+          icon: SvgPicture.asset(
+            Images.menuIcon,
+            width: 24,
+            height: 24,
+          ),
+        ),
         centerTitle: true,
         title: SvgPicture.asset(
           width: 50,
@@ -70,65 +83,13 @@ class _ListingPageState extends State<ListingPage> {
         children: [
 
           Header(content: SizedBox(
-            height: 40,
+            height: 30,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: Utils.mainMenu.length,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-
-                    setState(() {
-                      Utils.mainMenu.forEach((element) {
-                        element.isSelected = false;
-                      });
-                      Utils.mainMenu[index].isSelected = true;
-                    });
-
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-
-                        Row(
-                          children: [
-
-                            //icon
-                            SvgPicture.asset(
-                              width: 20,
-                              height: 20,
-                              Utils.mainMenu[index].icon,
-                            ),
-
-                            const SizedBox(width: 4),
-
-                            Text(
-                              Utils.mainMenu[index].title,
-                              style: const TextStyle(
-                                color: AppColors.primaryTextColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        //selected indicator
-                        Container(
-                          height: 2,
-                          width: 90,
-                          color: Utils.mainMenu[index].isSelected ? AppColors.primaryColor : Colors.transparent,
-                        ),
-
-
-                      ],
-                    ),
-                  ),
-                );
+                return MainListItem(mainMenu: Utils.mainMenu[index]);
               },
             ),
           ),),
@@ -139,3 +100,4 @@ class _ListingPageState extends State<ListingPage> {
     );
   }
 }
+
