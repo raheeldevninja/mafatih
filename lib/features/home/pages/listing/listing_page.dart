@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/header.dart';
@@ -19,6 +22,22 @@ class ListingPage extends StatefulWidget {
 class _ListingPageState extends State<ListingPage> {
 
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final Completer<GoogleMapController> _controller =
+  Completer<GoogleMapController>();
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(24.7136, 46.6753),
+    zoom: 18,
+  );
+
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(24.7136, 46.6753),
+      tilt: 59.440717697143555,
+      zoom: 18,
+  );
+
 
   @override
   void initState() {
@@ -82,25 +101,13 @@ class _ListingPageState extends State<ListingPage> {
       body: Stack(
         children: [
 
-          Header(content: SizedBox(
-            height: 30,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: Utils.mainMenu.length,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              itemBuilder: (context, index) {
-                return MainListItem(mainMenu: Utils.mainMenu[index]);
-              },
-            ),
-          ),
-          ),
-
-
           ///main content
-          const Column(
-            children: [
-
-            ],
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
           ),
 
           ///top row selected location and distance icon buttons
@@ -161,7 +168,9 @@ class _ListingPageState extends State<ListingPage> {
                 children: [
 
                   MapIcon(
-                    onTap: () {},
+                    onTap: () {
+                      _goToRiyadh();
+                    },
                     icon: SvgPicture.asset(
                     width: 20,
                     height: 20,
@@ -185,11 +194,29 @@ class _ListingPageState extends State<ListingPage> {
             ),
           ),
 
+          Header(content: SizedBox(
+            height: 30,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: Utils.mainMenu.length,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              itemBuilder: (context, index) {
+                return MainListItem(mainMenu: Utils.mainMenu[index]);
+              },
+            ),
+          ),
+          ),
 
         ],
       ),
     );
   }
+
+  Future<void> _goToRiyadh() async {
+    final GoogleMapController controller = await _controller.future;
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+
 }
 
 

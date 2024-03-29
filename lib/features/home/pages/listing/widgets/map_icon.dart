@@ -24,11 +24,19 @@ class MapIcon extends StatelessWidget {
         width: width,
         height: height,
         padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.secondaryColor,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
+          //shadow
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greyColor.withOpacity(0.5),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
         ),
         child: icon,
       ),
