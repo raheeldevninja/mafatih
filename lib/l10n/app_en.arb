@@ -41,6 +41,18 @@
     "userCurrentLocation": "Use current location",
     "searchBtnText": "Search",
 
+    "propertyListingNav": "Property Listing",
+    "projectsNav": "Projects",
+    "agentsNav": "Agents",
+    "myAccountNav": "My Account",
+    "propertyCheckNav": "Property Check",
+    "valuatePropertyNav": "Valuate Property",
+    "propertyRequestNav": "Property Request",
+    "settingsNav": "Settings",
+    "logoutBtnText": "Logout",
+    "advertiseWithUsBtnText": "Advertise with us",
+
+
 
 
 

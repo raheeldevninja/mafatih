@@ -17,7 +17,6 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
 
 
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
-
   CameraPosition? _kGooglePlex;
 
 
@@ -94,7 +93,7 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
 
         _markers.add(
           Marker(
-            markerId: MarkerId("current_location"),
+            markerId: const MarkerId("current_location"),
             position: LatLng(currentLocation.latitude!, currentLocation.longitude!),
             infoWindow: InfoWindow(
               title: "Current Location",

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/AppTextField.dart';
+import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/util/utils.dart';
@@ -25,8 +26,8 @@ class ListingPage extends StatefulWidget {
 
 class _ListingPageState extends State<ListingPage> {
 
-  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
 
@@ -64,12 +65,15 @@ class _ListingPageState extends State<ListingPage> {
     final isEnglishLang = languageCode == 'en';
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppColors.secondaryBgColor,
+      drawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
+
         leading: IconButton(
           onPressed: () {
-
+            _scaffoldKey.currentState!.openDrawer();
           },
           icon: SvgPicture.asset(
             Images.menuIcon,

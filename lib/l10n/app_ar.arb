@@ -38,6 +38,18 @@
     "userCurrentLocation": "استخدام الموقع الحالي",
     "searchBtnText": "يبحث",
 
+    "propertyListingNav": "قائمة العقارات",
+    "projectsNav": "المشاريع",
+    "agentsNav": "عملاء",
+    "myAccountNav": "حسابي",
+    "propertyCheckNav": "فحص الممتلكات",
+    "valuatePropertyNav": "تقييم الممتلكات",
+    "propertyRequestNav": "طلب الملكية",
+    "settingsNav": "إعدادات",
+    "logoutBtnText": "تسجيل خروج",
+    "advertiseWithUsBtnText": "أعلن معنا",
+
+
     "home": "بيت",
     "categories": "فئات",
     "designers": "المصممين",
