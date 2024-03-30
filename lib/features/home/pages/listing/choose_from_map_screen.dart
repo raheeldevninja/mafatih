@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,12 +15,27 @@ class ChooseFromMapScreen extends StatefulWidget {
 
 class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
 
+
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(24.7136, 46.6753),
-    zoom: 18,
-  );
+  CameraPosition? _kGooglePlex;
+
+
+  Location location = Location();
+  Set<Marker> _markers = {};
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    print('hello');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _getCurrentLocation();
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +43,13 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      body: Stack(
+      body: _kGooglePlex == null ? const SizedBox() : Stack(
         children: [
 
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
+            initialCameraPosition: _kGooglePlex!,
+            markers: _markers,
             zoomControlsEnabled: false,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
@@ -60,4 +77,41 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
       ),
     );
   }
+
+  void _getCurrentLocation() async {
+    LocationData currentLocation;
+    try {
+      currentLocation = await location.getLocation();
+
+      setState(() {
+        _kGooglePlex = CameraPosition(
+          target: LatLng(
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          ),
+          zoom: 18,
+        );
+
+        _markers.add(
+          Marker(
+            markerId: MarkerId("current_location"),
+            position: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+            infoWindow: InfoWindow(
+              title: "Current Location",
+              snippet: "Lat: ${currentLocation.latitude}, Long: ${currentLocation.longitude}",
+            ),
+          ),
+        );
+
+      });
+
+
+    } catch (e) {
+      currentLocation = LocationData.fromMap({
+        'latitude': 0.0,
+        'longitude': 0.0,
+      });
+    }
+  }
+
 }

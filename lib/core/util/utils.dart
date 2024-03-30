@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
@@ -5,7 +7,8 @@ import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/main_menu.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
 
 class Utils {
 
@@ -69,6 +72,17 @@ class Utils {
       ..showSnackBar(snackBar);
 
 
+  }
+
+  static Future<Uint8List?> getBytesFromAsset(BuildContext context, String path) async {
+    double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(
+        data.buffer.asUint8List(),
+        targetWidth: pixelRatio.round() * 30
+    );
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))?.buffer.asUint8List();
   }
 
 
