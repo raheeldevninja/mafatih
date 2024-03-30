@@ -11,6 +11,7 @@ import 'package:mafatih/core/ui/AppTextField.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/util/utils.dart';
+import 'package:mafatih/features/home/pages/listing/choose_from_map_screen.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
 
@@ -289,6 +290,12 @@ class _ListingPageState extends State<ListingPage> {
                   InkWell(
                     onTap: () {
 
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ChooseFromMapScreen(),
+                        ),
+                      );
+
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -446,7 +453,11 @@ class _ListingPageState extends State<ListingPage> {
                   ///choose from map button
                   InkWell(
                     onTap: () {
-
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ChooseFromMapScreen(),
+                        ),
+                      );
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

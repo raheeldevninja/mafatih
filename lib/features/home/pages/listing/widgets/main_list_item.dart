@@ -5,6 +5,7 @@ import 'package:mafatih/core/models/main_menu.dart';
 import 'package:mafatih/core/util/utils.dart';
 
 
+
 class MainListItem extends StatefulWidget {
 
   const MainListItem({
@@ -24,12 +25,23 @@ class _MainListItemState extends State<MainListItem> {
     return InkWell(
       onTap: () {
 
-        setState(() {
-          Utils.mainMenu.forEach((element) {
-            element.isSelected = false;
+        print('widget.mainMenu.title: ${widget.mainMenu.title}');
+
+        for (int i=0; i<Utils.mainMenu.length; i++) {
+
+          if (widget.mainMenu.title == Utils.mainMenu[i].title) {
+            Utils.mainMenu[i] = Utils.mainMenu[i].copyWith(isSelected: true);
+          }
+          else {
+            Utils.mainMenu[i] = Utils.mainMenu[i].copyWith(isSelected: false);
+          }
+
+          setState(() {
+
           });
-          widget.mainMenu.isSelected = true;
-        });
+        }
+
+
 
       },
       child: Container(

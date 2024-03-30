@@ -10,4 +10,17 @@ class MainMenu {
     this.isSelected = false,
   });
 
+
+  MainMenu copyWith({
+    String? title,
+    String? icon,
+    bool? isSelected,
+  }) {
+    return MainMenu(
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      isSelected: isSelected ?? this.isSelected,
+    );
+  }
+
 }
