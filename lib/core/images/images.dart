@@ -17,6 +17,10 @@ class Images {
   static const String currentLocationIcon = 'assets/icons/current_location_icon.svg';
   static const String selectedLocationIcon = 'assets/icons/selected_location_icon.svg';
   static const String chooseMapIcon = 'assets/icons/choose_map_icon.svg';
+  static const String areaIcon = 'assets/icons/area_icon.svg';
+  static const String bedIcon = 'assets/icons/bed_icon.svg';
+  static const String tvLoungeIcon = 'assets/icons/tv_lounge_icon.svg';
+  static const String bathIcon = 'assets/icons/bath_icon.svg';
 
 
   //side menu
