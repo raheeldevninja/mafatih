@@ -72,8 +72,9 @@ class _ListingPageState extends State<ListingPage> {
       backgroundColor: AppColors.secondaryBgColor,
       drawer: const AppDrawer(),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.secondaryColor,
-
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
