@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
 
 
 class ExplorePage extends StatefulWidget {
@@ -181,281 +182,109 @@ class _ExplorePageState extends State<ExplorePage> {
 
         ],
       ),
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
 
-          const Header(
-              height: 20,
-            content: SizedBox(),
-          ),
-
-          ///properties and see all button row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-            child: Column(
-              children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    const Text('Properties', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                    TextButton(onPressed: () {}, child: const Text('See all', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
-
-                  ],
-                ),
-
-              ],
+            const Header(
+                height: 20,
+              content: SizedBox(),
             ),
-          ),
 
-          ///properties listview
-          SizedBox(
-            height: 250,
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              scrollDirection: Axis.horizontal,
-              itemCount: properties.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.greyColor.withOpacity(0.2),
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Row(
+            ///properties and see all button row
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              child: Column(
+                children: [
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      //carousel slider
-
-                      SizedBox(
-                      width: 180,
-                        child: Stack(
-                          children: [
-                            CarouselSlider(
-
-                              options: CarouselOptions(height: 300.0,
-                                viewportFraction: 0.95,
-                                onPageChanged: (index, reason) {
-                                  setState(() {
-                                    _current = index;
-                                  });
-                                },
-                              ),
-                              items: properties[index].images.map((i) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    return ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: CachedNetworkImage(
-                                        imageUrl: i,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                        const CupertinoActivityIndicator(),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }).toList(),
-                            ),
-
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: properties[index].images.asMap().entries.map((entry) {
-                                  return GestureDetector(
-                                    onTap: () => {},
-                                    child: Container(
-                                      width: 10.0,
-                                      height: 10.0,
-                                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: (Theme.of(context).brightness == Brightness.dark
-                                              ? Colors.white
-                                              : Colors.black)
-                                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                                    ),
-                                  );
-                                }).toList(),
-                            ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(width: 16),
-
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          Text(properties[index].propertyName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
-                          const SizedBox(height: 4),
-                          Text(properties[index].price, style: const TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.w500),),
-                          const SizedBox(height: 8),
-
-                          Row(
-                            children: [
-
-                              SvgPicture.asset(
-                                Images.areaIcon,
-                                width: 16,
-                                height: 16,
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              Text(properties[index].area, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
-                              const SizedBox(width: 16),
-
-                              SvgPicture.asset(
-                                Images.bedIcon,
-                                width: 16,
-                                height: 16,
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              Text(properties[index].beds, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
-                              const SizedBox(width: 16),
-
-                              SvgPicture.asset(
-                                Images.tvLoungeIcon,
-                                width: 16,
-                                height: 16,
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              Text(properties[index].tvLounge, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
-                              const SizedBox(width: 16),
-
-                              SvgPicture.asset(
-                                Images.bathIcon,
-                                width: 16,
-                                height: 16,
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              Text(properties[index].bath, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
-
-                            ],
-                          ),
-
-                          const SizedBox(height: 12),
-
-                          Row(
-                            children: [
-
-                              SvgPicture.asset(
-                                Images.selectedLocationIcon,
-                                width: 24,
-                                height: 24,
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              Text(properties[index].address, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-                            ],
-                          ),
-
-
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                  Images.distanceIcon,
-                                  width: 24,
-                                  height: 24,
-                                  color: AppColors.primaryColor
-                              ),
-
-                              const SizedBox(width: 4),
-
-                              TextButton(
-                                onPressed: () {},
-                                child: const Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text('View Distance', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-
-
-                          ///add owner
-                          Row(
-                            children: [
-
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: AppColors.greyColor, width: 1),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: CachedNetworkImage(
-                                    imageUrl: properties[index].ownerImage,
-                                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                    const CupertinoActivityIndicator(),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(width: 8),
-
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                  Text('Ad Owner', style: TextStyle(color: AppColors.greyColor, fontSize: 12),),
-                                  Text(properties[index].addOwner, style: TextStyle(color: AppColors.blackColor, fontSize: 16, fontWeight: FontWeight.w600),),
-
-                                ],
-                              ),
-
-                            ],
-                          ),
-
-
-
-
-                        ],
-                      ),
+                      const Text('Properties', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      TextButton(onPressed: () {}, child: const Text('See all', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
 
                     ],
                   ),
-                );
-              },
+
+                ],
+              ),
             ),
-          ),
 
+            ///properties listview
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                scrollDirection: Axis.horizontal,
+                itemCount: properties.length,
+                itemBuilder: (context, index) {
+                  return PropertyItem(property: properties[index]);
+                },
+              ),
+            ),
 
-        ],
+            ///daily rentals and see all button row
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              child: Column(
+                children: [
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      const Text('Daily Rentals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      TextButton(onPressed: () {}, child: const Text('See all', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
+
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+
+            ///properties listview
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                scrollDirection: Axis.horizontal,
+                itemCount: properties.length,
+                itemBuilder: (context, index) {
+                  return PropertyItem(property: properties[index]);
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            //rounded corner banner image
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: const BoxDecoration(
+                color: AppColors.primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: 'https://via.placeholder.com/400x180',
+                  width: double.infinity,
+                  height: 180,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 60),
+
+          ],
+        ),
       ),
     );
   }
 }
+
+
+
