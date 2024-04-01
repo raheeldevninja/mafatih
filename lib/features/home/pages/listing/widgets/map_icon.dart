@@ -8,6 +8,7 @@ class MapIcon extends StatelessWidget {
     this.width = 50,
     this.height = 50,
     this.backgroundColor = AppColors.secondaryColor,
+    this.isSelected = false,
     super.key,
   });
 
@@ -16,6 +17,7 @@ class MapIcon extends StatelessWidget {
   final Widget icon;
   final Color? backgroundColor;
   final VoidCallback onTap;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class MapIcon extends StatelessWidget {
         height: height,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.secondaryColor,
+          color: isSelected ? AppColors.primaryColor : AppColors.secondaryColor,
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),

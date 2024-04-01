@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,6 +13,7 @@ import 'package:mafatih/core/util/utils.dart';
 import 'package:mafatih/features/home/pages/listing/choose_from_map_screen.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
+import 'package:location/location.dart';
 
 
 class ListingPage extends StatefulWidget {
@@ -31,17 +30,15 @@ class _ListingPageState extends State<ListingPage> {
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
+  static const CameraPosition _kRiyadh = CameraPosition(
     target: LatLng(24.7136, 46.6753),
     zoom: 18,
   );
 
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
+  CameraPosition? _kUserCurrentLocation /*= CameraPosition(
       target: LatLng(24.7136, 46.6753),
-      tilt: 59.440717697143555,
       zoom: 18,
-  );
+  )*/;
 
   bool _isDistanceBottomSheetVisible = false;
 
@@ -51,6 +48,12 @@ class _ListingPageState extends State<ListingPage> {
 
   //search by location
   final _cityAndDistrictController = TextEditingController();
+
+  Set<Marker> _markers = {};
+  Location location = Location();
+
+  MapType _currentMapType = MapType.normal;
+
 
   @override
   void initState() {
@@ -90,7 +93,7 @@ class _ListingPageState extends State<ListingPage> {
         actions: [
           IconButton(
             onPressed: () {
-
+              _showSearchByLocationBottomSheet();
             },
             icon: SvgPicture.asset(
               width: 20,
@@ -119,8 +122,8 @@ class _ListingPageState extends State<ListingPage> {
 
           ///main content
           GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
+            mapType: _currentMapType,
+            initialCameraPosition: _kRiyadh,
             zoomControlsEnabled: false,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
@@ -161,12 +164,12 @@ class _ListingPageState extends State<ListingPage> {
                   ),
 
                   MapIcon(
-                    //backgroundColor: _isDistanceBottomSheetVisible ? AppColors.primaryColor : AppColors.secondaryColor,
+                    isSelected: _isDistanceBottomSheetVisible,
                     onTap: () {
 
-                      /*setState(() {
+                      setState(() {
                         _isDistanceBottomSheetVisible = !_isDistanceBottomSheetVisible;
-                      });*/
+                      });
 
                       _showDistanceBetweenTwoPointsBottomSheet();
                     },
@@ -174,7 +177,7 @@ class _ListingPageState extends State<ListingPage> {
                       width: 20,
                       height: 20,
                       Images.distanceIcon,
-                      //color: _isDistanceBottomSheetVisible ? AppColors.whiteColor : AppColors.greyColor,
+                      color: _isDistanceBottomSheetVisible ? AppColors.whiteColor : AppColors.blackColor,
                     ),
                   ),
 
@@ -207,13 +210,19 @@ class _ListingPageState extends State<ListingPage> {
                   ),
 
                   MapIcon(
+                    isSelected: _currentMapType == MapType.satellite,
                     onTap: () {
-                      _showSearchByLocationBottomSheet();
+
+                      setState(() {
+                        _currentMapType = _currentMapType == MapType.normal ? MapType.satellite : MapType.normal;
+                      });
+
                     },
                     icon: SvgPicture.asset(
                     width: 20,
                     height: 20,
                     Images.searchByLocationIcon,
+                    color: _currentMapType == MapType.normal ? AppColors.blackColor : AppColors.whiteColor,
                   ),
                   ),
 
@@ -241,8 +250,12 @@ class _ListingPageState extends State<ListingPage> {
   }
 
   Future<void> _goToRiyadh() async {
+
+    await _getCurrentLocation();
+
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    await controller.animateCamera(CameraUpdate.newCameraPosition(_kUserCurrentLocation!));
+
   }
 
 
@@ -366,7 +379,9 @@ class _ListingPageState extends State<ListingPage> {
           ),
         );
       },
-    );
+    ).then((value) => setState(() {
+      _isDistanceBottomSheetVisible = false;
+    }));
   }
 
   void _showSearchByLocationBottomSheet() {
@@ -499,6 +514,43 @@ class _ListingPageState extends State<ListingPage> {
         );
       },
     );
+  }
+
+
+  Future<void> _getCurrentLocation() async {
+    LocationData currentLocation;
+    try {
+      currentLocation = await location.getLocation();
+
+      setState(() {
+        _kUserCurrentLocation = CameraPosition(
+          target: LatLng(
+            currentLocation.latitude!,
+            currentLocation.longitude!,
+          ),
+          zoom: 18,
+        );
+
+        _markers.add(
+          Marker(
+            markerId: const MarkerId("current_location"),
+            position: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+            infoWindow: InfoWindow(
+              title: "Current Location",
+              snippet: "Lat: ${currentLocation.latitude}, Long: ${currentLocation.longitude}",
+            ),
+          ),
+        );
+
+      });
+
+
+    } catch (e) {
+      currentLocation = LocationData.fromMap({
+        'latitude': 0.0,
+        'longitude': 0.0,
+      });
+    }
   }
 
 
