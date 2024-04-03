@@ -14,6 +14,7 @@ import 'package:mafatih/features/home/pages/listing/choose_from_map_screen.dart'
 import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
 import 'package:location/location.dart';
+import 'package:mafatih/features/home/pages/listing/widgets/property_list_screen.dart';
 
 
 class ListingPage extends StatefulWidget {
@@ -198,17 +199,40 @@ class _ListingPageState extends State<ListingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  MapIcon(
-                    onTap: () {
-                      _goToRiyadh();
-                    },
-                    icon: SvgPicture.asset(
-                    width: 20,
-                    height: 20,
-                    Images.currentLocationIcon,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
 
+                      MapIcon(
+                          onTap: () {
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const PropertyListScreen(),
+                              ),
+                            );
+
+                          },
+                          icon: const Icon(Icons.list)
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      MapIcon(
+                        onTap: () {
+                          _goToRiyadh();
+                        },
+                        icon: SvgPicture.asset(
+                          width: 20,
+                          height: 20,
+                          Images.currentLocationIcon,
+                        ),
+                      ),
+
+
+                    ],
                   ),
-                  ),
+
 
                   MapIcon(
                     isSelected: _currentMapType == MapType.satellite,
@@ -220,11 +244,11 @@ class _ListingPageState extends State<ListingPage> {
 
                     },
                     icon: SvgPicture.asset(
-                    width: 20,
-                    height: 20,
-                    Images.searchByLocationIcon,
-                    color: _currentMapType == MapType.normal ? AppColors.blackColor : AppColors.whiteColor,
-                  ),
+                      width: 20,
+                      height: 20,
+                      Images.searchByLocationIcon,
+                      color: _currentMapType == MapType.normal ? AppColors.blackColor : AppColors.whiteColor,
+                    ),
                   ),
 
                 ],
@@ -516,7 +540,6 @@ class _ListingPageState extends State<ListingPage> {
       },
     );
   }
-
 
   Future<void> _getCurrentLocation() async {
     LocationData currentLocation;

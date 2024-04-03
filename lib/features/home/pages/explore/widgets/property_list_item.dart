@@ -8,18 +8,18 @@ import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 
 
-class PropertyItem extends StatefulWidget {
-  const PropertyItem({
+class PropertyListItem extends StatefulWidget {
+  const PropertyListItem({
     required this.property,
     super.key});
 
   final Property property;
 
   @override
-  State<PropertyItem> createState() => _PropertyItemState();
+  State<PropertyListItem> createState() => _PropertyListItemState();
 }
 
-class _PropertyItemState extends State<PropertyItem> {
+class _PropertyListItemState extends State<PropertyListItem> {
 
   int _current = 0;
 
@@ -44,12 +44,13 @@ class _PropertyItemState extends State<PropertyItem> {
 
           //carousel slider
           SizedBox(
-            width: 180,
+            width: 90,
             child: Stack(
               children: [
 
                 CarouselSlider(
-                  options: CarouselOptions(height: 300.0,
+                  options: CarouselOptions(
+                    height: 300.0,
                     viewportFraction: 0.95,
                     onPageChanged: (index, reason) {
                       setState(() {
@@ -98,6 +99,11 @@ class _PropertyItemState extends State<PropertyItem> {
                     }).toList(),
                   ),
                 ),
+
+                //map view button
+
+
+
               ],
             ),
           ),
