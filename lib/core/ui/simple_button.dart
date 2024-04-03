@@ -26,9 +26,11 @@ class SimpleButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 18, color: AppColors.whiteColor, fontWeight: FontWeight.normal,),
+      child: FittedBox(
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 18, color: AppColors.whiteColor, fontWeight: FontWeight.normal,),
+        ),
       ),
     );
   }
