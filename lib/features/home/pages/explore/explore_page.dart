@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
@@ -11,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
 
 
@@ -26,9 +23,7 @@ class _ExplorePageState extends State<ExplorePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Property> properties = [];
-
-  int _current = 0;
-
+  List<Property> projects = [];
 
   @override
   void initState() {
@@ -36,6 +31,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initPropertiesList();
+      _initProjectsList();
     });
 
   }
@@ -124,6 +120,34 @@ class _ExplorePageState extends State<ExplorePage> {
 
   }
 
+  _initProjectsList() {
+
+    projects.add(
+      Property(
+        propertyName: 'Property Name',
+        price: '44000',
+        area: '90m2',
+        beds: '2',
+        tvLounge: '1',
+        bath: '1',
+        address: 'ZA Heights Riyadh',
+        addOwner: 'Adeen Real Estate',
+        ownerImage: 'https://via.placeholder.com/60x60',
+        images: [
+          'https://via.placeholder.com/1000x600',
+          'https://via.placeholder.com/1000x600',
+          'https://via.placeholder.com/1000x600',
+        ],
+      ),
+    );
+
+    setState(() {
+
+    });
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -201,8 +225,8 @@ class _ExplorePageState extends State<ExplorePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      const Text('Properties', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                      TextButton(onPressed: () {}, child: const Text('See all', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
+                      Text(l10n.propertiesLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
 
                     ],
                   ),
@@ -234,8 +258,8 @@ class _ExplorePageState extends State<ExplorePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
-                      const Text('Daily Rentals', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                      TextButton(onPressed: () {}, child: const Text('See all', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
+                      Text(l10n.dailyRentalsLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
 
                     ],
                   ),
@@ -244,7 +268,7 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ),
 
-            ///properties listview
+            ///daily rentals listview
             SizedBox(
               height: 250,
               child: ListView.builder(
@@ -259,7 +283,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
             const SizedBox(height: 20),
 
-            //rounded corner banner image
+            ///rounded corner banner image
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: const BoxDecoration(
@@ -277,7 +301,40 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ),
 
-            const SizedBox(height: 60),
+            const SizedBox(height: 8),
+
+            ///projects and see all button row
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              child: Column(
+                children: [
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      Text(l10n.projectsLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
+
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+
+            ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              scrollDirection: Axis.vertical,
+              itemCount: projects.length,
+              itemBuilder: (context, index) {
+                return ProjectItem(property: projects[index]);
+              },
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+            ),
+
+            const SizedBox(height: 40),
 
           ],
         ),

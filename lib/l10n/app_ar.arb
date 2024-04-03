@@ -58,6 +58,13 @@
     "newArrivals": "القادمون الجدد",
     "mostWanted": "الاكثر طلبا",
     "searchHint": "يبحث ...",
+
+    "propertiesLabel": "ملكيات",
+    "seeAllBtnText": "اظهار الكل",
+    "dailyRentalsLabel": "الإيجارات اليومية",
+    "projectsLabel": "المشاريع",
+
+
     "bag": "شنطة",
     "myOrders": "طلباتي",
     "notifications": "إشعارات",
