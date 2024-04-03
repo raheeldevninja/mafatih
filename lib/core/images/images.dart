@@ -21,6 +21,9 @@ class Images {
   static const String bedIcon = 'assets/icons/bed_icon.svg';
   static const String tvLoungeIcon = 'assets/icons/tv_lounge_icon.svg';
   static const String bathIcon = 'assets/icons/bath_icon.svg';
+  static const String favouriteIcon = 'assets/icons/favourite_icon.svg';
+  static const String shareIcon = 'assets/icons/share_icon.svg';
+  static const String seeVideosIcon = 'assets/icons/see_videos_icon.svg';
 
 
   //side menu

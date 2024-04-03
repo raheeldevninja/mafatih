@@ -240,7 +240,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
             ///properties listview
             SizedBox(
-              height: 250,
+              height: 260,
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,
@@ -278,7 +278,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
             ///daily rentals listview
             SizedBox(
-              height: 250,
+              height: 260,
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,

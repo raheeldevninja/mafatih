@@ -6,6 +6,7 @@ import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.dart';
+import 'package:mafatih/features/home/property_details/property_details_screen.dart';
 import 'map_icon.dart';
 
 
@@ -179,7 +180,18 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             itemCount: properties.length,
             padding: const EdgeInsets.all(8),
             itemBuilder: (context, index) {
-              return PropertyListItem(property: properties[index]);
+              return InkWell(
+                onTap: () {
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PropertyDetailsScreen(property: properties[index]),
+                    ),
+                  );
+
+
+                },
+                child: PropertyListItem(property: properties[index]),);
             },
           ),
 
