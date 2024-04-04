@@ -16,7 +16,6 @@ import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
 import 'package:location/location.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/property_list_screen.dart';
 
-
 class ListingPage extends StatefulWidget {
   const ListingPage({super.key});
 
@@ -25,21 +24,16 @@ class ListingPage extends StatefulWidget {
 }
 
 class _ListingPageState extends State<ListingPage> {
-
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<GoogleMapController> _controller =
-  Completer<GoogleMapController>();
+      Completer<GoogleMapController>();
 
   static const CameraPosition _kRiyadh = CameraPosition(
     target: LatLng(24.7136, 46.6753),
     zoom: 18,
   );
 
-  CameraPosition? _kUserCurrentLocation /*= CameraPosition(
-      target: LatLng(24.7136, 46.6753),
-      zoom: 18,
-  )*/;
+  CameraPosition? _kUserCurrentLocation;
 
   bool _isDistanceBottomSheetVisible = false;
 
@@ -55,7 +49,6 @@ class _ListingPageState extends State<ListingPage> {
 
   MapType _currentMapType = MapType.normal;
 
-
   @override
   void initState() {
     super.initState();
@@ -63,7 +56,6 @@ class _ListingPageState extends State<ListingPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
@@ -103,25 +95,19 @@ class _ListingPageState extends State<ListingPage> {
               Images.searchIcon,
             ),
           ),
-
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
               Images.filterIcon,
             ),
           ),
-
-          const SizedBox(width: 10,)
-
+          const SizedBox(width: 10)
         ],
       ),
       body: Stack(
         children: [
-
           ///main content
           GoogleMap(
             mapType: _currentMapType,
@@ -142,7 +128,6 @@ class _ListingPageState extends State<ListingPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   MapIcon(
                     width: 120,
                     height: 36,
@@ -152,25 +137,26 @@ class _ListingPageState extends State<ListingPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         SvgPicture.asset(
                           Images.selectedLocationIcon,
                         ),
-
                         const SizedBox(width: 8),
-
-                        const Flexible(child: Text('Riyadh', overflow: TextOverflow.ellipsis, maxLines: 1,),),
-
+                        const Flexible(
+                          child: Text(
+                            'Riyadh',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-
                   MapIcon(
                     isSelected: _isDistanceBottomSheetVisible,
                     onTap: () {
-
                       setState(() {
-                        _isDistanceBottomSheetVisible = !_isDistanceBottomSheetVisible;
+                        _isDistanceBottomSheetVisible =
+                            !_isDistanceBottomSheetVisible;
                       });
 
                       _showDistanceBetweenTwoPointsBottomSheet();
@@ -179,10 +165,11 @@ class _ListingPageState extends State<ListingPage> {
                       width: 20,
                       height: 20,
                       Images.distanceIcon,
-                      color: _isDistanceBottomSheetVisible ? AppColors.whiteColor : AppColors.blackColor,
+                      color: _isDistanceBottomSheetVisible
+                          ? AppColors.whiteColor
+                          : AppColors.blackColor,
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -198,26 +185,20 @@ class _ListingPageState extends State<ListingPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-
                       MapIcon(
                           onTap: () {
-
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const PropertyListScreen(),
+                                builder: (context) =>
+                                    const PropertyListScreen(),
                               ),
                             );
-
                           },
-                          icon: const Icon(Icons.list)
-                      ),
-
+                          icon: const Icon(Icons.list)),
                       const SizedBox(height: 20),
-
                       MapIcon(
                         onTap: () {
                           _goToRiyadh();
@@ -228,69 +209,78 @@ class _ListingPageState extends State<ListingPage> {
                           Images.currentLocationIcon,
                         ),
                       ),
-
-
                     ],
                   ),
-
-
                   MapIcon(
                     isSelected: _currentMapType == MapType.satellite,
                     onTap: () {
-
                       setState(() {
-                        _currentMapType = _currentMapType == MapType.normal ? MapType.satellite : MapType.normal;
+                        _currentMapType = _currentMapType == MapType.normal
+                            ? MapType.satellite
+                            : MapType.normal;
                       });
-
                     },
                     icon: SvgPicture.asset(
                       width: 20,
                       height: 20,
                       Images.searchByLocationIcon,
-                      color: _currentMapType == MapType.normal ? AppColors.blackColor : AppColors.whiteColor,
+                      color: _currentMapType == MapType.normal
+                          ? AppColors.blackColor
+                          : AppColors.whiteColor,
                     ),
                   ),
-
                 ],
               ),
             ),
           ),
 
-          Header(content: SizedBox(
-            height: 30,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: Utils.mainMenu.length,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              itemBuilder: (context, index) {
-                return MainListItem(mainMenu: Utils.mainMenu[index]);
-              },
+          Header(
+            content: SizedBox(
+              height: 30,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: Utils.mainMenu.length,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      for (int i = 0; i < Utils.mainMenu.length; i++) {
+                        if (Utils.mainMenu[index].title ==
+                            Utils.mainMenu[i].title) {
+                          Utils.mainMenu[i] =
+                              Utils.mainMenu[i].copyWith(isSelected: true);
+                        } else {
+                          Utils.mainMenu[i] =
+                              Utils.mainMenu[i].copyWith(isSelected: false);
+                        }
+                      }
+
+                      setState(() {});
+                    },
+                    child: MainListItem(mainMenu: Utils.mainMenu[index]),
+                  );
+                },
+              ),
             ),
           ),
-          ),
-
         ],
       ),
     );
   }
 
   Future<void> _goToRiyadh() async {
-
     await _getCurrentLocation();
 
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kUserCurrentLocation!));
-
+    await controller
+        .animateCamera(CameraUpdate.newCameraPosition(_kUserCurrentLocation!));
   }
 
-
   void _showDistanceBetweenTwoPointsBottomSheet() {
-
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
       context: context,
-
       backgroundColor: AppColors.secondaryColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -309,10 +299,8 @@ class _ListingPageState extends State<ListingPage> {
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20),
-
           child: Column(
             children: [
-
               Container(
                 width: 100,
                 height: 5,
@@ -326,51 +314,59 @@ class _ListingPageState extends State<ListingPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-                  Text(l10n.distanceHeading, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-
+                  Text(
+                    l10n.distanceHeading,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
                   InkWell(
                     onTap: () {
-
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const ChooseFromMapScreen(),
                         ),
                       );
-
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-
                         SvgPicture.asset(
                           Images.chooseMapIcon,
                           width: 20,
                           height: 20,
                           color: AppColors.primaryColor,
                         ),
-
                         const SizedBox(width: 8),
-
-                        Text(l10n.chooseFromMapBtnText, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
-                          decorationColor: AppColors.primaryColor,
-                        ),),
-
+                        Text(
+                          l10n.chooseFromMapBtnText,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.primaryColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.primaryColor,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-
-
                 ],
               ),
 
-              const SizedBox(height: 40,),
-
+              const SizedBox(
+                height: 40,
+              ),
 
               //start location
               Row(
                 children: [
-                  Expanded(child: AppTextField(controller: _startLocationController, keyboardType: TextInputType.text, hintText: l10n.yourLocationHint, validator: (value) {},)),
+                  Expanded(
+                      child: AppTextField(
+                    controller: _startLocationController,
+                    keyboardType: TextInputType.text,
+                    hintText: l10n.yourLocationHint,
+                    validator: (value) {},
+                  )),
                   const SizedBox(width: 10),
                   SvgPicture.asset(
                     Images.currentLocationIcon,
@@ -385,7 +381,13 @@ class _ListingPageState extends State<ListingPage> {
 
               Row(
                 children: [
-                  Expanded(child: AppTextField(controller: _endLocationController, keyboardType: TextInputType.text, hintText: '5 B Sector Near Alshablan Medical ', validator: (value) {},)),
+                  Expanded(
+                      child: AppTextField(
+                    controller: _endLocationController,
+                    keyboardType: TextInputType.text,
+                    hintText: '5 B Sector Near Alshablan Medical ',
+                    validator: (value) {},
+                  )),
                   const SizedBox(width: 10),
                   SvgPicture.asset(
                     Images.selectedLocationIcon,
@@ -398,24 +400,25 @@ class _ListingPageState extends State<ListingPage> {
 
               const SizedBox(height: 20),
 
-              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: l10n.findNowBtnText, callback: () {})),
-
+              SizedBox(
+                  width: double.maxFinite,
+                  height: 50,
+                  child:
+                      SimpleButton(text: l10n.findNowBtnText, callback: () {})),
             ],
           ),
         );
       },
     ).then((value) => setState(() {
-      _isDistanceBottomSheetVisible = false;
-    }));
+          _isDistanceBottomSheetVisible = false;
+        }));
   }
 
   void _showSearchByLocationBottomSheet() {
-
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
       context: context,
-
       backgroundColor: AppColors.secondaryColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -434,10 +437,8 @@ class _ListingPageState extends State<ListingPage> {
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20),
-
           child: Column(
             children: [
-
               Container(
                 width: 100,
                 height: 5,
@@ -447,49 +448,52 @@ class _ListingPageState extends State<ListingPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(l10n.searchByLocationHeading, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  Text(
+                    l10n.searchByLocationHeading,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
-
-              const SizedBox(height: 20,),
-
-
-              AppTextField(controller: _cityAndDistrictController, keyboardType: TextInputType.text, hintText: l10n.cityDistrictHint, validator: (value) {},),
-
+              const SizedBox(
+                height: 20,
+              ),
+              AppTextField(
+                controller: _cityAndDistrictController,
+                keyboardType: TextInputType.text,
+                hintText: l10n.cityDistrictHint,
+                validator: (value) {},
+              ),
               const SizedBox(height: 20),
-
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-
                   ///use current location button
                   InkWell(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-
                         SvgPicture.asset(
                           Images.currentLocationIcon,
                           width: 20,
                           height: 20,
                           color: AppColors.greyColor,
                         ),
-
                         const SizedBox(width: 4),
-
-                        Text(l10n.userCurrentLocation, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.blackColor, decoration: TextDecoration.underline,
-                          decorationColor: AppColors.blackColor,
-                        ),),
-
+                        Text(
+                          l10n.userCurrentLocation,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.blackColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.blackColor,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -506,34 +510,35 @@ class _ListingPageState extends State<ListingPage> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-
                         SvgPicture.asset(
                           Images.chooseMapIcon,
                           width: 20,
                           height: 20,
                           color: AppColors.primaryColor,
                         ),
-
                         const SizedBox(width: 4),
-
-                        Text(l10n.chooseFromMapBtnText, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: AppColors.primaryColor, decoration: TextDecoration.underline,
-                          decorationColor: AppColors.primaryColor,
-                        ),),
-
+                        Text(
+                          l10n.chooseFromMapBtnText,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: AppColors.primaryColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.primaryColor,
+                          ),
+                        ),
                       ],
                     ),
                   ),
-
-
                 ],
               ),
-
               const Spacer(),
-
-              SizedBox(width: double.maxFinite, height: 50, child: SimpleButton(text: l10n.searchBtnText, callback: () {})),
-
+              SizedBox(
+                  width: double.maxFinite,
+                  height: 50,
+                  child:
+                      SimpleButton(text: l10n.searchBtnText, callback: () {})),
               const SizedBox(height: 40),
-
             ],
           ),
         );
@@ -558,17 +563,16 @@ class _ListingPageState extends State<ListingPage> {
         _markers.add(
           Marker(
             markerId: const MarkerId("current_location"),
-            position: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+            position:
+                LatLng(currentLocation.latitude!, currentLocation.longitude!),
             infoWindow: InfoWindow(
               title: "Current Location",
-              snippet: "Lat: ${currentLocation.latitude}, Long: ${currentLocation.longitude}",
+              snippet:
+                  "Lat: ${currentLocation.latitude}, Long: ${currentLocation.longitude}",
             ),
           ),
         );
-
       });
-
-
     } catch (e) {
       currentLocation = LocationData.fromMap({
         'latitude': 0.0,
@@ -577,7 +581,6 @@ class _ListingPageState extends State<ListingPage> {
     }
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -585,7 +588,4 @@ class _ListingPageState extends State<ListingPage> {
     _startLocationController.dispose();
     _endLocationController.dispose();
   }
-
 }
-
-
