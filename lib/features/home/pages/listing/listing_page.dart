@@ -25,6 +25,7 @@ class ListingPage extends StatefulWidget {
 
 class _ListingPageState extends State<ListingPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 

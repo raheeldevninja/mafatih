@@ -7,6 +7,7 @@ import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.dart';
 import 'package:mafatih/features/home/property_details/property_details_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'map_icon.dart';
 
 class PropertyListScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -51,7 +52,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -70,7 +71,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -89,7 +90,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -168,12 +169,20 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
+                  /*Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) =>
                           PropertyDetailsScreen(property: properties[index]),
                     ),
+                  );*/
+
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: PropertyDetailsScreen(property: properties[index]),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );
+
                 },
                 child: PropertyListItem(property: properties[index]),
               );

@@ -40,7 +40,7 @@ class _ExplorePageState extends State<ExplorePage> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -59,7 +59,7 @@ class _ExplorePageState extends State<ExplorePage> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -78,7 +78,7 @@ class _ExplorePageState extends State<ExplorePage> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',
@@ -97,7 +97,7 @@ class _ExplorePageState extends State<ExplorePage> {
     properties.add(
       Property(
         propertyName: 'Property Name',
-        price: '44000 SAR',
+        price: '44000',
         area: '90m2',
         beds: '2',
         tvLounge: '1',

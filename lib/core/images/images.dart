@@ -27,6 +27,18 @@ class Images {
   static const String favouriteIcon = 'assets/icons/favourite_icon.svg';
   static const String shareIcon = 'assets/icons/share_icon.svg';
   static const String seeVideosIcon = 'assets/icons/see_videos_icon.svg';
+  static const String ageIcon = 'assets/icons/age_icon.svg';
+  static const String compareIcon = 'assets/icons/compare_icon.svg';
+  static const String wifiIcon = 'assets/icons/wifi_icon.svg';
+  static const String streetDirectionIcon = 'assets/icons/street_direction_icon.svg';
+  static const String streetWidthIcon = 'assets/icons/street_width_icon.svg';
+  static const String buildingIcon = 'assets/icons/building_icon.svg';
+  static const String wireIcon = 'assets/icons/wire_icon.svg';
+  static const String phoneIcon = 'assets/icons/phone_icon.svg';
+  static const String whatsappIcon = 'assets/icons/whatsapp_icon.svg';
+  static const String messageIcon = 'assets/icons/message_icon.svg';
+
+
 
   //side menu
   static const String homeIconNav = 'assets/icons/home_icon.svg';
@@ -43,6 +55,7 @@ class Images {
   static const String settingsIconNav = 'assets/icons/settings_icon.svg';
   static const String logoutIconNav = 'assets/icons/logout_icon.svg';
   static const String addIconNav = 'assets/icons/add_icon_nav.svg';
+
 
   //list page main list icons
   static const String forSaleIcon = 'assets/icons/for_sale_icon.svg';

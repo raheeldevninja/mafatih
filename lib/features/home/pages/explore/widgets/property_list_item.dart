@@ -118,7 +118,7 @@ class _PropertyListItemState extends State<PropertyListItem> {
               ),
               const SizedBox(height: 4),
               Text(
-                widget.property.price,
+                '${widget.property.price} SAR',
                 style: const TextStyle(
                     color: AppColors.primaryColor,
                     fontSize: 16,
