@@ -23,7 +23,7 @@ class _ProjectItemState extends State<ProjectItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
@@ -180,7 +180,10 @@ class _ProjectItemState extends State<ProjectItem> {
                 Row(
                   children: [
                     const Expanded(
-                      child: ProjectData(title: 'No of Units', value: '20'),
+                      child: ProjectData(
+                        title: 'No of Units',
+                        value: '20',
+                      ),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -190,7 +193,9 @@ class _ProjectItemState extends State<ProjectItem> {
                     ),
                     const Expanded(
                       child: ProjectData(
-                          title: 'Units Type', value: 'Residential'),
+                        title: 'Units Type',
+                        value: 'Residential',
+                      ),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -199,7 +204,10 @@ class _ProjectItemState extends State<ProjectItem> {
                       color: AppColors.greyColor.withOpacity(0.4),
                     ),
                     const Expanded(
-                      child: ProjectData(title: 'Area', value: '90m2 to 180m2'),
+                      child: ProjectData(
+                        title: 'Area',
+                        value: '90m2 to 180m2',
+                      ),
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -208,7 +216,10 @@ class _ProjectItemState extends State<ProjectItem> {
                       color: AppColors.greyColor.withOpacity(0.4),
                     ),
                     const Expanded(
-                      child: ProjectData(title: 'Rooms', value: '2 to 5'),
+                      child: ProjectData(
+                        title: 'Rooms',
+                        value: '2 to 5',
+                      ),
                     ),
                   ],
                 ),
@@ -223,9 +234,10 @@ class _ProjectItemState extends State<ProjectItem> {
                     Text(
                       widget.property.price,
                       style: const TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500),
+                        color: AppColors.primaryColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(width: 4),
                     const Text(
@@ -255,9 +267,10 @@ class _ProjectItemState extends State<ProjectItem> {
                     const Text(
                       'SAR',
                       style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
+                        color: AppColors.primaryColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),

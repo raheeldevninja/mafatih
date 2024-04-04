@@ -15,6 +15,8 @@ import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart'
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
 import 'package:location/location.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/property_list_screen.dart';
+import 'package:mafatih/features/home/projects/projects_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ListingPage extends StatefulWidget {
   const ListingPage({super.key});
@@ -257,6 +259,20 @@ class _ListingPageState extends State<ListingPage> {
                       }
 
                       setState(() {});
+
+                      if(Utils.mainMenu[index].title == 'Projects') {
+
+                        PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: const ProjectsScreen(),
+                          withNavBar: false,
+                          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        );
+
+
+                      }
+
+
                     },
                     child: MainListItem(mainMenu: Utils.mainMenu[index]),
                   );
