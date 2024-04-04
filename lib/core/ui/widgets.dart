@@ -14,9 +14,9 @@ class Widgets {
         ),
         isRequired
             ? const Text(
-          '*',
-          style: TextStyle(color: AppColors.requiredColor),
-        )
+                '*',
+                style: TextStyle(color: AppColors.requiredColor),
+              )
             : const SizedBox(),
       ],
     );

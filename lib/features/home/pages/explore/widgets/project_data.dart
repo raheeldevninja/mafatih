@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 
-
 class ProjectData extends StatelessWidget {
   const ProjectData({
     required this.title,
@@ -17,11 +16,24 @@ class ProjectData extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
-        Text(value, style: const TextStyle(color: AppColors.blackColor, fontSize: 14, fontWeight: FontWeight.w500),),
+        Text(
+          value,
+          style: const TextStyle(
+            color: AppColors.blackColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(title, style: const TextStyle(color: AppColors.greyColor, fontSize: 12, fontWeight: FontWeight.w400),),
-
+        Text(
+          title,
+          style: const TextStyle(
+            color: AppColors.greyColor,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+          textAlign: TextAlign.left,
+        ),
       ],
     );
   }

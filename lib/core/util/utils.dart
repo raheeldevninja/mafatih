@@ -11,7 +11,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
 class Utils {
-
   static List<MainMenu> mainMenu = [
     MainMenu(
       title: 'For Sale',
@@ -43,7 +42,6 @@ class Utils {
     ),
   ];
 
-
   //bottom navigation
   static PersistentTabController controller =
       PersistentTabController(initialIndex: 0);
@@ -51,9 +49,8 @@ class Utils {
   static final pageController = PageController();
   static int currentPage = 0;
 
-
-  static void showCustomSnackBar(BuildContext context, String message, ContentType contentType) {
-
+  static void showCustomSnackBar(
+      BuildContext context, String message, ContentType contentType) {
     final snackBar = SnackBar(
       /// need to set following properties for best effect of awesome_snackbar_content
       elevation: 0,
@@ -70,24 +67,22 @@ class Utils {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
-
-
   }
 
-  static Future<Uint8List?> getBytesFromAsset(BuildContext context, String path) async {
+  static Future<Uint8List?> getBytesFromAsset(
+      BuildContext context, String path) async {
     double pixelRatio = MediaQuery.of(context).devicePixelRatio;
     ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(
-        data.buffer.asUint8List(),
-        targetWidth: pixelRatio.round() * 30
-    );
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: pixelRatio.round() * 30);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))?.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        ?.buffer
+        .asUint8List();
   }
 
-
-  static void showSimpleDialog(BuildContext context, String title, String message, VoidCallback onOkPressed) {
-
+  static void showSimpleDialog(BuildContext context, String title,
+      String message, VoidCallback onOkPressed) {
     final l10n = AppLocalizations.of(context)!;
 
     showDialog(

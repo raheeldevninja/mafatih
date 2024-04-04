@@ -1,5 +1,4 @@
 class MainMenu {
-
   final String title;
   final String icon;
   bool isSelected;
@@ -9,7 +8,6 @@ class MainMenu {
     required this.icon,
     this.isSelected = false,
   });
-
 
   MainMenu copyWith({
     String? title,
@@ -22,5 +20,4 @@ class MainMenu {
       isSelected: isSelected ?? this.isSelected,
     );
   }
-
 }

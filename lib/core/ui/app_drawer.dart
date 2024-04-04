@@ -4,18 +4,15 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
 
     final languageCode = l10n.localeName;
     final isEnglishLang = languageCode == 'en';
-
 
     return Drawer(
       backgroundColor: Colors.white,
@@ -35,11 +32,8 @@ class AppDrawer extends StatelessWidget {
               isEnglishLang ? Images.mafatihLogoEn : Images.mafatihLogoAr,
             ),
           ),
-
           InkWell(
-            onTap: () {
-
-            },
+            onTap: () {},
             child: Container(
               height: 48,
               decoration: const BoxDecoration(
@@ -53,31 +47,29 @@ class AppDrawer extends StatelessWidget {
                     Images.addIconNav,
                   ),
                   const SizedBox(width: 8),
-                  Text(l10n.advertiseWithUsBtnText, style: const TextStyle(color: AppColors.whiteColor), textAlign: TextAlign.center,),
+                  Text(
+                    l10n.advertiseWithUsBtnText,
+                    style: const TextStyle(color: AppColors.whiteColor),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),
           ),
-
-
           _buildNavDrawerItem(
             l10n.home,
             Images.homeIconNav,
             () {
               Navigator.pop(context);
-
             },
           ),
           _buildNavDrawerItem(
             l10n.propertyListingNav,
             Images.propertyListingIconNav,
             () async {
-
               Navigator.pop(context);
-
             },
           ),
-
           _buildNavDrawerItem(
             l10n.projectsNav,
             Images.propertyListingIconNav,
@@ -86,62 +78,46 @@ class AppDrawer extends StatelessWidget {
               //Utils.controller.jumpToTab(2);
             },
           ),
-
           _buildNavDrawerItem(
             l10n.agentsNav,
             Images.agentsIconNav,
             () {
               Navigator.pop(context);
-
             },
           ),
-
           _buildNavDrawerItem(
             l10n.myAccountNav,
             Images.accountIconNav,
             () {
               Navigator.pop(context);
-
             },
           ),
-
           _buildNavDrawerItem(
             l10n.propertyCheckNav,
             Images.propertyCheckIconNav,
             () {
-              
               Navigator.pop(context);
-
             },
           ),
-
           _buildNavDrawerItem(
             l10n.valuatePropertyNav,
             Images.valuatePropertyIconNav,
-            () {
-
-            },
+            () {},
           ),
-
           _buildNavDrawerItem(
             l10n.propertyRequestNav,
             Images.propertyRequestIconNav,
             () {
               Navigator.pop(context);
-
             },
           ),
-
           _buildNavDrawerItem(
             l10n.settingsNav,
             Images.settingsIconNav,
             () {
               Navigator.pop(context);
-
             },
           ),
-
-
           const SizedBox(
             height: 40,
           ),
@@ -155,7 +131,6 @@ class AppDrawer extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     Navigator.pop(context);
-
                   },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,

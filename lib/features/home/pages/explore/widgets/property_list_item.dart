@@ -7,11 +7,8 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 
-
 class PropertyListItem extends StatefulWidget {
-  const PropertyListItem({
-    required this.property,
-    super.key});
+  const PropertyListItem({required this.property, super.key});
 
   final Property property;
 
@@ -20,7 +17,6 @@ class PropertyListItem extends StatefulWidget {
 }
 
 class _PropertyListItemState extends State<PropertyListItem> {
-
   int _current = 0;
 
   @override
@@ -41,13 +37,11 @@ class _PropertyListItemState extends State<PropertyListItem> {
       ),
       child: Row(
         children: [
-
           //carousel slider
           SizedBox(
             width: 90,
             child: Stack(
               children: [
-
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 300.0,
@@ -65,9 +59,11 @@ class _PropertyListItemState extends State<PropertyListItem> {
                           borderRadius: BorderRadius.circular(10),
                           child: CachedNetworkImage(
                             imageUrl: i,
-                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            const CupertinoActivityIndicator(),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    const CupertinoActivityIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
                           ),
                         );
                       },
@@ -81,19 +77,23 @@ class _PropertyListItemState extends State<PropertyListItem> {
                   right: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: widget.property.images.asMap().entries.map((entry) {
+                    children:
+                        widget.property.images.asMap().entries.map((entry) {
                       return GestureDetector(
                         onTap: () => {},
                         child: Container(
                           width: 10.0,
                           height: 10.0,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness == Brightness.dark
-                                  ? AppColors.whiteColor
-                                  : AppColors.blackColor)
-                                  .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blackColor)
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4)),
                         ),
                       );
                     }).toList(),
@@ -101,9 +101,6 @@ class _PropertyListItemState extends State<PropertyListItem> {
                 ),
 
                 //map view button
-
-
-
               ],
             ),
           ),
@@ -114,62 +111,70 @@ class _PropertyListItemState extends State<PropertyListItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-              Text(widget.property.propertyName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+              Text(
+                widget.property.propertyName,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
               const SizedBox(height: 4),
-              Text(widget.property.price, style: const TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.w500),),
+              Text(
+                widget.property.price,
+                style: const TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              ),
               const SizedBox(height: 8),
 
               Row(
                 children: [
-
                   SvgPicture.asset(
                     Images.areaIcon,
                     width: 16,
                     height: 16,
                   ),
-
                   const SizedBox(width: 4),
-
-                  Text(widget.property.area, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
+                  Text(
+                    widget.property.area,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
                   const SizedBox(width: 16),
-
                   SvgPicture.asset(
                     Images.bedIcon,
                     width: 16,
                     height: 16,
                   ),
-
                   const SizedBox(width: 4),
-
-                  Text(widget.property.beds, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
+                  Text(
+                    widget.property.beds,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
                   const SizedBox(width: 16),
-
                   SvgPicture.asset(
                     Images.tvLoungeIcon,
                     width: 16,
                     height: 16,
                   ),
-
                   const SizedBox(width: 4),
-
-                  Text(widget.property.tvLounge, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
+                  Text(
+                    widget.property.tvLounge,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
                   const SizedBox(width: 16),
-
                   SvgPicture.asset(
                     Images.bathIcon,
                     width: 16,
                     height: 16,
                   ),
-
                   const SizedBox(width: 4),
-
-                  Text(widget.property.bath, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-
-
+                  Text(
+                    widget.property.bath,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w400),
+                  ),
                 ],
               ),
 
@@ -177,50 +182,47 @@ class _PropertyListItemState extends State<PropertyListItem> {
 
               Row(
                 children: [
-
                   SvgPicture.asset(
                     Images.selectedLocationIcon,
                     width: 24,
                     height: 24,
                   ),
-
                   const SizedBox(width: 4),
-
-                  Text(widget.property.address, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                  Text(
+                    widget.property.address,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
                 ],
               ),
 
-
               Row(
                 children: [
-                  SvgPicture.asset(
-                      Images.distanceIcon,
-                      width: 24,
-                      height: 24,
-                      color: AppColors.primaryColor
-                  ),
-
+                  SvgPicture.asset(Images.distanceIcon,
+                      width: 24, height: 24, color: AppColors.primaryColor),
                   const SizedBox(width: 4),
-
                   TextButton(
                     onPressed: () {},
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('View Distance', style: TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),
+                        Text(
+                          'View Distance',
+                          style: TextStyle(
+                              color: AppColors.primaryColor,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primaryColor),
+                        ),
                       ],
                     ),
                   ),
-
                 ],
               ),
-
 
               ///add owner
               Row(
                 children: [
-
                   Container(
                     decoration: BoxDecoration(
                       color: AppColors.whiteColor,
@@ -231,34 +233,36 @@ class _PropertyListItemState extends State<PropertyListItem> {
                       borderRadius: BorderRadius.circular(10),
                       child: CachedNetworkImage(
                         imageUrl: widget.property.ownerImage,
-                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        const CupertinoActivityIndicator(),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                const CupertinoActivityIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
-
                   const SizedBox(width: 8),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-                      const Text('Ad Owner', style: TextStyle(color: AppColors.greyColor, fontSize: 12),),
-                      Text(widget.property.addOwner, style: const TextStyle(color: AppColors.blackColor, fontSize: 16, fontWeight: FontWeight.w600),),
-
+                      const Text(
+                        'Ad Owner',
+                        style:
+                            TextStyle(color: AppColors.greyColor, fontSize: 12),
+                      ),
+                      Text(
+                        widget.property.addOwner,
+                        style: const TextStyle(
+                            color: AppColors.blackColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ],
                   ),
-
                 ],
               ),
-
-
-
-
             ],
           ),
-
         ],
       ),
     );

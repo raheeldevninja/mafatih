@@ -8,30 +8,24 @@ import 'package:mafatih/features/intro/intro_screen.dart';
 import 'package:mafatih/l10n/locale_provider.dart';
 import 'package:provider/provider.dart';
 
-
 class ChooseLanguageScreen extends StatelessWidget {
-
   const ChooseLanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
     final l10n = AppLocalizations.of(context)!;
 
-
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
-
 
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       body: Center(
         child: Stack(
           children: [
-
             Positioned.fill(
               child: SvgPicture.asset(
                 Images.splashBg,
@@ -39,17 +33,19 @@ class ChooseLanguageScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
               ),
             ),
-
             Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SvgPicture.asset(
                       width: width * 0.25,
                       height: width * 0.25,
-                      isEnglishLang ? Images.mafatihLogoEn : Images.mafatihLogoAr,
+                      isEnglishLang
+                          ? Images.mafatihLogoEn
+                          : Images.mafatihLogoAr,
                     ),
 
                     SizedBox(height: height * 0.1),
@@ -78,17 +74,26 @@ class ChooseLanguageScreen extends StatelessWidget {
                               },
                               style: ElevatedButton.styleFrom(
                                 shadowColor: Colors.transparent,
-                                side: BorderSide(color: isEnglishLang ? AppColors.primaryColor : Colors.transparent, width: 1),
+                                side: BorderSide(
+                                    color: isEnglishLang
+                                        ? AppColors.primaryColor
+                                        : Colors.transparent,
+                                    width: 1),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                backgroundColor: isEnglishLang ? AppColors.primaryColor.withOpacity(0.2) : AppColors.inactiveButtonColor.withOpacity(0.2),
+                                backgroundColor: isEnglishLang
+                                    ? AppColors.primaryColor.withOpacity(0.2)
+                                    : AppColors.inactiveButtonColor
+                                        .withOpacity(0.2),
                                 elevation: 0,
                               ),
                               child: Text(
                                 'English',
                                 style: TextStyle(
-                                  color: isEnglishLang ? AppColors.primaryColor : AppColors.greyColor,
+                                  color: isEnglishLang
+                                      ? AppColors.primaryColor
+                                      : AppColors.greyColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -96,9 +101,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         const SizedBox(width: 20),
-
                         Expanded(
                           child: SizedBox(
                             height: 56,
@@ -108,17 +111,26 @@ class ChooseLanguageScreen extends StatelessWidget {
                               },
                               style: ElevatedButton.styleFrom(
                                 shadowColor: Colors.transparent,
-                                side: BorderSide(color: isEnglishLang ? Colors.transparent : AppColors.primaryColor, width: 1),
+                                side: BorderSide(
+                                    color: isEnglishLang
+                                        ? Colors.transparent
+                                        : AppColors.primaryColor,
+                                    width: 1),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                backgroundColor: isEnglishLang ? AppColors.inactiveButtonColor.withOpacity(0.2) : AppColors.primaryColor.withOpacity(0.2),
+                                backgroundColor: isEnglishLang
+                                    ? AppColors.inactiveButtonColor
+                                        .withOpacity(0.2)
+                                    : AppColors.primaryColor.withOpacity(0.2),
                                 elevation: 0,
                               ),
                               child: Text(
                                 'العربیہ',
                                 style: TextStyle(
-                                  color: isEnglishLang ? AppColors.greyColor : AppColors.primaryColor,
+                                  color: isEnglishLang
+                                      ? AppColors.greyColor
+                                      : AppColors.primaryColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -129,9 +141,7 @@ class ChooseLanguageScreen extends StatelessWidget {
                       ],
                     ),
 
-
                     const SizedBox(height: 20),
-
 
                     ///get started button
                     SizedBox(
@@ -140,26 +150,20 @@ class ChooseLanguageScreen extends StatelessWidget {
                       child: SimpleButton(
                         text: l10n.getStarted,
                         callback: () async {
-
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const IntroScreen(),
                             ),
                           );
-
                         },
                       ),
                     ),
 
                     SizedBox(height: height * 0.1),
-
                   ],
                 ),
               ),
             ),
-
-
-
           ],
         ),
       ),
@@ -172,7 +176,5 @@ class ChooseLanguageScreen extends StatelessWidget {
 
     localeProvider.changeLocale(Locale(code));
     await localeProvider.saveChooseLanguageShown();
-
   }
-
 }

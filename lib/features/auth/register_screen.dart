@@ -6,7 +6,6 @@ import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -15,7 +14,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _phoneNumberController = TextEditingController();
@@ -30,7 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
 
     final width = MediaQuery.of(context).size.width;
@@ -42,7 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
         surfaceTintColor: Colors.transparent,
-        title: Text(l10n.register, style: const TextStyle(fontWeight: FontWeight.w500)),
+        title: Text(l10n.register,
+            style: const TextStyle(fontWeight: FontWeight.w500)),
         centerTitle: true,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -57,16 +55,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 color: AppColors.backBtnColor,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
-              child: const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
+              child:
+                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
             ),
           ),
         ),
       ),
       body: Column(
         children: [
-
           Header(content: Text(l10n.registerAccountSubHeading)),
-
           Expanded(
             child: Form(
               key: _formKey,
@@ -75,7 +72,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 shrinkWrap: true,
                 primary: true,
                 children: [
-
                   Widgets.labels(l10n.phoneNoLabel),
                   const SizedBox(
                     height: 10,
@@ -88,7 +84,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     isPhone: true,
                     countryPickerCallback: _showCountryCodeBottomSheet,
                     validator: (value) {
-
                       if (value!.isEmpty) {
                         return l10n.emptyPhoneValidation;
                       }
@@ -96,7 +91,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                   ),
-
 
                   const SizedBox(
                     height: 20,
@@ -108,15 +102,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
 
                   AppTextField(
-                      controller: _fullNameController,
-                      keyboardType: TextInputType.text,
-                      hintText: l10n.optionalHint,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return l10n.emptyFullNameValidation;
-                        }
-                        return null;
-                      },
+                    controller: _fullNameController,
+                    keyboardType: TextInputType.text,
+                    hintText: l10n.optionalHint,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return l10n.emptyFullNameValidation;
+                      }
+                      return null;
+                    },
                   ),
 
                   const SizedBox(
@@ -133,12 +127,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.emailAddress,
                     hintText: l10n.optionalHint,
                     validator: (value) {
-
-
                       if (value!.isEmpty) {
                         return l10n.emptyEmailValidation;
-                      }
-                      else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                      } else if (!RegExp(
+                              r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
                           .hasMatch(value)) {
                         return l10n.invalidEmailValidation;
                       }
@@ -168,18 +160,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
                     },
                     validator: (value) {
-
                       if (value == null || value.isEmpty) {
                         return l10n.emptyPasswordValidation;
-                      }
-                      else if (value.length < 6) {
+                      } else if (value.length < 6) {
                         return l10n.passwordLengthValidation;
                       }
 
                       return null;
                     },
                   ),
-
 
                   const SizedBox(
                     height: 20,
@@ -202,14 +191,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
                     },
                     validator: (value) {
-
                       if (value == null || value.isEmpty) {
                         return l10n.emptyPasswordValidation;
-                      }
-                      else if (value.length < 6) {
+                      } else if (value.length < 6) {
                         return l10n.passwordLengthValidation;
-                      }
-                      else if (value != _passwordController.text) {
+                      } else if (value != _passwordController.text) {
                         return l10n.passwordDoNotMatch;
                       }
 
@@ -217,11 +203,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
 
-
                   SizedBox(
                     height: height * 0.05,
                   ),
-
 
                   //register button
                   SizedBox(
@@ -230,11 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: SimpleButton(
                       text: l10n.register,
                       callback: () {
-
-                        if (_formKey.currentState!.validate()) {
-
-                        }
-
+                        if (_formKey.currentState!.validate()) {}
                       },
                     ),
                   ),
@@ -242,7 +222,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -252,28 +231,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text(l10n.login, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline),  )
-                      ),
+                          child: Text(
+                            l10n.login,
+                            style: const TextStyle(
+                                color: AppColors.primaryColor,
+                                decoration: TextDecoration.underline),
+                          )),
                     ],
                   ),
-
                 ],
               ),
             ),
           ),
-
-
-
-
         ],
       ),
-
     );
   }
 
-
   void _showCountryCodeBottomSheet() {
-
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
@@ -293,13 +268,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return ListTile(
                       title: const Text('+966'),
                       onTap: () {
-
                         setState(() {
                           selectedCountryCode = '+966';
                         });
 
                         Navigator.pop(context);
-
                       },
                     );
                   },
@@ -312,7 +285,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -323,5 +295,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
   }
-
 }

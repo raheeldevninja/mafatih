@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mafatih/core/util/shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class LocaleProvider extends ChangeNotifier {
   late Locale _appLocale;
 

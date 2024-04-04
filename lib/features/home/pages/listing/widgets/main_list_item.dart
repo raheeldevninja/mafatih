@@ -3,12 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/models/main_menu.dart';
 
-
 class MainListItem extends StatefulWidget {
-
-  const MainListItem({
-    required this.mainMenu,
-    super.key});
+  const MainListItem({required this.mainMenu, super.key});
 
   final MainMenu mainMenu;
 
@@ -17,7 +13,6 @@ class MainListItem extends StatefulWidget {
 }
 
 class _MainListItemState extends State<MainListItem> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,16 +20,16 @@ class _MainListItemState extends State<MainListItem> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-
           Row(
             children: [
-
               ///icon
               SvgPicture.asset(
                 width: 20,
                 height: 20,
                 widget.mainMenu.icon,
-                color: widget.mainMenu.isSelected ? AppColors.primaryColor : AppColors.primaryTextColor,
+                color: widget.mainMenu.isSelected
+                    ? AppColors.primaryColor
+                    : AppColors.primaryTextColor,
               ),
 
               const SizedBox(width: 4),
@@ -42,9 +37,13 @@ class _MainListItemState extends State<MainListItem> {
               Text(
                 widget.mainMenu.title,
                 style: TextStyle(
-                  color: widget.mainMenu.isSelected ? AppColors.blackColor : AppColors.greyColor,
+                  color: widget.mainMenu.isSelected
+                      ? AppColors.blackColor
+                      : AppColors.greyColor,
                   fontSize: 13,
-                  fontWeight: widget.mainMenu.isSelected ? FontWeight.w500 : FontWeight.normal,
+                  fontWeight: widget.mainMenu.isSelected
+                      ? FontWeight.w500
+                      : FontWeight.normal,
                 ),
               ),
             ],
@@ -56,9 +55,10 @@ class _MainListItemState extends State<MainListItem> {
           Container(
             height: 2,
             width: 90,
-            color: widget.mainMenu.isSelected ? AppColors.primaryColor : Colors.transparent,
+            color: widget.mainMenu.isSelected
+                ? AppColors.primaryColor
+                : Colors.transparent,
           ),
-
         ],
       ),
     );

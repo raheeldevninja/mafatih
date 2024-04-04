@@ -13,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -23,12 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
-
 
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
@@ -42,7 +39,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 isEnglishLang ? Images.mafatihLogoEn : Images.mafatihLogoAr,
               ),
             ),
-
             Positioned.fill(
               child: SvgPicture.asset(
                 Images.splashBg,
@@ -50,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 alignment: Alignment.bottomCenter,
               ),
             ),
-
           ],
         ),
       ),
@@ -59,13 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToChooseLangScreen() {
     Future.delayed(const Duration(seconds: 3), () async {
-
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const ChooseLanguageScreen(),
         ),
       );
-
     });
   }
 
@@ -73,5 +66,4 @@ class _SplashScreenState extends State<SplashScreen> {
   void dispose() {
     super.dispose();
   }
-
 }

@@ -11,7 +11,6 @@ import 'package:mafatih/features/home/pages/services/services_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -20,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -84,12 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return [
       _buildBottomNavBarItem(icon: Images.exploreIcon, title: l10n.exploreNav),
-      _buildBottomNavBarItem(
-          icon: Images.addIcon, title: l10n.addNav),
+      _buildBottomNavBarItem(icon: Images.addIcon, title: l10n.addNav),
       _buildBottomNavBarItem(
           icon: Images.listingIcon, title: l10n.listingNav, isListing: true),
       _buildBottomNavBarItem(icon: Images.chatIcon, title: l10n.chatNav),
-      _buildBottomNavBarItem(icon: Images.servicesIcon, title: l10n.servicesNav),
+      _buildBottomNavBarItem(
+          icon: Images.servicesIcon, title: l10n.servicesNav),
     ];
   }
 
@@ -105,10 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
         color: isListing ? AppColors.secondaryColor : AppColors.inactiveIcon,
       ),
       title: title,
-      activeColorPrimary: isListing ? AppColors.primaryColor : AppColors.activeIcon,
+      activeColorPrimary:
+          isListing ? AppColors.primaryColor : AppColors.activeIcon,
       inactiveColorPrimary: AppColors.inactiveIcon,
-
     );
   }
-
 }

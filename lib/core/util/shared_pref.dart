@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SharedPref {
   static const String isLoggedInKey = 'isLoggedIn';
   static const String userKey = 'user';
@@ -56,6 +55,4 @@ class SharedPref {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
-
-
 }

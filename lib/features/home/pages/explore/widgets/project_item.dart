@@ -9,9 +9,7 @@ import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_data.dart';
 
 class ProjectItem extends StatefulWidget {
-  const ProjectItem({
-    required this.property,
-    super.key});
+  const ProjectItem({required this.property, super.key});
 
   final Property property;
 
@@ -20,7 +18,6 @@ class ProjectItem extends StatefulWidget {
 }
 
 class _ProjectItemState extends State<ProjectItem> {
-
   int _current = 0;
 
   @override
@@ -41,8 +38,7 @@ class _ProjectItemState extends State<ProjectItem> {
       ),
       child: Column(
         children: [
-
-          //carousel slider
+          ///carousel slider
           Stack(
             children: [
               CarouselSlider(
@@ -61,16 +57,17 @@ class _ProjectItemState extends State<ProjectItem> {
                         borderRadius: BorderRadius.circular(10),
                         child: CachedNetworkImage(
                           imageUrl: i,
-                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                          const CupertinoActivityIndicator(),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  const CupertinoActivityIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       );
                     },
                   );
                 }).toList(),
               ),
-
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -83,16 +80,38 @@ class _ProjectItemState extends State<ProjectItem> {
                       child: Container(
                         width: 10.0,
                         height: 10.0,
-                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 2.0),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: (Theme.of(context).brightness == Brightness.dark
-                                ? AppColors.whiteColor
-                                : AppColors.blackColor)
-                                .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                        ? AppColors.whiteColor
+                                        : AppColors.blackColor)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
                       ),
                     );
                   }).toList(),
+                ),
+              ),
+              Positioned(
+                top: 10,
+                right: 20,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    'Project',
+                    style: TextStyle(
+                        color: AppColors.blackColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal),
+                  ),
                 ),
               ),
             ],
@@ -106,137 +125,145 @@ class _ProjectItemState extends State<ProjectItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 Row(
                   children: [
-
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.property.propertyName, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                          Text(
+                            widget.property.propertyName,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
                           const SizedBox(height: 10),
-                      
                           Row(
                             children: [
-                      
                               SvgPicture.asset(
                                 Images.selectedLocationIcon,
                                 width: 24,
                                 height: 24,
                               ),
-                      
                               const SizedBox(width: 4),
-                      
-                              Text(widget.property.address, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                              Text(
+                                widget.property.address,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
                             ],
                           ),
-                      
                         ],
                       ),
                     ),
-
                     Container(
                       decoration: BoxDecoration(
                         color: AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.greyColor, width: 1),
+                        border:
+                            Border.all(color: AppColors.greyColor, width: 1),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: CachedNetworkImage(
                           imageUrl: widget.property.ownerImage,
-                          progressIndicatorBuilder: (context, url, downloadProgress) =>
-                          const CupertinoActivityIndicator(),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  const CupertinoActivityIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
-
                 const SizedBox(height: 32),
-
                 Row(
                   children: [
-
                     const Expanded(
                       child: ProjectData(title: 'No of Units', value: '20'),
                     ),
-
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       width: 1,
                       height: 40,
                       color: AppColors.greyColor.withOpacity(0.4),
                     ),
-
                     const Expanded(
-                      child: ProjectData(title: 'Units Type', value: 'Residential'),
+                      child: ProjectData(
+                          title: 'Units Type', value: 'Residential'),
                     ),
-
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       width: 1,
                       height: 40,
                       color: AppColors.greyColor.withOpacity(0.4),
                     ),
-
                     const Expanded(
                       child: ProjectData(title: 'Area', value: '90m2 to 180m2'),
                     ),
-
-
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       width: 1,
                       height: 40,
                       color: AppColors.greyColor.withOpacity(0.4),
                     ),
-
                     const Expanded(
                       child: ProjectData(title: 'Rooms', value: '2 to 5'),
                     ),
-
                   ],
                 ),
-
-
                 Divider(
                   color: AppColors.greyColor.withOpacity(0.4),
                   thickness: 1,
                   height: 40,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-
-                    Text(widget.property.price, style: const TextStyle(color: AppColors.primaryColor, fontSize: 20, fontWeight: FontWeight.w500),),
+                    Text(
+                      widget.property.price,
+                      style: const TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
                     const SizedBox(width: 4),
-                    const Text('SAR', style: TextStyle(color: AppColors.primaryColor, fontSize: 14, fontWeight: FontWeight.w400),),
-
+                    const Text(
+                      'SAR',
+                      style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
                     const SizedBox(width: 40),
-                    const Text('to', style: TextStyle(color: AppColors.greyColor, fontSize: 14, fontWeight: FontWeight.w400),),
+                    const Text(
+                      'to',
+                      style: TextStyle(
+                          color: AppColors.greyColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
                     const SizedBox(width: 40),
-
-
-                    Text(widget.property.price, style: const TextStyle(color: AppColors.primaryColor, fontSize: 20, fontWeight: FontWeight.w500),),
+                    Text(
+                      widget.property.price,
+                      style: const TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
                     const SizedBox(width: 4),
-                    const Text('SAR', style: TextStyle(color: AppColors.primaryColor, fontSize: 14, fontWeight: FontWeight.w400),),
-
+                    const Text(
+                      'SAR',
+                      style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ],
                 ),
-
-
-
               ],
             ),
           ),
-
-
         ],
       ),
     );

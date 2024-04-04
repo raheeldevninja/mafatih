@@ -13,7 +13,6 @@ import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
 
-
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
 
@@ -22,7 +21,6 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Property> properties = [];
@@ -36,11 +34,9 @@ class _ExplorePageState extends State<ExplorePage> {
       _initPropertiesList();
       _initProjectsList();
     });
-
   }
 
   _initPropertiesList() {
-
     properties.add(
       Property(
         propertyName: 'Property Name',
@@ -117,14 +113,10 @@ class _ExplorePageState extends State<ExplorePage> {
       ),
     );
 
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 
   _initProjectsList() {
-
     projects.add(
       Property(
         propertyName: 'Property Name',
@@ -144,16 +136,11 @@ class _ExplorePageState extends State<ExplorePage> {
       ),
     );
 
-    setState(() {
-
-    });
-
+    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
@@ -165,7 +152,6 @@ class _ExplorePageState extends State<ExplorePage> {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.secondaryColor,
-
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
@@ -184,56 +170,60 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
               Images.searchIcon,
             ),
           ),
-
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
               Images.filterIcon,
             ),
           ),
-
-          const SizedBox(width: 10,)
-
+          const SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-
             const Header(
-                height: 20,
+              height: 20,
               content: SizedBox(),
             ),
 
             ///properties and see all button row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Column(
                 children: [
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
-                      Text(l10n.propertiesLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
-
+                      Text(
+                        l10n.propertiesLabel,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          l10n.seeAllBtnText,
+                          style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primaryColor),
+                        ),
+                      ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -258,20 +248,30 @@ class _ExplorePageState extends State<ExplorePage> {
 
             ///daily rentals and see all button row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Column(
                 children: [
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
-                      Text(l10n.dailyRentalsLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
-
+                      Text(
+                        l10n.dailyRentalsLabel,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          l10n.seeAllBtnText,
+                          style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primaryColor),
+                        ),
+                      ),
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -318,37 +318,46 @@ class _ExplorePageState extends State<ExplorePage> {
 
             ///projects and see all button row
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Column(
                 children: [
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-
-                      Text(l10n.projectsLabel, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                      TextButton(onPressed: () {}, child: Text(l10n.seeAllBtnText, style: const TextStyle(color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),),),
-
+                      Text(
+                        l10n.projectsLabel,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          l10n.seeAllBtnText,
+                          style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.primaryColor),
+                        ),
+                      ),
                     ],
                   ),
-
                 ],
               ),
             ),
 
             ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 8),
               scrollDirection: Axis.vertical,
               itemCount: projects.length,
               itemBuilder: (context, index) {
                 return ProjectItem(property: projects[index]);
               },
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
             ),
 
             const SizedBox(height: 40),
-
           ],
         ),
       ),
@@ -356,7 +365,6 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   void _showPropertyDialog(Property property) {
-
     int current = 0;
 
     showDialog(
@@ -386,195 +394,203 @@ class _ExplorePageState extends State<ExplorePage> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(20),
-
-                    ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
-                          Stack(
-                            children: [
-                              CarouselSlider(
-                                options: CarouselOptions(
-                                  height: 200.0,
-                                  viewportFraction: 1,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      current = index;
-                                    });
-                                  },
-                                ),
-                                items: property.images.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return CachedNetworkImage(
-                                        imageUrl: 'https://via.placeholder.com/1000x600',
-                                        fit: BoxFit.fill,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                        const CupertinoActivityIndicator(),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                      );
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Stack(
+                              children: [
+                                CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: 200.0,
+                                    viewportFraction: 1,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        current = index;
+                                      });
                                     },
-                                  );
-                                }).toList(),
-                              ),
-
-
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: property.images.asMap().entries.map((entry) {
-                                    return GestureDetector(
-                                      onTap: () => {},
-                                      child: Container(
-                                        width: 10.0,
-                                        height: 10.0,
-                                        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: (Theme.of(context).brightness == Brightness.dark
-                                                ? AppColors.whiteColor
-                                                : AppColors.blackColor)
-                                                .withOpacity(current == entry.key ? 0.9 : 0.4)),
-                                      ),
+                                  ),
+                                  items: property.images.map((i) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return CachedNetworkImage(
+                                          imageUrl:
+                                              'https://via.placeholder.com/1000x600',
+                                          fit: BoxFit.fill,
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              const CupertinoActivityIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        );
+                                      },
                                     );
                                   }).toList(),
                                 ),
-                              ),
-
-
-                            ],
-                          ),
-
-
-                          const SizedBox(height: 8),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                Text(property.propertyName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-
-                                const SizedBox(height: 16),
-
-                                Row(
-                                  children: [
-
-                                    SvgPicture.asset(
-                                      Images.areaIcon,
-                                      width: 20,
-                                      height: 20,
-                                    ),
-
-                                    const SizedBox(width: 4),
-
-                                    Text(property.area, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-
-                                    const SizedBox(width: 16),
-
-                                    SvgPicture.asset(
-                                      Images.bedIcon,
-                                      width: 20,
-                                      height: 20,
-                                    ),
-
-                                    const SizedBox(width: 4),
-
-                                    Text(property.beds, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-
-                                    const SizedBox(width: 16),
-
-                                    SvgPicture.asset(
-                                      Images.tvLoungeIcon,
-                                      width: 20,
-                                      height: 20,
-                                    ),
-
-                                    const SizedBox(width: 4),
-
-                                    Text(property.tvLounge, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-
-                                    const SizedBox(width: 16),
-
-                                    SvgPicture.asset(
-                                      Images.bathIcon,
-                                      width: 20,
-                                      height: 20,
-                                    ),
-
-                                    const SizedBox(width: 4),
-
-                                    Text(property.bath, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
-
-
-                                  ],
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: property.images
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      return GestureDetector(
+                                        onTap: () => {},
+                                        child: Container(
+                                          width: 10.0,
+                                          height: 10.0,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: (Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.blackColor)
+                                                  .withOpacity(
+                                                      current == entry.key
+                                                          ? 0.9
+                                                          : 0.4)),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
                                 ),
-
-                                const SizedBox(height: 32),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: SimpleButton(text: '3500 SAR', callback: (){}),
-                                      ),
-                                    ),
-
-                                    const SizedBox(width: 4),
-
-                                    Expanded(
-                                      child: TextButton(onPressed: (){},
-                                          child:
-                                          Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              SvgPicture.asset(
-                                                Images.chooseMapIcon,
-                                                width: 20,
-                                                height: 20,
-                                                color: AppColors.primaryColor,
-                                              ),
-
-                                              const SizedBox(width: 4),
-
-                                              const Expanded(child: Text('View on map', style: TextStyle(fontSize: 12, color: AppColors.primaryColor, decoration: TextDecoration.underline, decorationColor: AppColors.primaryColor),)),
-
-                                            ],)
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-
-
                               ],
                             ),
-                          ),
-
-
-
-                        ],
-                      ),
-                    )
-                  ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    property.propertyName,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        Images.areaIcon,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        property.area,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      SvgPicture.asset(
+                                        Images.bedIcon,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        property.beds,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      SvgPicture.asset(
+                                        Images.tvLoungeIcon,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        property.tvLounge,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      SvgPicture.asset(
+                                        Images.bathIcon,
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        property.bath,
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 32),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 50,
+                                          child: SimpleButton(
+                                              text: '3500 SAR',
+                                              callback: () {}),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Expanded(
+                                        child: TextButton(
+                                            onPressed: () {},
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  Images.chooseMapIcon,
+                                                  width: 20,
+                                                  height: 20,
+                                                  color: AppColors.primaryColor,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                const Expanded(
+                                                    child: Text(
+                                                  'View on map',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      decorationColor: AppColors
+                                                          .primaryColor),
+                                                )),
+                                              ],
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
 
                   //close button
                   Positioned(
@@ -594,7 +610,6 @@ class _ExplorePageState extends State<ExplorePage> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -603,8 +618,4 @@ class _ExplorePageState extends State<ExplorePage> {
       },
     );
   }
-
 }
-
-
-

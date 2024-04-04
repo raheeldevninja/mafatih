@@ -1,5 +1,4 @@
 class Property {
-
   final String propertyName;
   final String price;
   final String area;
@@ -50,5 +49,4 @@ class Property {
       images: images ?? this.images,
     );
   }
-
 }

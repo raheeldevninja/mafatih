@@ -9,7 +9,6 @@ import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.d
 import 'package:mafatih/features/home/property_details/property_details_screen.dart';
 import 'map_icon.dart';
 
-
 class PropertyListScreen extends StatefulWidget {
   const PropertyListScreen({super.key});
 
@@ -18,7 +17,6 @@ class PropertyListScreen extends StatefulWidget {
 }
 
 class _PropertyListScreenState extends State<PropertyListScreen> {
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Property> properties = [];
@@ -30,9 +28,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     _initPropertiesList();
   }
 
-
   _initPropertiesList() {
-
     properties.add(
       Property(
         propertyName: 'Property Name',
@@ -109,16 +105,11 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
       ),
     );
 
-    setState(() {
-
-    });
-
+    setState(() {});
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
@@ -149,29 +140,24 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
               Images.searchIcon,
             ),
           ),
-
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
               Images.filterIcon,
             ),
           ),
-
-          const SizedBox(width: 10,)
-
+          const SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: Stack(
@@ -182,16 +168,15 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PropertyDetailsScreen(property: properties[index]),
+                      builder: (context) =>
+                          PropertyDetailsScreen(property: properties[index]),
                     ),
                   );
-
-
                 },
-                child: PropertyListItem(property: properties[index]),);
+                child: PropertyListItem(property: properties[index]),
+              );
             },
           ),
 
@@ -201,17 +186,12 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             right: 20,
             child: MapIcon(
                 onTap: () {
-
                   Navigator.pop(context);
-
                 },
-                icon: const Icon(Icons.map)
-            ),
+                icon: const Icon(Icons.map)),
           ),
-
         ],
       ),
     );
   }
-
 }
