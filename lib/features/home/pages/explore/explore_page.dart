@@ -8,11 +8,13 @@ import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
+import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/heading_and_see_all_button.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
+import 'package:mafatih/features/search/search_screen.dart';
 
 
 class ExplorePage extends StatefulWidget {
@@ -172,7 +174,16 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
@@ -180,7 +191,9 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              BottomSheets.showFilterBottomSheet(context);
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,

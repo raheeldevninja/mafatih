@@ -361,52 +361,56 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             const SizedBox(height: 20),
 
             ///horizontal keywords listview width cross
-            SizedBox(
-              height: 30,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: keywordsList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return
-                    InkWell(
-                      borderRadius: BorderRadius.circular(30),
-                      onTap: () {
-
-                        //remove
-                        keywordsList.removeAt(index);
-
-                        setState(() {
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
+            keywordsList.isEmpty ? const SizedBox() : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 30,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: keywordsList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return
+                        InkWell(
                           borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              keywordsList[index].value,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: AppColors.blackColor,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            const Icon(Icons.close, size: 20,),
-                          ],
-                        ),
-                      ),
-                    );
-                },
-              ),
-            ),
+                          onTap: () {
 
-            const SizedBox(height: 20),
+                            //remove
+                            keywordsList.removeAt(index);
+
+                            setState(() {
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  keywordsList[index].value,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.blackColor,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.close, size: 20,),
+                              ],
+                            ),
+                          ),
+                        );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
 
             const MainHeading(heading: 'Location'),
 

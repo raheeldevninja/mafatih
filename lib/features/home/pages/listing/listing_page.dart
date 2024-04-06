@@ -7,6 +7,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/AppTextField.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
+import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/util/utils.dart';
@@ -103,8 +104,7 @@ class _ListingPageState extends State<ListingPage> {
           IconButton(
             onPressed: () {
 
-              ///open filter bottom sheet
-              _showFilterBottomSheet();
+              BottomSheets.showFilterBottomSheet(context);
 
             },
             icon: SvgPicture.asset(

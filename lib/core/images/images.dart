@@ -3,6 +3,9 @@ class Images {
   static const String mafatihLogoAr = 'assets/images/mafatih_logo_ar.svg';
   static const String splashBg = 'assets/images/splash_bg.svg';
   static const String introBg = 'assets/images/intro_bg.svg';
+  static const String propertyImage = 'assets/images/property_image.svg';
+  static const String propertyImagePng = 'assets/images/property_image.png';
+
 
   //icons
   static const String exploreIcon = 'assets/icons/explore_icon.svg';

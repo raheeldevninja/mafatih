@@ -5,8 +5,10 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
+import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.dart';
 import 'package:mafatih/features/home/property_details/property_details_screen.dart';
+import 'package:mafatih/features/search/search_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'map_icon.dart';
 
@@ -141,7 +143,15 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ),
+              );
+
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
@@ -149,7 +159,11 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+              BottomSheets.showFilterBottomSheet(context);
+
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
