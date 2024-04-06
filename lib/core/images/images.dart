@@ -40,6 +40,7 @@ class Images {
   static const String phoneIcon = 'assets/icons/phone_icon.svg';
   static const String whatsappIcon = 'assets/icons/whatsapp_icon.svg';
   static const String messageIcon = 'assets/icons/message_icon.svg';
+  static const String comparePropertyIcon = 'assets/icons/compare_property_icon.svg';
 
 
 

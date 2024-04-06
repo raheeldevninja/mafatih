@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 
-class FeatureItem extends StatelessWidget {
-  const FeatureItem({
+class FeatureItemVertical extends StatelessWidget {
+  const FeatureItemVertical({
     required this.icon,
     required this.title,
     required this.value,
@@ -21,21 +21,25 @@ class FeatureItem extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset(
-          icon,
-          width: 24,
-          height: 24,
-        ),
-        const SizedBox(width: 8),
         Expanded(
+          flex: 1,
+          child: SvgPicture.asset(
+            icon,
+            width: 16,
+            height: 16,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          flex: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                title, 
                 style: const TextStyle(
                   color: AppColors.blackColor,
-                  fontSize: 14,
+                  fontSize: 10,
                   fontWeight: FontWeight.normal,
                 ),
               ),
@@ -44,8 +48,8 @@ class FeatureItem extends StatelessWidget {
                 value,
                 style: const TextStyle(
                   color: AppColors.blackColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],

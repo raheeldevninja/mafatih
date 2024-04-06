@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/features/home/property_details/compare_properties_screen.dart';
 
 
 class PriceAndCompareProperty extends StatelessWidget {
@@ -47,7 +48,16 @@ class PriceAndCompareProperty extends StatelessWidget {
 
         ///compare button
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ComparePropertiesScreen(),
+              ),
+            );
+
+          },
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -15,6 +15,7 @@ import 'package:mafatih/features/home/property_details/widgets/property_attribut
 import 'package:mafatih/features/home/property_details/widgets/property_features.dart';
 import 'package:mafatih/features/home/property_details/widgets/property_images_slider.dart';
 
+
 class PropertyDetailsScreen extends StatefulWidget {
   const PropertyDetailsScreen({required this.property, super.key});
 
