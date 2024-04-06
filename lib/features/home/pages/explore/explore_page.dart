@@ -10,8 +10,10 @@ import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
+import 'package:mafatih/features/home/pages/explore/widgets/heading_and_see_all_button.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
+
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -199,33 +201,9 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
 
             ///properties and see all button row
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.propertiesLabel,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          l10n.seeAllBtnText,
-                          style: const TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primaryColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            HeadingAndSeeAllButton(
+              heading: l10n.propertiesLabel,
+              sellAllOnPressed: () {},
             ),
 
             ///properties listview
@@ -247,33 +225,9 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
 
             ///daily rentals and see all button row
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.dailyRentalsLabel,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          l10n.seeAllBtnText,
-                          style: const TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primaryColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            HeadingAndSeeAllButton(
+              heading: l10n.dailyRentalsLabel,
+              sellAllOnPressed: () {},
             ),
 
             ///daily rentals listview
@@ -317,33 +271,9 @@ class _ExplorePageState extends State<ExplorePage> {
             const SizedBox(height: 8),
 
             ///projects and see all button row
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        l10n.projectsLabel,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          l10n.seeAllBtnText,
-                          style: const TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primaryColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            HeadingAndSeeAllButton(
+              heading: l10n.projectsLabel,
+              sellAllOnPressed: () {},
             ),
 
             ListView.builder(

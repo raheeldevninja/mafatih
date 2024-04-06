@@ -14,6 +14,7 @@ class AppColors {
   static const Color redColor = Color(0xFFFF0000);
 
   static const Color backBtnColor = Color(0xFF707070);
+  static const Color selectedColor = Color(0xFF243941);
 
   static const Color phoneBtnColor = Color(0xFF243941);
   static const Color whatsappBtnColor = Color(0xFF17B805);

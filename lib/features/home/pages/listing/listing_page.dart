@@ -10,6 +10,7 @@ import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/util/utils.dart';
+import 'package:mafatih/features/home/filter/filter_bottom_sheet.dart';
 import 'package:mafatih/features/home/pages/listing/choose_from_map_screen.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/main_list_item.dart';
 import 'package:mafatih/features/home/pages/listing/widgets/map_icon.dart';
@@ -66,6 +67,7 @@ class _ListingPageState extends State<ListingPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.secondaryBgColor,
+      resizeToAvoidBottomInset: true,
       drawer: const AppDrawer(),
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -99,7 +101,12 @@ class _ListingPageState extends State<ListingPage> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+              ///open filter bottom sheet
+              _showFilterBottomSheet();
+
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
@@ -597,6 +604,28 @@ class _ListingPageState extends State<ListingPage> {
       });
     }
   }
+
+
+  void _showFilterBottomSheet() {
+    final l10n = AppLocalizations.of(context)!;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.secondaryColor,
+      isScrollControlled: true,
+
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50),
+          topRight: Radius.circular(50),
+        ),
+      ),
+      builder: (context) {
+        return const FiltersBottomSheet();
+      },
+    );
+  }
+
 
   @override
   void dispose() {
