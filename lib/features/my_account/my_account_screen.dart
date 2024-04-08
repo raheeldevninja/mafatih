@@ -3,6 +3,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
+import 'package:mafatih/features/my_account/complains/complains_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 
@@ -98,7 +99,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     leading: const Icon(Icons.error),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     title: const Text('Complains'),
-                    onTap: () {},
+                    onTap: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute( 
+                          builder: (context) => const ComplainsScreen(),
+                        ),
+                      );
+
+                    },
                   ),
                   const Divider(
                     indent: 16,
