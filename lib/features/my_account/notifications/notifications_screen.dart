@@ -3,6 +3,8 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/my_account/notifications/model/notification_model.dart';
+import 'package:mafatih/features/my_account/notifications/widgets/notification_item.dart';
+
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -12,12 +14,10 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-
   List<NotificationModel> notifications = [];
 
   @override
   void initState() {
-
     super.initState();
 
     initNotifications();
@@ -26,32 +26,42 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   initNotifications() {
     notifications = [
       NotificationModel(
-        title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        title:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         time: '4:23 pm, Today',
         date: 'Today',
       ),
       NotificationModel(
-        title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        title:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         time: '4:23 pm, Today',
         date: 'Today',
       ),
       NotificationModel(
-        title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        title:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         time: '4:23 pm, Today',
         date: 'Today',
       ),
       NotificationModel(
-        title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        title:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         time: '4:23 pm, Today',
         date: 'Today',
       ),
       NotificationModel(
-        title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        title:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+        description:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
         time: '4:23 pm, Today',
         date: 'Today',
       ),
@@ -122,7 +132,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   //mark all as read button
                   TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Mark All as Read',
                       style: TextStyle(
                         color: AppColors.blackColor,
@@ -142,62 +152,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               padding: const EdgeInsets.all(8),
               itemCount: notifications.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      setState(() {
-                        notifications[index] = notifications[index].copyWith(isRead: true);
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: notifications[index].isRead ? AppColors.whiteColor : AppColors.primaryColor.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            notifications[index].title,
-                            style: const TextStyle(
-                              color: AppColors.blackColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          Text(
-                            notifications[index].description,
-                            style: const TextStyle(
-                              color: AppColors.blackColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                '${notifications[index].time}, ${notifications[index].date}',
-                                style: const TextStyle(
-                                  color: AppColors.blackColor,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                return NotificationItem(
+                  onTap: () {
+                    setState(() {
+                      notifications[index] = notifications[index].copyWith(
+                        isRead: true,
+                      );
+                    });
+                  },
+                  notification: notifications[index],
                 );
               },
             ),
