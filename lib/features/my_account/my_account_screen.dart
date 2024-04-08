@@ -7,6 +7,8 @@ import 'package:mafatih/features/my_account/complains/complains_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 
+import 'property_requests/property_requests_screen.dart';
+
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({super.key});
 
@@ -103,7 +105,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute( 
+                        MaterialPageRoute(
                           builder: (context) => const ComplainsScreen(),
                         ),
                       );
@@ -120,7 +122,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     leading: const Icon(Icons.edit_note),
                     title: const Text('Property Request'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
+                    onTap: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PropertyRequestsScreen(),
+                        ),
+                      );
+
+                    },
                   ),
                   const Divider(
                     height: 0,
