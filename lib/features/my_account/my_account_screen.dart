@@ -3,6 +3,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
+import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({super.key});
@@ -23,6 +24,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.secondaryColor,
         title: const Text('My Account'),
         centerTitle: true,
@@ -167,7 +169,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     leading: const Icon(Icons.notifications),
                     title: const Text('Notifications'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
+                    onTap: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationsScreen(),
+                        ),
+                      );
+
+                    },
                   ),
                   const Divider(
                     height: 0,

@@ -31,6 +31,7 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: AppColors.secondaryColor,
+          surfaceTintColor: Colors.transparent,
           title: Text(l10n.otpVerificationHeading,
               style: const TextStyle(fontWeight: FontWeight.w500)),
           centerTitle: true,
