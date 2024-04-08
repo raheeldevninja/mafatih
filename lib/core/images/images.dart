@@ -5,6 +5,8 @@ class Images {
   static const String introBg = 'assets/images/intro_bg.svg';
   static const String propertyImage = 'assets/images/property_image.svg';
   static const String propertyImagePng = 'assets/images/property_image.png';
+  static const String ownerImage = 'assets/images/owner_image.png';
+  static const String propertyImagePort = 'assets/images/property_image_port.png';
 
 
   //icons

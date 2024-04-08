@@ -3,6 +3,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
+import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -121,7 +122,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     leading: const Icon(Icons.favorite),
                     title: const Text('Favorite Properties'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
+                    onTap: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FavouritePropertiesScreen(),
+                        ),
+                      );
+
+                    },
                   ),
                   const Divider(
                     height: 0,
