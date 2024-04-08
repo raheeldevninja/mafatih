@@ -361,7 +361,7 @@ class _ComparePropertiesScreenState extends State<ComparePropertiesScreen> {
                             color: AppColors.greyColor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          child: Text('123456'),
+                          child: const Text('123456'),
                         ),
                         const SizedBox(height: 16),
                         const Text('Ad License Number', style: TextStyle(fontSize: 14, color: AppColors.blackColor)),

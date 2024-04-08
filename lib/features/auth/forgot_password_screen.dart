@@ -9,6 +9,7 @@ import 'package:mafatih/core/util/utils.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:mafatih/features/auth/verify_otp_screen.dart';
 
+
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
