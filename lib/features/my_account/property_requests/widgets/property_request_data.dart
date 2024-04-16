@@ -6,15 +6,17 @@ class PropertyRequestData extends StatelessWidget {
     super.key,
     required this.title,
     required this.value,
+    this.backgroundColor = AppColors.whiteColor,
   });
 
   final String title;
   final String value;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: AppColors.whiteColor,
+      color: backgroundColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         child: Row(
@@ -23,13 +25,14 @@ class PropertyRequestData extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
               ),
             ),
             Text(
               value,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ),

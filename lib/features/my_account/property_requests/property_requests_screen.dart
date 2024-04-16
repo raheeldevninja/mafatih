@@ -248,26 +248,34 @@ class _PropertyRequestsScreenState extends State<PropertyRequestsScreen> {
                             //rounded corner container
                             Row(
                               children: [
-                                ContactCount(
-                                  value: propertyRequests[index].calls.toString(),
-                                  title: 'Engaged Agents',
+                                Expanded(
+                                  child: ContactCount(
+                                    value: propertyRequests[index].calls.toString(),
+                                    title: 'Engaged Agents',
+                                  ),
                                 ),
                                 const SizedBox(width: 8),
-                                ContactCount(
-                                  value: propertyRequests[index].engagedAgents.toString(),
-                                  title: 'Calls',
+                                Expanded(
+                                  child: ContactCount(
+                                    value: propertyRequests[index].engagedAgents.toString(),
+                                    title: 'Calls',
+                                  ),
                                 ),
                                 const SizedBox(width: 8),
 
-                                ContactCount(
-                                  value: propertyRequests[index].emails.toString(),
-                                  title: 'Emails',
+                                Expanded(
+                                  child: ContactCount(
+                                    value: propertyRequests[index].emails.toString(),
+                                    title: 'Emails',
+                                  ),
                                 ),
                                 const SizedBox(width: 8),
 
-                                ContactCount(
-                                  value: propertyRequests[index].whatsapp.toString(),
-                                  title: 'Whatsapp',
+                                Expanded(
+                                  child: ContactCount(
+                                    value: propertyRequests[index].whatsapp.toString(),
+                                    title: 'Whatsapp',
+                                  ),
                                 ),
                               ],
                             ),

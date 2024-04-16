@@ -7,6 +7,7 @@ class Images {
   static const String propertyImagePng = 'assets/images/property_image.png';
   static const String ownerImage = 'assets/images/owner_image.png';
   static const String propertyImagePort = 'assets/images/property_image_port.png';
+  static const String agentLogo = 'assets/images/agent_logo.png';
 
 
   //icons
@@ -43,6 +44,9 @@ class Images {
   static const String whatsappIcon = 'assets/icons/whatsapp_icon.svg';
   static const String messageIcon = 'assets/icons/message_icon.svg';
   static const String comparePropertyIcon = 'assets/icons/compare_property_icon.svg';
+  static const String starIcon = 'assets/icons/star_icon.svg';
+  static const String verifiedIcon = 'assets/icons/verified_icon.svg';
+  static const String mailIcon = 'assets/icons/mail_icon.svg';
 
 
 

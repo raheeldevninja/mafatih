@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.visibilityCallback,
     this.countryPickerCallback,
+    this.maxLines = 1,
     super.key,
   });
 
@@ -26,12 +27,13 @@ class AppTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final VoidCallback? visibilityCallback;
   final VoidCallback? countryPickerCallback;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      maxLines: 1,
+      maxLines: maxLines,
       obscureText: obscureText ?? false,
       keyboardType: keyboardType,
       decoration: InputDecoration(

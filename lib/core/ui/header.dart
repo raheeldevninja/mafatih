@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 
 class Header extends StatelessWidget {
-  const Header({required this.content, this.height = 50, super.key});
+  const Header({
+    required this.content,
+    this.height = 50,
+    super.key,
+  });
 
   final double? height;
   final Widget content;

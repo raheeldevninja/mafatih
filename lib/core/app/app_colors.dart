@@ -19,6 +19,7 @@ class AppColors {
   static const Color phoneBtnColor = Color(0xFF243941);
   static const Color whatsappBtnColor = Color(0xFF17B805);
   static const Color messageBtnColor = Color(0xFFFBAC1A);
+  static const Color inactiveTabColor = Color(0xFF000000);
 
 
 
@@ -32,7 +33,7 @@ class AppColors {
   static const Color borderColor = Color(0xFFC9C9C9);
   static const Color selectedOption = Color(0xFFC9C9C9);
 
-  static const Color bgColor = Color(0xFFF5F5F5);
+  static const Color backgroundColor = Color(0xFFF5F5F5);
   static const Color paidColor = Color(0xFF00FF08);
   static const Color starColor = Color(0xFFFF7700);
 }

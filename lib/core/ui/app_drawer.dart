@@ -3,7 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/agencies/agencies_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -80,10 +82,18 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           _buildNavDrawerItem(
-            l10n.agentsNav,
+            l10n.agenciesNav,
             Images.agentsIconNav,
             () {
               Navigator.pop(context);
+
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const AgentsScreen(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+
             },
           ),
           _buildNavDrawerItem(
