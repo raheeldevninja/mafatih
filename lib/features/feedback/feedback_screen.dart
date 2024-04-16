@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class AddNewNoteScreen extends StatefulWidget {
-  const AddNewNoteScreen({super.key});
+class FeedbackScreen extends StatefulWidget {
+  const FeedbackScreen({super.key});
 
   @override
-  State<AddNewNoteScreen> createState() => _AddNewNoteScreenState();
+  State<FeedbackScreen> createState() => _FeedbackScreenState();
 }
 
-class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
+class _FeedbackScreenState extends State<FeedbackScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  final _commentController = TextEditingController();
+  double ratingValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
         backgroundColor: AppColors.secondaryColor,
         surfaceTintColor: Colors.transparent,
         title: const Text(
-          'Add New Note',
+          'Feedback',
           style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -75,37 +77,49 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                 children: [
 
                   const SizedBox(
-                    height: 20,
+                    height: 10,
+                  ),
+
+                  const MainHeading(heading: 'How would you rate your experience ?'),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  Center(
+                    child: RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 5,
+                      itemSize: 30,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        ratingValue = rating;
+                      },
+                    ),
+
                   ),
 
 
-                  Widgets.labels('Title'),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  Widgets.labels('Comment'),
                   const SizedBox(
                     height: 10,
                   ),
 
                   AppTextField(
-                    controller: _titleController,
+                    controller: _commentController,
                     keyboardType: TextInputType.text,
-                    hintText: 'Enter your title',
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  Widgets.labels('Description'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  AppTextField(
-                    controller: _descriptionController,
-                    keyboardType: TextInputType.text,
-                    hintText: 'Enter description ...',
+                    hintText: 'Add your feedback here ...',
                     maxLines: 4,
                     validator: (value) {
                       return null;
@@ -121,7 +135,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     width: double.infinity,
                     height: 60,
                     child: SimpleButton(
-                      text: 'Submit',
+                      text: 'Send Feedback',
                       callback: () {
                         if (_formKey.currentState!.validate()) {}
                       },
@@ -144,7 +158,6 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   void dispose() {
     super.dispose();
 
-    _titleController.dispose();
-    _descriptionController.dispose();
+    _commentController.dispose();
   }
 }

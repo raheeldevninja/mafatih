@@ -7,6 +7,7 @@ import 'package:mafatih/core/ui/icon_text_button.dart';
 import 'package:mafatih/core/ui/rounded_button.dart';
 import 'package:mafatih/features/agencies/agencies_screen.dart';
 import 'package:mafatih/features/contact_us/contact_us_screen.dart';
+import 'package:mafatih/features/feedback/feedback_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
 import 'package:mafatih/features/static_pages/faq_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -193,6 +194,27 @@ class AppDrawer extends StatelessWidget {
 
                     },
                     child: const Text('FAQs', style: TextStyle(color: AppColors.blackColor),),
+                  ),
+                ),
+              ],
+            ),
+
+            Row(
+              children: [
+
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const FeedbackScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
+                    child: const Text('Feedback', style: TextStyle(color: AppColors.blackColor),),
                   ),
                 ),
               ],
