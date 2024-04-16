@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/notes/add_new_note_screen.dart';
 import 'package:mafatih/features/notes/model/note_model.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -118,6 +120,14 @@ class _NotesScreenState extends State<NotesScreen> {
           borderRadius: BorderRadius.circular(60),
         ),
         onPressed: () {
+
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: const AddNewNoteScreen(),
+            withNavBar: false,
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
+
         },
         child: const Icon(Icons.add, color: AppColors.secondaryColor, size: 32,),
       ),
