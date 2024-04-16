@@ -65,6 +65,7 @@ class Images {
   static const String settingsIconNav = 'assets/icons/settings_icon.svg';
   static const String logoutIconNav = 'assets/icons/logout_icon.svg';
   static const String addIconNav = 'assets/icons/add_icon_nav.svg';
+  static const String contactUsIconNav = 'assets/icons/contact_us_icon_nav.svg';
 
 
   //list page main list icons

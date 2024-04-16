@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 
-class SimpleButton extends StatelessWidget {
-  const SimpleButton({
+class RoundedButton extends StatelessWidget {
+  const RoundedButton({
     super.key,
     required this.text,
     required this.callback,
@@ -25,7 +25,7 @@ class SimpleButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         foregroundColor: Colors.black,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(40.0),
         ),
       ),
       child: FittedBox(
