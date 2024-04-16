@@ -6,11 +6,17 @@ class ProjectData extends StatelessWidget {
   const ProjectData({
     required this.title,
     required this.value,
+    this.titleSize = 12,
+    this.valueSize = 14,
     super.key,
   });
 
   final String title;
   final String value;
+
+
+  final double? titleSize;
+  final double? valueSize;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +25,9 @@ class ProjectData extends StatelessWidget {
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.blackColor,
-            fontSize: 14,
+            fontSize: valueSize,
             fontWeight: FontWeight.w500,
           ),
           maxLines: 2,
@@ -30,9 +36,9 @@ class ProjectData extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.greyColor,
-            fontSize: 12,
+            fontSize: titleSize,
             fontWeight: FontWeight.w400,
           ),
           textAlign: TextAlign.left,

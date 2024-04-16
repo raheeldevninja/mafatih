@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
@@ -13,10 +14,10 @@ import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/heading_and_see_all_button.dart';
+import 'package:mafatih/features/home/pages/explore/widgets/project_data.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_item.dart';
 import 'package:mafatih/features/search/search_screen.dart';
-
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -176,14 +177,12 @@ class _ExplorePageState extends State<ExplorePage> {
         actions: [
           IconButton(
             onPressed: () {
-
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const SearchScreen(),
                 ),
               );
-
             },
             icon: SvgPicture.asset(
               width: 20,
@@ -297,7 +296,12 @@ class _ExplorePageState extends State<ExplorePage> {
               scrollDirection: Axis.vertical,
               itemCount: projects.length,
               itemBuilder: (context, index) {
-                return ProjectItem(property: projects[index]);
+                return ProjectItem(
+                  property: projects[index],
+                  onTap: () {
+                    _showProjectDialog(projects[index]);
+                  },
+                );
               },
             ),
 
@@ -477,20 +481,18 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
-
                                       const Expanded(child: SizedBox()),
-
                                       SizedBox(
                                         height: 40,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           child: Image.asset(
                                             Images.ownerImage,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                   const SizedBox(height: 32),
@@ -537,6 +539,318 @@ class _ExplorePageState extends State<ExplorePage> {
                                       ),
                                     ],
                                   ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+
+                  //close button
+                  Positioned(
+                    right: 10,
+                    top: 10,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Align(
+                        alignment: Alignment.topRight,
+                        child: CircleAvatar(
+                          radius: 14,
+                          backgroundColor: AppColors.whiteColor,
+                          child: Icon(Icons.close, color: AppColors.blackColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showProjectDialog(Property property) {
+    int current = 0;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) => Container(
+              height: 380,
+              decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.greyColor.withOpacity(0.4),
+                    blurRadius: 10.0,
+                    offset: const Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Stack(
+                              children: [
+                                CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: 200.0,
+                                    viewportFraction: 1,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        current = index;
+                                      });
+                                    },
+                                  ),
+                                  items: property.images.map((i) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return Image.asset(
+                                          'assets/images/property_image.png',
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: property.images
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      return GestureDetector(
+                                        onTap: () => {},
+                                        child: Container(
+                                          width: 10.0,
+                                          height: 10.0,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: (Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? AppColors.whiteColor
+                                                      : AppColors.blackColor)
+                                                  .withOpacity(
+                                                      current == entry.key
+                                                          ? 0.9
+                                                          : 0.4)),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Project Title',
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  Images.selectedLocationIcon,
+                                                  width: 16,
+                                                  height: 16,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                const Flexible(
+                                                  child: Text(
+                                                    'Riyadh',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 4),
+                                                const Flexible(
+                                                  child: Text(
+                                                    '4km, 10 min',
+                                                    style: TextStyle(
+                                                      color: AppColors.primaryColor,
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                    overflow: TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 50,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.asset(
+                                                Images.ownerImage,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  Row(
+                                    children: [
+                                      const Expanded(
+                                        child: ProjectData(
+                                          title: 'No of Units',
+                                          value: '20',
+                                          titleSize: 10,
+                                          valueSize: 12,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      const Expanded(
+                                        child: ProjectData(
+                                          title: 'Units Type',
+                                          value: 'Residential',
+                                          titleSize: 10,
+                                          valueSize: 12,
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 4),
+
+                                      const Expanded(
+                                        child: ProjectData(
+                                          title: 'Area',
+                                          value: '90m2 to 180m2',
+                                          titleSize: 10,
+                                          valueSize: 12,
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 4),
+
+                                      const Expanded(
+                                        child: ProjectData(
+                                          title: 'Rooms',
+                                          value: '2 to 5',
+                                          titleSize: 10,
+                                          valueSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const SizedBox(height: 16),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        property.price,
+                                        style: const TextStyle(
+                                          color: AppColors.primaryColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      const Text(
+                                        'SAR',
+                                        style: TextStyle(
+                                            color: AppColors.primaryColor,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+
+                                      const SizedBox(width: 16),
+                                      const Flexible(
+                                        child: Text(
+                                          'to',
+                                          style: TextStyle(
+                                              color: AppColors.greyColor,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 16),
+
+                                      Text(
+                                        property.price,
+                                        style: const TextStyle(
+                                            color: AppColors.primaryColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      const Text(
+                                        'SAR',
+                                        style: TextStyle(
+                                          color: AppColors.primaryColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
                                 ],
                               ),
                             ),

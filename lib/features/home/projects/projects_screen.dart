@@ -144,13 +144,11 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               height: 20,
               content: SizedBox(),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text(
                     'Projects for Sale in all Saudi Arabia',
                     style: TextStyle(
@@ -158,9 +156,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
                   Text(
                     '56 results',
                     style: TextStyle(
@@ -168,25 +164,22 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemCount: projects.length,
                     itemBuilder: (context, index) {
-                      return ProjectItem(property: projects[index]);
+                      return ProjectItem(
+                        property: projects[index],
+                        onTap: () {},
+                      );
                     },
                   ),
-
-
                 ],
               ),
             ),
-
-
           ],
         ),
       ),
