@@ -4,6 +4,7 @@ import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:mafatih/features/my_account/complains/complains_screen.dart';
+import 'package:mafatih/features/my_account/edit_profile/edit_profile_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 import 'package:mafatih/features/notes/notes_screen.dart';
@@ -76,7 +77,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   const SizedBox(height: 10),
                   const MainHeading(heading: 'Abed Kabalan'),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const EditProfileScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                     child: const Text(
                       'Edit Profile',
                       style: TextStyle(
