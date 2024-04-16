@@ -6,6 +6,8 @@ import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:mafatih/features/my_account/complains/complains_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
+import 'package:mafatih/features/notes/notes_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'property_requests/property_requests_screen.dart';
 
@@ -176,7 +178,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     leading: const Icon(Icons.notes),
                     title: const Text('My notes'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
+                    onTap: () {
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const NotesScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                   ),
                   const Divider(
                     height: 0,
