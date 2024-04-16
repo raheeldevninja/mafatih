@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/icon_text_button.dart';
 import 'package:mafatih/core/ui/rounded_button.dart';
 import 'package:mafatih/features/agencies/agencies_screen.dart';
+import 'package:mafatih/features/contact_us/contact_us_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
 import 'package:mafatih/features/static_pages/faq_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -124,6 +125,14 @@ class AppDrawer extends StatelessWidget {
               Images.contactUsIconNav,
               () {
                 Navigator.pop(context);
+
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const ContactUsScreen(),
+                  withNavBar: false,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+
               },
             ),
             const SizedBox(
