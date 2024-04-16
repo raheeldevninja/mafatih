@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/ui/AppTextField.dart';
+import 'package:mafatih/core/ui/app_text_field.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/core/ui/header.dart';

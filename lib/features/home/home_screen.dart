@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/dialgos.dart';
 import 'package:mafatih/core/util/utils.dart';
 import 'package:mafatih/features/home/pages/add/add_page.dart';
 import 'package:mafatih/features/home/pages/chat/chat_page.dart';
@@ -19,6 +20,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  int lastPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +32,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      //controller: _controller,
+      onItemSelected: (int pageNo) {
+
+        if(pageNo == 4) {
+
+          Dialogs.showServicesDialog(context);
+          Utils.controller.jumpToTab(lastPage);
+
+          return;
+        }
+
+        setState(() {
+          lastPage = pageNo;
+        });
+
+      },
+
       controller: Utils.controller,
       navBarHeight: 70,
       screens: _buildScreens(),
@@ -64,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style15,
+
     );
   }
 

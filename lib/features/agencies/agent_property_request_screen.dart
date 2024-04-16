@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:mafatih/core/ui/AppTextField.dart';
+import 'package:mafatih/core/ui/app_text_field.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:mafatih/core/ui/simple_button.dart';

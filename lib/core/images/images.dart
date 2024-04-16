@@ -47,6 +47,10 @@ class Images {
   static const String starIcon = 'assets/icons/star_icon.svg';
   static const String verifiedIcon = 'assets/icons/verified_icon.svg';
   static const String mailIcon = 'assets/icons/mail_icon.svg';
+  static const String propertyCheckServicesIcon = 'assets/icons/property_check_services_icon.svg';
+  static const String valuatePropertyServicesIcon = 'assets/icons/valuate_property_services_icon.svg';
+  static const String homeFinancingServicesIcon = 'assets/icons/home_financing_services_icon.svg';
+  static const String homeInsuranceServicesIcon = 'assets/icons/home_insurance_services_icon.svg';
 
 
 
