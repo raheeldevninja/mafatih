@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -366,15 +367,9 @@ class _ExplorePageState extends State<ExplorePage> {
                                   items: property.images.map((i) {
                                     return Builder(
                                       builder: (BuildContext context) {
-                                        return CachedNetworkImage(
-                                          imageUrl:
-                                              'https://via.placeholder.com/1000x600',
-                                          fit: BoxFit.fill,
-                                          progressIndicatorBuilder: (context,
-                                                  url, downloadProgress) =>
-                                              const CupertinoActivityIndicator(),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
+                                        return Image.asset(
+                                          'assets/images/property_image.png',
+                                          fit: BoxFit.cover,
                                         );
                                       },
                                     );
@@ -443,7 +438,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
-                                      const SizedBox(width: 16),
+                                      const SizedBox(width: 8),
                                       SvgPicture.asset(
                                         Images.bedIcon,
                                         width: 20,
@@ -456,7 +451,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
-                                      const SizedBox(width: 16),
+                                      const SizedBox(width: 8),
                                       SvgPicture.asset(
                                         Images.tvLoungeIcon,
                                         width: 20,
@@ -469,7 +464,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
-                                      const SizedBox(width: 16),
+                                      const SizedBox(width: 8),
                                       SvgPicture.asset(
                                         Images.bathIcon,
                                         width: 20,
@@ -482,6 +477,20 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
+
+                                      const Expanded(child: SizedBox()),
+
+                                      SizedBox(
+                                        height: 40,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: Image.asset(
+                                            Images.ownerImage,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+
                                     ],
                                   ),
                                   const SizedBox(height: 32),
@@ -505,7 +514,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 SvgPicture.asset(
-                                                  Images.chooseMapIcon,
+                                                  Images.distanceIcon,
                                                   width: 20,
                                                   height: 20,
                                                   color: AppColors.primaryColor,
@@ -513,7 +522,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                                 const SizedBox(width: 4),
                                                 const Expanded(
                                                     child: Text(
-                                                  'View on map',
+                                                  '14.1 km - 26 min',
                                                   style: TextStyle(
                                                       fontSize: 12,
                                                       color: AppColors
