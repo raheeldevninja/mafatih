@@ -6,6 +6,7 @@ import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/feedback/feedback_screen.dart';
+import 'package:mafatih/features/language_screen/language_screen.dart';
 import 'package:mafatih/features/theme_screen/theme_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -116,7 +117,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: SvgPicture.asset(Images.languageSettingsIcon)
                         ),
                         title: const Text('Language'),
-                        onTap: () {},
+                        onTap: () {
+
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const LanguageScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                          );
+
+                        },
                       ),
                       ListTile(
                         leading: Container(

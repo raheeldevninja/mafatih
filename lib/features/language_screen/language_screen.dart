@@ -1,41 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/features/theme_screen/model/theme_model.dart';
+import 'package:mafatih/features/language_screen/model/language_model.dart';
+import 'package:mafatih/l10n/locale_provider.dart';
+import 'package:provider/provider.dart';
 
-class ThemeScreen extends StatefulWidget {
-  const ThemeScreen({super.key});
+class LanguageScreen extends StatefulWidget {
+  const LanguageScreen({super.key});
 
   @override
-  State<ThemeScreen> createState() => _ThemeScreenState();
+  State<LanguageScreen> createState() => _LanguageScreenState();
 }
 
-class _ThemeScreenState extends State<ThemeScreen> {
-  List<ThemeModel> themesList = [];
+class _LanguageScreenState extends State<LanguageScreen> {
+  List<LanguageModel> languagesList = [];
 
   @override
   void initState() {
     super.initState();
-    _getThemes();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getLanguages();
+    });
+
   }
 
-  _getThemes() {
-    themesList.add(ThemeModel(
-      themeName: 'Light',
-      themeIcon: Images.lightThemeIcon,
+  _getLanguages() {
+    languagesList.add(LanguageModel(
+      languageName: 'English',
       isSelected: true,
     ));
-    themesList.add(ThemeModel(
-      themeName: 'Dark',
-      themeIcon: Images.darkThemeIcon,
+
+    languagesList.add(LanguageModel(
+      languageName: 'العربیہ',
     ));
-    themesList.add(ThemeModel(
-      themeName: 'Automatic',
-      themeIcon: Images.automaticThemeIcon,
-    ));
+
+    final languageCode = AppLocalizations.of(context)!.localeName;
+
+    if (languageCode == 'en') {
+      for (int i = 0; i < languagesList.length; i++) {
+        if (i == 0) {
+          languagesList[i] = languagesList[i].copyWith(isSelected: true);
+        } else {
+          languagesList[i] = languagesList[i].copyWith(isSelected: false);
+        }
+      }
+    } else {
+      for (int i = 0; i < languagesList.length; i++) {
+        if (i == 1) {
+          languagesList[i] = languagesList[i].copyWith(isSelected: true);
+        } else {
+          languagesList[i] = languagesList[i].copyWith(isSelected: false);
+        }
+      }
+    }
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -52,7 +75,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
         backgroundColor: AppColors.secondaryColor,
         surfaceTintColor: Colors.transparent,
         title: const Text(
-          'Theme',
+          'Language',
           style: TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -100,48 +123,42 @@ class _ThemeScreenState extends State<ThemeScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () {
-                              for (int i = 0; i < themesList.length; i++) {
+                              for (int i = 0; i < languagesList.length; i++) {
                                 if (i == index) {
-                                  themesList[i] =
-                                      themesList[i].copyWith(isSelected: true);
+                                  languagesList[i] = languagesList[i]
+                                      .copyWith(isSelected: true);
                                 } else {
-                                  themesList[i] =
-                                      themesList[i].copyWith(isSelected: false);
+                                  languagesList[i] = languagesList[i]
+                                      .copyWith(isSelected: false);
                                 }
                               }
 
-                              setState(() {
+                              if (languagesList[index].languageName ==
+                                  'English') {
+                                _chooseLanguage(context, 'en');
+                              } else {
+                                _chooseLanguage(context, 'ar');
+                              }
 
-                              });
+                              setState(() {});
                             },
-                            leading: Container(
-                              width: 40,
-                              height: 40,
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                              child: SvgPicture.asset(
-                                themesList[index].themeIcon,
-                                color: themesList[index].isSelected ? AppColors.primaryColor : AppColors.blackColor,
-                              ),
-                            ),
-                            trailing: themesList[index].isSelected
+                            trailing: languagesList[index].isSelected
                                 ? const Icon(
                                     Icons.check,
                                     color: AppColors.primaryColor,
                                   )
                                 : null,
                             title: Text(
-                              themesList[index].themeName,
+                              languagesList[index].languageName,
                               style: TextStyle(
-                                color: themesList[index].isSelected ? AppColors.primaryColor : AppColors.blackColor,
+                                color: languagesList[index].isSelected
+                                    ? AppColors.primaryColor
+                                    : AppColors.blackColor,
                               ),
                             ),
                           );
                         },
-                        itemCount: themesList.length,
+                        itemCount: languagesList.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                       ),
@@ -157,5 +174,12 @@ class _ThemeScreenState extends State<ThemeScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _chooseLanguage(BuildContext context, String code) async {
+    final localeProvider = context.read<LocaleProvider>();
+
+    localeProvider.changeLocale(Locale(code));
+    await localeProvider.saveChooseLanguageShown();
   }
 }
