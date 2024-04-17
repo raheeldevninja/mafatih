@@ -7,6 +7,7 @@ import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/feedback/feedback_screen.dart';
 import 'package:mafatih/features/language_screen/language_screen.dart';
+import 'package:mafatih/features/static_pages/about_us_page.dart';
 import 'package:mafatih/features/theme_screen/theme_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -161,7 +162,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: SvgPicture.asset(Images.aboutSettingsIcon)
                         ),
                         title: const Text('About'),
-                        onTap: () {},
+                        onTap: () {
+
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const AboutUsPage(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                          );
+
+
+                        },
                       ),
                       ListTile(
                         leading: Container(

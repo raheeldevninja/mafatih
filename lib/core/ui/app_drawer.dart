@@ -10,6 +10,9 @@ import 'package:mafatih/features/contact_us/contact_us_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
 import 'package:mafatih/features/settings/settings_screen.dart';
 import 'package:mafatih/features/static_pages/faq_page.dart';
+import 'package:mafatih/features/static_pages/payment_policy_page.dart';
+import 'package:mafatih/features/static_pages/privacy_policy_page.dart';
+import 'package:mafatih/features/static_pages/terms_of_use_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -162,7 +165,18 @@ class AppDrawer extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      Navigator.pop(context);
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const TermsOfUsePage(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                     child: const Text(
                       'Terms of Use',
                       style: TextStyle(color: AppColors.blackColor),
@@ -171,7 +185,18 @@ class AppDrawer extends StatelessWidget {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      Navigator.pop(context);
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const PrivacyPolicyPage(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                     child: const Text(
                       'Privacy Policy',
                       style: TextStyle(color: AppColors.blackColor),
@@ -184,7 +209,16 @@ class AppDrawer extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const PaymentPolicyPage(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+                    },
                     child: const Text(
                       'Payment Policy',
                       style: TextStyle(color: AppColors.blackColor),
