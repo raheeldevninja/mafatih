@@ -66,6 +66,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
             : null,
+
+        actions: [
+          //skip button
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              'Skip',
+              style: TextStyle(color: AppColors.primaryColor),
+            ),
+          ),
+        ],
       ),
       body: ListView(
         children: [

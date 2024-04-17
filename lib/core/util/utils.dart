@@ -57,7 +57,7 @@ class Utils {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        title: 'Labees',
+        title: 'Mafatih',
         message: message,
         color: AppColors.primaryColor,
         contentType: contentType,
