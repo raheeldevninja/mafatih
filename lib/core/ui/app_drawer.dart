@@ -9,6 +9,7 @@ import 'package:mafatih/features/agencies/agencies_screen.dart';
 import 'package:mafatih/features/contact_us/contact_us_screen.dart';
 import 'package:mafatih/features/feedback/feedback_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
+import 'package:mafatih/features/settings/settings_screen.dart';
 import 'package:mafatih/features/static_pages/faq_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -119,6 +120,14 @@ class AppDrawer extends StatelessWidget {
               Images.settingsIconNav,
               () {
                 Navigator.pop(context);
+
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const SettingsScreen(),
+                  withNavBar: false,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+
               },
             ),
             _buildNavDrawerItem(

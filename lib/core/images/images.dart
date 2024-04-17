@@ -53,6 +53,11 @@ class Images {
   static const String valuatePropertyServicesIcon = 'assets/icons/valuate_property_services_icon.svg';
   static const String homeFinancingServicesIcon = 'assets/icons/home_financing_services_icon.svg';
   static const String homeInsuranceServicesIcon = 'assets/icons/home_insurance_services_icon.svg';
+  static const String languageSettingsIcon = 'assets/icons/language_settings_icon.svg';
+  static const String themeSettingsIcon = 'assets/icons/theme_settings_icon.svg';
+  static const String feedbackSettingsIcon = 'assets/icons/feedback_settings_icon.svg';
+  static const String aboutSettingsIcon = 'assets/icons/about_settings_icon.svg';
+  static const String shareSettingsIcon = 'assets/icons/share_settings_icon.svg';
 
 
 
