@@ -58,6 +58,9 @@ class Images {
   static const String feedbackSettingsIcon = 'assets/icons/feedback_settings_icon.svg';
   static const String aboutSettingsIcon = 'assets/icons/about_settings_icon.svg';
   static const String shareSettingsIcon = 'assets/icons/share_settings_icon.svg';
+  static const String lightThemeIcon = 'assets/icons/light_theme_icon.svg';
+  static const String darkThemeIcon = 'assets/icons/dark_theme_icon.svg';
+  static const String automaticThemeIcon = 'assets/icons/automatic_theme_icon.svg';
 
 
 

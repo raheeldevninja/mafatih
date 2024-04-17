@@ -5,6 +5,9 @@ import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/feedback/feedback_screen.dart';
+import 'package:mafatih/features/theme_screen/theme_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 
 class SettingsScreen extends StatefulWidget {
@@ -91,7 +94,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: SvgPicture.asset(Images.themeSettingsIcon)
                         ),
                         title: const Text('Theme'),
-                        onTap: () {},
+                        onTap: () {
+
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const ThemeScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                          );
+
+                        },
                       ),
                       ListTile(
                         leading: Container(
@@ -117,7 +129,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: SvgPicture.asset(Images.feedbackSettingsIcon)
                         ),
                         title: const Text('Feedback'),
-                        onTap: () {},
+                        onTap: () {
+
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const FeedbackScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                          );
+
+                        },
                       ),
                       ListTile(
                         leading: Container(
