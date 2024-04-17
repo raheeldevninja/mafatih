@@ -10,6 +10,7 @@ class Images {
   static const String agentLogo = 'assets/images/agent_logo.png';
   static const String projectImageLand = 'assets/images/project_image_land.png';
   static const String bannerImage = 'assets/images/banner_image.png';
+  static const String ayeenImage = 'assets/images/ayeen.png';
 
 
   //icons
@@ -61,6 +62,8 @@ class Images {
   static const String lightThemeIcon = 'assets/icons/light_theme_icon.svg';
   static const String darkThemeIcon = 'assets/icons/dark_theme_icon.svg';
   static const String automaticThemeIcon = 'assets/icons/automatic_theme_icon.svg';
+  static const String villaIcon = 'assets/icons/villa_icon.svg';
+  static const String uploadIcon = 'assets/icons/upload_icon.svg';
 
 
 

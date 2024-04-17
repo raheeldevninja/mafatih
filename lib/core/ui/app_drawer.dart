@@ -7,12 +7,10 @@ import 'package:mafatih/core/ui/icon_text_button.dart';
 import 'package:mafatih/core/ui/rounded_button.dart';
 import 'package:mafatih/features/agencies/agencies_screen.dart';
 import 'package:mafatih/features/contact_us/contact_us_screen.dart';
-import 'package:mafatih/features/feedback/feedback_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
 import 'package:mafatih/features/settings/settings_screen.dart';
 import 'package:mafatih/features/static_pages/faq_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -127,7 +125,6 @@ class AppDrawer extends StatelessWidget {
                   withNavBar: false,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
-
               },
             ),
             _buildNavDrawerItem(
@@ -142,7 +139,6 @@ class AppDrawer extends StatelessWidget {
                   withNavBar: false,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
-
               },
             ),
             const SizedBox(
@@ -162,73 +158,58 @@ class AppDrawer extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-
             Row(
               children: [
                 Expanded(
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text('Terms of Use', style: TextStyle(color: AppColors.blackColor),),
+                    child: const Text(
+                      'Terms of Use',
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
                   ),
                 ),
-
                 Expanded(
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text('Privacy Policy', style: TextStyle(color: AppColors.blackColor),),
+                    child: const Text(
+                      'Privacy Policy',
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
                   ),
                 ),
               ],
             ),
-
             Row(
               children: [
                 Expanded(
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text('Payment Policy', style: TextStyle(color: AppColors.blackColor),),
+                    child: const Text(
+                      'Payment Policy',
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
                   ),
                 ),
-
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: const FAQPage(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
-                    child: const Text('FAQs', style: TextStyle(color: AppColors.blackColor),),
+                    child: const Text(
+                      'FAQs',
+                      style: TextStyle(color: AppColors.blackColor),
+                    ),
                   ),
                 ),
               ],
             ),
-
-            Row(
-              children: [
-
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: const FeedbackScreen(),
-                        withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                      );
-
-                    },
-                    child: const Text('Feedback', style: TextStyle(color: AppColors.blackColor),),
-                  ),
-                ),
-              ],
-            ),
-
             const SizedBox(
               height: 24,
             ),
