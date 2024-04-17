@@ -4,6 +4,7 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
+import 'package:mafatih/features/agencies/report_ad_screen.dart';
 import 'package:mafatih/features/home/property_details/widgets/about_project.dart';
 import 'package:mafatih/features/home/property_details/widgets/ad_owner.dart';
 import 'package:mafatih/features/home/property_details/widgets/address_and_see_videos.dart';
@@ -14,6 +15,7 @@ import 'package:mafatih/features/home/property_details/widgets/price_and_compare
 import 'package:mafatih/features/home/property_details/widgets/property_attributes.dart';
 import 'package:mafatih/features/home/property_details/widgets/property_features.dart';
 import 'package:mafatih/features/home/property_details/widgets/property_images_slider.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 
 class PropertyDetailsScreen extends StatefulWidget {
@@ -139,7 +141,16 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                   const SizedBox(height: 8),
 
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const ReportAdScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                     child: const Text(
                       'Report Ad',
                       style: TextStyle(

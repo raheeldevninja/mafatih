@@ -92,17 +92,7 @@ class AgentItem extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             GestureDetector(
-              onTap: () {
-
-                PersistentNavBarNavigator.pushNewScreen(
-                  context,
-                  screen: const ReportAdScreen(),
-                  withNavBar: false,
-                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                );
-
-
-              },
+              onTap: () {},
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
