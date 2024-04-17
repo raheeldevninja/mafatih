@@ -37,6 +37,7 @@ class _PropertyItemState extends State<PropertyItem> {
       ),
       child: Row(
         children: [
+
           ///carousel slider
           SizedBox(
             width: 160,
@@ -55,15 +56,13 @@ class _PropertyItemState extends State<PropertyItem> {
                   items: widget.property.images.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: i,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    const CupertinoActivityIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(i,
+                                fit: BoxFit.cover,
+                              )
                           ),
                         );
                       },
@@ -77,7 +76,10 @@ class _PropertyItemState extends State<PropertyItem> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children:
-                        widget.property.images.asMap().entries.map((entry) {
+                    widget.property.images
+                        .asMap()
+                        .entries
+                        .map((entry) {
                       return GestureDetector(
                         onTap: () => {},
                         child: Container(
@@ -87,12 +89,14 @@ class _PropertyItemState extends State<PropertyItem> {
                               vertical: 8.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.whiteColor
-                                      : AppColors.blackColor)
+                              color: (Theme
+                                  .of(context)
+                                  .brightness ==
+                                  Brightness.dark
+                                  ? AppColors.whiteColor
+                                  : AppColors.blackColor)
                                   .withOpacity(
-                                      _current == entry.key ? 0.9 : 0.4)),
+                                  _current == entry.key ? 0.9 : 0.4)),
                         ),
                       );
                     }).toList(),
@@ -111,7 +115,7 @@ class _PropertyItemState extends State<PropertyItem> {
               Text(
                 widget.property.propertyName,
                 style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               Text(
@@ -224,17 +228,11 @@ class _PropertyItemState extends State<PropertyItem> {
                     decoration: BoxDecoration(
                       color: AppColors.whiteColor,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.greyColor, width: 1),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.property.ownerImage,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                const CupertinoActivityIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                      child: Image.asset(
+                          Images.ownerImage,
                       ),
                     ),
                   ),
@@ -245,7 +243,7 @@ class _PropertyItemState extends State<PropertyItem> {
                       const Text(
                         'Ad Owner',
                         style:
-                            TextStyle(color: AppColors.greyColor, fontSize: 12),
+                        TextStyle(color: AppColors.greyColor, fontSize: 12),
                       ),
                       Text(
                         widget.property.addOwner,

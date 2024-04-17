@@ -22,6 +22,7 @@ class _PropertyListItemState extends State<PropertyListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 240,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -39,13 +40,13 @@ class _PropertyListItemState extends State<PropertyListItem> {
         children: [
           //carousel slider
           SizedBox(
-            width: 90,
+            width: 140,
             child: Stack(
               children: [
                 CarouselSlider(
                   options: CarouselOptions(
                     height: 300.0,
-                    viewportFraction: 0.95,
+                    viewportFraction: 1,
                     onPageChanged: (index, reason) {
                       setState(() {
                         _current = index;
@@ -55,15 +56,14 @@ class _PropertyListItemState extends State<PropertyListItem> {
                   items: widget.property.images.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: i,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    const CupertinoActivityIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 2),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              Images.propertyImagePort,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         );
                       },
@@ -105,163 +105,163 @@ class _PropertyListItemState extends State<PropertyListItem> {
             ),
           ),
 
-          const SizedBox(width: 16),
+          const SizedBox(width: 8),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.property.propertyName,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${widget.property.price} SAR',
-                style: const TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.property.propertyName,
+                  style:
+                      const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${widget.property.price} SAR',
+                  style: const TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 8),
 
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    Images.areaIcon,
-                    width: 16,
-                    height: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.property.area,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    Images.bedIcon,
-                    width: 16,
-                    height: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.property.beds,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    Images.tvLoungeIcon,
-                    width: 16,
-                    height: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.property.tvLounge,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    Images.bathIcon,
-                    width: 16,
-                    height: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.property.bath,
-                    style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      Images.areaIcon,
+                      width: 16,
+                      height: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      widget.property.area,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 8),
+                    SvgPicture.asset(
+                      Images.bedIcon,
+                      width: 16,
+                      height: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      widget.property.beds,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 8),
+                    SvgPicture.asset(
+                      Images.tvLoungeIcon,
+                      width: 16,
+                      height: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      widget.property.tvLounge,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 8),
+                    SvgPicture.asset(
+                      Images.bathIcon,
+                      width: 16,
+                      height: 16,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      widget.property.bath,
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
 
-              const SizedBox(height: 12),
+                const SizedBox(height: 12),
 
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    Images.selectedLocationIcon,
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.property.address,
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      Images.selectedLocationIcon,
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      widget.property.address,
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
 
-              Row(
-                children: [
-                  SvgPicture.asset(Images.distanceIcon,
-                      width: 24, height: 24, color: AppColors.primaryColor),
-                  const SizedBox(width: 4),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'View Distance',
-                          style: TextStyle(
-                              color: AppColors.primaryColor,
-                              decoration: TextDecoration.underline,
-                              decorationColor: AppColors.primaryColor),
+                Row(
+                  children: [
+                    SvgPicture.asset(Images.distanceIcon,
+                        width: 24, height: 24, color: AppColors.primaryColor),
+                    const SizedBox(width: 4),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'View Distance',
+                            style: TextStyle(
+                                color: AppColors.primaryColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColors.primaryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                ///add owner
+                Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          Images.ownerImage,
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              ///add owner
-              Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColors.greyColor, width: 1),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.property.ownerImage,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                const CupertinoActivityIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Ad Owner',
-                        style:
-                            TextStyle(color: AppColors.greyColor, fontSize: 12),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Ad Owner',
+                            style:
+                                TextStyle(color: AppColors.greyColor, fontSize: 12),
+                          ),
+                          Text(
+                            widget.property.addOwner,
+                            style: const TextStyle(
+                                color: AppColors.blackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
                       ),
-                      Text(
-                        widget.property.addOwner,
-                        style: const TextStyle(
-                            color: AppColors.blackColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

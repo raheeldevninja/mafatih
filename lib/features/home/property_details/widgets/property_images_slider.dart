@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 
 
@@ -45,15 +46,12 @@ class _PropertyImagesSliderState extends State<PropertyImagesSlider> {
                 items: widget.property.images.map((i) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return CachedNetworkImage(
-                        imageUrl:
-                        'https://via.placeholder.com/1000x600',
-                        fit: BoxFit.fill,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                        const CupertinoActivityIndicator(),
-                        errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Image.asset(
+                          Images.projectImageLand,
+                          fit: BoxFit.cover,
+                        ),
                       );
                     },
                   );

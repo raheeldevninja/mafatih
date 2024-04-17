@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/property.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 
@@ -117,18 +118,10 @@ class AdOwner extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.greyColor, width: 1),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: CachedNetworkImage(
-                    imageUrl: property.ownerImage,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                    const CupertinoActivityIndicator(),
-                    errorWidget: (context, url, error) =>
-                    const Icon(Icons.error),
-                  ),
+                  child: Image.asset(Images.ownerImage)
                 ),
               ),
             ),

@@ -55,9 +55,9 @@ class _ExplorePageState extends State<ExplorePage> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/60x60',
         images: [
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
@@ -74,9 +74,9 @@ class _ExplorePageState extends State<ExplorePage> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/40x40',
         images: [
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
@@ -93,9 +93,9 @@ class _ExplorePageState extends State<ExplorePage> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/40x40',
         images: [
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
@@ -112,9 +112,9 @@ class _ExplorePageState extends State<ExplorePage> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/40x40',
         images: [
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
-          'https://via.placeholder.com/400x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
@@ -135,9 +135,9 @@ class _ExplorePageState extends State<ExplorePage> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/60x60',
         images: [
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
+          Images.projectImageLand,
+          Images.projectImageLand,
+          Images.projectImageLand,
         ],
       ),
     );
@@ -272,12 +272,9 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  imageUrl: 'https://via.placeholder.com/400x180',
-                  width: double.infinity,
-                  height: 180,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(
+                  Images.bannerImage
+                )
               ),
             ),
 
@@ -689,9 +686,9 @@ class _ExplorePageState extends State<ExplorePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
+                                            const Text(
                                               'Project Title',
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w500),
                                             ),

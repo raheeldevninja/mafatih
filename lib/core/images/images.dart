@@ -8,6 +8,8 @@ class Images {
   static const String ownerImage = 'assets/images/owner_image.png';
   static const String propertyImagePort = 'assets/images/property_image_port.png';
   static const String agentLogo = 'assets/images/agent_logo.png';
+  static const String projectImageLand = 'assets/images/project_image_land.png';
+  static const String bannerImage = 'assets/images/banner_image.png';
 
 
   //icons

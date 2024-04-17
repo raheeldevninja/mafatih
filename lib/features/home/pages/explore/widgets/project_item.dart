@@ -32,7 +32,7 @@ class _ProjectItemState extends State<ProjectItem> {
       onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(10),
@@ -61,15 +61,15 @@ class _ProjectItemState extends State<ProjectItem> {
                   items: widget.property.images.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: i,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    const CupertinoActivityIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              width: double.maxFinite,
+                              i,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         );
                       },
@@ -82,7 +82,8 @@ class _ProjectItemState extends State<ProjectItem> {
                   right: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: widget.property.images.asMap().entries.map((entry) {
+                    children:
+                        widget.property.images.asMap().entries.map((entry) {
                       return GestureDetector(
                         onTap: () => {},
                         child: Container(
@@ -92,12 +93,12 @@ class _ProjectItemState extends State<ProjectItem> {
                               vertical: 8.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color:
-                                  (Theme.of(context).brightness == Brightness.dark
-                                          ? AppColors.whiteColor
-                                          : AppColors.blackColor)
-                                      .withOpacity(
-                                          _current == entry.key ? 0.9 : 0.4)),
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blackColor)
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4)),
                         ),
                       );
                     }).toList(),
@@ -156,7 +157,8 @@ class _ProjectItemState extends State<ProjectItem> {
                                 Text(
                                   widget.property.address,
                                   style: const TextStyle(
-                                      fontSize: 14, fontWeight: FontWeight.w400),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ],
                             ),
@@ -167,18 +169,11 @@ class _ProjectItemState extends State<ProjectItem> {
                         decoration: BoxDecoration(
                           color: AppColors.whiteColor,
                           borderRadius: BorderRadius.circular(16),
-                          border:
-                              Border.all(color: AppColors.greyColor, width: 1),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.property.ownerImage,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) =>
-                                    const CupertinoActivityIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                          child: Image.asset(
+                            Images.ownerImage
                           ),
                         ),
                       ),

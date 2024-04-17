@@ -183,12 +183,6 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  /*Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PropertyDetailsScreen(property: properties[index]),
-                    ),
-                  );*/
 
                   PersistentNavBarNavigator.pushNewScreen(
                     context,
