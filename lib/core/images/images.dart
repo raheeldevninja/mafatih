@@ -64,6 +64,15 @@ class Images {
   static const String automaticThemeIcon = 'assets/icons/automatic_theme_icon.svg';
   static const String villaIcon = 'assets/icons/villa_icon.svg';
   static const String uploadIcon = 'assets/icons/upload_icon.svg';
+  static const String complainsAccountIcon = 'assets/icons/complains_account_icon.svg';
+  static const String propertyRequestAccountIcon = 'assets/icons/property_request_account_icon.svg';
+  static const String favouritePropertiesAccountIcon = 'assets/icons/favourite_properties_account_icon.svg';
+  static const String bookingsAccountIcon = 'assets/icons/bookings_account_icon.svg';
+  static const String myNotesAccountIcon = 'assets/icons/my_notes_account_icon.svg';
+  static const String viewRecordsAccountIcon = 'assets/icons/view_records_account_icon.svg';
+  static const String notificationsAccountIcon = 'assets/icons/notifications_account_icon.svg';
+  static const String myAccountIcon = 'assets/icons/my_account_icon.svg';
+  static const String rightArrowIcon = 'assets/icons/right_arrow_icon.svg';
 
 
 

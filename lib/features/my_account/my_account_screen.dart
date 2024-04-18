@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
@@ -59,21 +61,19 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
         child: Column(
           children: [
             Header(
-              height: 200,
+              height: 240,
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.primaryColor.withOpacity(0.2),
                     ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 70,
-                      color: AppColors.primaryColor,
-                    ),
+                    child: SvgPicture.asset(
+                      Images.myAccountIcon
+                    )
                   ),
                   const SizedBox(height: 10),
                   const MainHeading(heading: 'Abed Kabalan'),
@@ -88,14 +88,21 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       );
 
                     },
-                    child: const Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 16,
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColors.primaryColor,
-                      ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.primaryColor,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        SvgPicture.asset(Images.rightArrowIcon)
+                      ],
                     ),
                   ),
                 ],
@@ -105,13 +112,15 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: Column(
                 children: [
                   ListTile(
-                    leading: const Icon(Icons.error),
+                    leading: SvgPicture.asset(
+                      Images.complainsAccountIcon,
+                    ),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     title: const Text('Complains'),
                     onTap: () {
@@ -125,14 +134,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                    height: 0,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.edit_note),
+                    leading: SvgPicture.asset(
+                      Images.propertyRequestAccountIcon,
+                    ),
                     title: const Text('Property Request'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {
@@ -146,14 +152,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.favorite),
+                    leading: SvgPicture.asset(
+                      Images.favouritePropertiesAccountIcon,
+                    ),
                     title: const Text('Favorite Properties'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {
@@ -167,14 +170,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.calendar_month),
+                    leading: SvgPicture.asset(
+                      Images.bookingsAccountIcon,
+                    ),
                     title: const Text('Bookings'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {
@@ -189,14 +189,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.notes),
+                    leading: SvgPicture.asset(
+                      Images.myNotesAccountIcon,
+                    ),
                     title: const Text('My notes'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {
@@ -210,26 +207,20 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.speaker_notes_rounded),
+                    leading: SvgPicture.asset(
+                      Images.viewRecordsAccountIcon,
+                    ),
                     title: const Text('View Records'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {},
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                   ListTile(
-                    leading: const Icon(Icons.notifications),
+                    leading: SvgPicture.asset(
+                      Images.notificationsAccountIcon,
+                    ),
                     title: const Text('Notifications'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
                     onTap: () {
@@ -243,24 +234,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
                     },
                   ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text('Settings'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
-                  ),
-                  const Divider(
-                    height: 0,
-                    indent: 16,
-                    endIndent: 16,
-                    thickness: 0.5,
-                  ),
+
                 ],
               ),
             ),
