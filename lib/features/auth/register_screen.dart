@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
@@ -5,6 +6,9 @@ import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/static_pages/privacy_policy_page.dart';
+import 'package:mafatih/features/static_pages/terms_of_use_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -25,6 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
   String selectedCountryCode = '+966';
+
+  bool isTermsAndPrivacyChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +210,98 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
 
                   SizedBox(
-                    height: height * 0.05,
+                    height: 20
+                  ),
+
+                  Row(
+                    children: [
+                      Transform.scale(
+                        scale: 1.8,
+                        child: Checkbox(
+                          value: isTermsAndPrivacyChecked,
+                          side: const BorderSide(
+                            color: AppColors.greyColor,
+                          ),
+                          activeColor: AppColors.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              isTermsAndPrivacyChecked = value!;
+                            });
+                          },
+                        ),
+                      ),
+
+                      //rich text for terms of use and privacy policy
+
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              const TextSpan(
+                                text: 'Accept ',
+
+                              ),
+                              TextSpan(
+                                text: 'Terms of Use',
+                                style: const TextStyle(
+                                  color: AppColors.primaryColor,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                // Define an onTap handler to launch a URL
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: const TermsOfUsePage(),
+                                      withNavBar: false,
+                                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                                    );
+
+                                  },
+                              ),
+                              const TextSpan(
+                                text: ' and ',
+                              ),
+                              TextSpan(
+                                text: 'Privacy Policy',
+                                style: const TextStyle(
+                                  color: AppColors.primaryColor,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                // Define an onTap handler to launch a URL
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: const PrivacyPolicyPage(),
+                                      withNavBar: false,
+                                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                                    );
+
+                                  },
+                              ),
+                              const TextSpan(
+                                text: '.',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                  const SizedBox(
+                      height: 20
                   ),
 
                   //register button
