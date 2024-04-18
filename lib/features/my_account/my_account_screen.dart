@@ -9,10 +9,9 @@ import 'package:mafatih/features/my_account/complains/complains_screen.dart';
 import 'package:mafatih/features/my_account/edit_profile/edit_profile_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
+import 'package:mafatih/features/my_account/view_records/view_records_screen.dart';
 import 'package:mafatih/features/notes/notes_screen.dart';
-import 'package:mafatih/features/property_check/propety_check_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 import 'property_requests/property_requests_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -204,7 +203,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     title: const Text('View Records'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
+                    onTap: () {
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const ViewRecordsScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      );
+
+                    },
                   ),
 
                   ListTile(
