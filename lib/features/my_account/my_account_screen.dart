@@ -177,17 +177,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     title: const Text('Bookings'),
                     trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {
-
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: const PropertyCheckScreen(),
-                        withNavBar: false,
-                        pageTransitionAnimation:
-                        PageTransitionAnimation.cupertino,
-                      );
-
-                    },
+                    onTap: () {},
                   ),
 
                   ListTile(

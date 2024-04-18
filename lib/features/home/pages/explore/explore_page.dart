@@ -200,9 +200,7 @@ class _ExplorePageState extends State<ExplorePage> {
               Images.filterIcon,
             ),
           ),
-          const SizedBox(
-            width: 10,
-          )
+          const SizedBox(width: 10),
         ],
       ),
       body: SingleChildScrollView(
@@ -271,11 +269,8 @@ class _ExplorePageState extends State<ExplorePage> {
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  Images.bannerImage
-                )
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(Images.bannerImage)),
             ),
 
             const SizedBox(height: 8),
@@ -705,9 +700,11 @@ class _ExplorePageState extends State<ExplorePage> {
                                                     'Riyadh',
                                                     style: TextStyle(
                                                       fontSize: 14,
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     maxLines: 2,
                                                   ),
                                                 ),
@@ -716,11 +713,14 @@ class _ExplorePageState extends State<ExplorePage> {
                                                   child: Text(
                                                     '4km, 10 min',
                                                     style: TextStyle(
-                                                      color: AppColors.primaryColor,
+                                                      color: AppColors
+                                                          .primaryColor,
                                                       fontSize: 14,
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     maxLines: 2,
                                                   ),
                                                 ),
@@ -749,7 +749,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                     ],
                                   ),
                                   const SizedBox(height: 16),
-
                                   Row(
                                     children: [
                                       const Expanded(
@@ -769,9 +768,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                           valueSize: 12,
                                         ),
                                       ),
-
                                       const SizedBox(width: 4),
-
                                       const Expanded(
                                         child: ProjectData(
                                           title: 'Area',
@@ -780,9 +777,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                           valueSize: 12,
                                         ),
                                       ),
-
                                       const SizedBox(width: 4),
-
                                       const Expanded(
                                         child: ProjectData(
                                           title: 'Rooms',
@@ -793,9 +788,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                       ),
                                     ],
                                   ),
-
                                   const SizedBox(height: 16),
-
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -815,7 +808,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400),
                                       ),
-
                                       const SizedBox(width: 16),
                                       const Flexible(
                                         child: Text(
@@ -826,9 +818,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                               fontWeight: FontWeight.w400),
                                         ),
                                       ),
-
                                       const SizedBox(width: 16),
-
                                       Text(
                                         property.price,
                                         style: const TextStyle(
@@ -847,7 +837,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                       ),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),

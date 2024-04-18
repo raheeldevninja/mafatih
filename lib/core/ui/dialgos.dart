@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/features/home/pages/services/widgets/services_item.dart';
+import 'package:mafatih/features/property_check/propety_check_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 sealed class Dialogs {
   const Dialogs._();
@@ -52,7 +54,19 @@ sealed class Dialogs {
                       children: [
 
                         ServicesItem(
-                          onTap: () {},
+                          onTap: () {
+
+                            Navigator.pop(context);
+
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: const PropertyCheckScreen(),
+                              withNavBar: false,
+                              pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                            );
+
+                          },
                           title: 'Property Check',
                           icon: Images.propertyCheckServicesIcon,
                         ),
