@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/core/ui/shimmers/list_shimmer.dart';
 import 'package:mafatih/features/my_account/complains/model/complain.dart';
+import 'package:mafatih/features/my_account/complains/view_model/complains_provider.dart';
 import 'package:mafatih/features/my_account/complains/widgets/complain_item.dart';
-
+import 'package:provider/provider.dart';
 
 class ComplainsScreen extends StatefulWidget {
   const ComplainsScreen({super.key});
@@ -14,16 +18,21 @@ class ComplainsScreen extends StatefulWidget {
 }
 
 class _ComplainsScreenState extends State<ComplainsScreen> {
-  List<Complain> complains = [];
+  //List<Complain> complains = [];
 
   @override
   void initState() {
     super.initState();
 
-    _initComplainsList();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final complainsProvider = Provider.of<ComplainsProvider>(context, listen: false);
+      await complainsProvider.getComplains(context);
+    });
+
+    //_initComplainsList();
   }
 
-  _initComplainsList() {
+  /*_initComplainsList() {
     complains.add(
       Complain(
         complainNo: '134535',
@@ -63,63 +72,66 @@ class _ComplainsScreenState extends State<ComplainsScreen> {
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final complainsProvider = Provider.of<ComplainsProvider>(context);
+
+    final complains = complainsProvider.complainsResponse?.complaints ?? [];
+
+    print('complains: ${complains.length}');
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('Complains'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.complainsTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
-      body: SingleChildScrollView(
+      body: complainsProvider.isLoading ? const ListShimmer() :
+      RefreshIndicator(
+        onRefresh: () async {
+          await complainsProvider.getComplains(context);
+        },
         child: Column(
           children: [
             const Header(
               height: 20,
               content: SizedBox(),
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(16),
-              itemCount: complains.length,
-              itemBuilder: (context, index) {
-                return ComplainItem(complain: complains[index]);
-              },
+            complains.isEmpty ? Center(child: Text(l10n.noComplainsLabel)) : AnimationLimiter(
+              child: Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(16),
+                  itemCount: complains.length,
+                  itemBuilder: (context, index) {
+
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      delay: const Duration(milliseconds: 100),
+                      child: SlideAnimation(
+                        duration: const Duration(milliseconds: 2500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        child: FadeInAnimation(
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration: const Duration(milliseconds: 2500),
+                          child: ComplainItem(complain: complains[index]),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 }
-

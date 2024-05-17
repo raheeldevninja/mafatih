@@ -1,16 +1,17 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/core/ui/property_type_list_view.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
+import 'package:mafatih/core/ui/terms_and_privacy_links.dart';
+import 'package:mafatih/core/ui/upload_file_image.dart';
 import 'package:mafatih/core/ui/widgets.dart';
-import 'package:mafatih/features/property_check/model/property_type_model.dart';
+import 'package:mafatih/core/ui/building_area_drop_down.dart';
+import 'package:mafatih/features/property_check/widgets/property_check_header.dart';
 
 
 class PropertyCheckScreen extends StatefulWidget {
@@ -21,7 +22,6 @@ class PropertyCheckScreen extends StatefulWidget {
 }
 
 class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final _propertyLocationController = TextEditingController();
@@ -33,69 +33,23 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
   String selectedCountryCode = '+966';
   bool isTermsAndPrivacyChecked = false;
 
-  List<PropertyTypeModel> propertyTypesList = [];
-
   @override
   void initState() {
     super.initState();
-
-    _initPropertyTypesList();
-  }
-
-  _initPropertyTypesList() {
-
-    propertyTypesList.add(
-      PropertyTypeModel(icon: Images.villaIcon, title: 'Apartment', isSelected: true),
-    );
-
-    propertyTypesList.add(
-      PropertyTypeModel(icon: Images.villaIcon, title: 'Villa'),
-    );
-
-    propertyTypesList.add(
-      PropertyTypeModel(icon: Images.villaIcon, title: 'Land'),
-    );
-
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Property Check',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.propertyCheckTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         children: [
@@ -116,25 +70,10 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Image.asset(Images.ayeenImage),
-                            const SizedBox(width: 16),
-                            const Expanded(
-                              child: MainHeading(
-                                  heading:
-                                      'Get a technical report about your property'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        const MainHeading(
-                            heading:
-                                'About your property'),
 
-                        const SizedBox(height: 20),
+                        const PropertyCheckHeader(),
 
-                        Widgets.labels('Location of Your Property'),
+                        Widgets.labels(context, l10n.locationPropertyLabel),
                         const SizedBox(
                           height: 10,
                         ),
@@ -142,7 +81,7 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                         AppTextField(
                           controller: _propertyLocationController,
                           keyboardType: TextInputType.text,
-                          hintText: 'Location of Your Property',
+                          hintText: l10n.locationPropertyHint,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return l10n.emptyFullNameValidation;
@@ -152,164 +91,18 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                         ),
 
                         const SizedBox(height: 20),
-
-                        Widgets.labels('Property Type'),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        SizedBox(
-                          height: 130,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            primary: false,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: propertyTypesList.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-
-                                  for(int i=0; i<propertyTypesList.length; i++) {
-                                    if(i == index) {
-                                      propertyTypesList[i] = propertyTypesList[i].copyWith(isSelected: true);
-                                    } else {
-                                      propertyTypesList[i] = propertyTypesList[i].copyWith(isSelected: false);
-                                    }
-
-                                  }
-
-                                  setState(() {});
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 8),
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        color: propertyTypesList[index].isSelected
-                                            ? AppColors.primaryColor
-                                            : AppColors.lightGrey.withOpacity(0.2),
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: SvgPicture.asset(
-                                        propertyTypesList[index].icon,
-                                        color: propertyTypesList[index].isSelected
-                                            ? Colors.white
-                                            : Colors.black,
-
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 8),
-
-                                    Text(
-                                      propertyTypesList[index].title,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'Montserrat',
-                                        color: AppColors.blackColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-
+                        const PropertyTypeListView(),
                         const SizedBox(height: 20),
 
-                        Widgets.labels('Upload construction license'),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        //rounded corner border upload button with dashed lines
-
-                        DottedBorder(
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(16),
-                          padding: EdgeInsets.zero,
-                          color: AppColors.greyColor,
-                          child: Container(
-                            width: width,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.greyColor.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-
-                                SvgPicture.asset(Images.uploadIcon),
-
-                                const SizedBox(width: 8),
-                                const Text(
-                                  'Upload',
-                                  style: TextStyle(
-                                    color: AppColors.blackColor,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
+                        Widgets.labels(context, l10n.uploadConstructionLabel),
                         const SizedBox(height: 10),
-
-                        //allowed
-                        const Text(
-                          'Allowed: .pdf, .jpg, .jpeg',
-                          style: TextStyle(
-                            color: AppColors.blackColor,
-                            fontSize: 12,
-                          ),
-                        ),
-
+                        const UploadFileImage(),
 
                         const SizedBox(height: 20),
-
-                        Widgets.labels('Building Area'),
-                        const SizedBox(
-                          height: 10,
-                        ),
-
-                        //drop down for building area
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: AppColors.greyColor.withOpacity(0.2),
-                              width: 1,
-                            ),
-                          ),
-                          child: DropdownButton<String>(
-                            isExpanded: true,
-                            underline: const SizedBox(),
-                            value: 'Select Building Area',
-                            items: <String>['Select Building Area', 'Sqm', '200 sqm', '300 sqm', '400 sqm', '500 sqm']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (String? value) {
-                              setState(() {});
-                            },
-                          ),
-                        ),
-
-
+                        const BuildingAreaDropDown(),
                         const SizedBox(height: 20),
 
-                        Widgets.labels('Reasons'),
+                        Widgets.labels(context, l10n.reasonsLabel),
                         const SizedBox(
                           height: 10,
                         ),
@@ -318,21 +111,18 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                           controller: _reasonsController,
                           keyboardType: TextInputType.text,
                           maxLines: 4,
-                          hintText: 'Why do you need to check your property?',
+                          hintText: l10n.reasonsHint,
                           validator: (value) {
                             return null;
                           },
                         ),
 
                         const SizedBox(height: 20),
-                        const MainHeading(
-                            heading:
-                            'Contact Details'),
-
+                        MainHeading(heading: l10n.contactDetailsLabel),
 
                         const SizedBox(height: 20),
 
-                        Widgets.labels(l10n.fullNameLabel),
+                        Widgets.labels(context, l10n.fullNameLabel),
                         const SizedBox(
                           height: 10,
                         ),
@@ -340,7 +130,7 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                         AppTextField(
                           controller: _fullNameController,
                           keyboardType: TextInputType.text,
-                          hintText: l10n.optionalHint,
+                          hintText: l10n.fullNameHint,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return l10n.emptyFullNameValidation;
@@ -353,7 +143,7 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                           height: 20,
                         ),
 
-                        Widgets.labels(l10n.emailLabel),
+                        Widgets.labels(context, l10n.emailLabel),
                         const SizedBox(
                           height: 10,
                         ),
@@ -361,12 +151,12 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                         AppTextField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
-                          hintText: l10n.optionalHint,
+                          hintText: l10n.emailHint,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return l10n.emptyEmailValidation;
                             } else if (!RegExp(
-                                r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                                    r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
                                 .hasMatch(value)) {
                               return l10n.invalidEmailValidation;
                             }
@@ -377,7 +167,7 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
 
                         const SizedBox(height: 20),
 
-                        Widgets.labels(l10n.phoneNoLabel),
+                        Widgets.labels(context, l10n.phoneNoLabel),
                         const SizedBox(
                           height: 10,
                         ),
@@ -423,54 +213,9 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                             ),
 
                             //rich text for terms of use and privacy policy
-
-                            Expanded(
-                              child: RichText(
-                                text: TextSpan(
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'I agree to the ',
-
-                                    ),
-                                    TextSpan(
-                                      text: 'Terms of Use',
-                                      style: TextStyle(
-                                        color: AppColors.primaryColor,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      // Define an onTap handler to launch a URL
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-
-                                        },
-                                    ),
-                                    const TextSpan(
-                                      text: ' and ',
-                                    ),
-                                    TextSpan(
-                                      text: 'Privacy Policy',
-                                      style: const TextStyle(
-                                        color: AppColors.primaryColor,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      // Define an onTap handler to launch a URL
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-
-                                        },
-                                    ),
-                                    TextSpan(
-                                      text: '.',
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            const Expanded(
+                              child: TermsAndPrivacyLinks(),
                             ),
-
                           ],
                         ),
 
@@ -480,15 +225,12 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
                           width: double.infinity,
                           height: 60,
                           child: SimpleButton(
-                            text: 'Send',
-                            callback: () {
-                              if (_formKey.currentState!.validate()) {
-
-                              }
+                            text: l10n.sendBtnText,
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {}
                             },
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -541,7 +283,6 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
     );
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -552,5 +293,4 @@ class _PropertyCheckScreenState extends State<PropertyCheckScreen> {
     _emailController.dispose();
     _reasonsController.dispose();
   }
-
 }

@@ -1,14 +1,18 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/auth_choice.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/shimmers/form_page_shimmer.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
+import 'package:mafatih/core/ui/terms_and_privacy_links.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/features/static_pages/privacy_policy_page.dart';
-import 'package:mafatih/features/static_pages/terms_of_use_page.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:mafatih/features/auth/model/register_data.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -34,42 +38,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final l10n = AppLocalizations.of(context)!;
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: Text(l10n.register,
-            style: const TextStyle(fontWeight: FontWeight.w500)),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+      appBar: CustomAppBar(
+        title: l10n.register,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
+      ),
+      body: authProvider.isLoading ? const FormPageShimmer() : Column(
+        children: [
+          Header(
+            content: Text(
+              l10n.registerAccountSubHeading,
+              style: context.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w600,
               ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
             ),
           ),
-        ),
-      ),
-      body: Column(
-        children: [
-          Header(content: Text(l10n.registerAccountSubHeading)),
           Expanded(
             child: Form(
               key: _formKey,
@@ -78,7 +69,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 shrinkWrap: true,
                 primary: true,
                 children: [
-                  Widgets.labels(l10n.phoneNoLabel),
+
+                  Widgets.labels(context, l10n.phoneNoLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -102,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.fullNameLabel),
+                  Widgets.labels(context, l10n.fullNameLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -110,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   AppTextField(
                     controller: _fullNameController,
                     keyboardType: TextInputType.text,
-                    hintText: l10n.optionalHint,
+                    hintText: l10n.fullNameHint,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return l10n.emptyFullNameValidation;
@@ -123,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.emailLabel),
+                  Widgets.labels(context, l10n.emailLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -149,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.passwordLabel),
+                  Widgets.labels(context, l10n.passwordLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -180,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.confirmPassword),
+                  Widgets.labels(context, l10n.confirmPassword),
                   const SizedBox(
                     height: 10,
                   ),
@@ -209,9 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
 
-                  SizedBox(
-                    height: 20
-                  ),
+                  const SizedBox(height: 20),
 
                   Row(
                     children: [
@@ -233,76 +223,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                       ),
-
-                      //rich text for terms of use and privacy policy
-
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                            ),
-                            children: [
-                              const TextSpan(
-                                text: 'Accept ',
-
-                              ),
-                              TextSpan(
-                                text: 'Terms of Use',
-                                style: const TextStyle(
-                                  color: AppColors.primaryColor,
-                                  decoration: TextDecoration.underline,
-                                ),
-                                // Define an onTap handler to launch a URL
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-
-                                    PersistentNavBarNavigator.pushNewScreen(
-                                      context,
-                                      screen: const TermsOfUsePage(),
-                                      withNavBar: false,
-                                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                                    );
-
-                                  },
-                              ),
-                              const TextSpan(
-                                text: ' and ',
-                              ),
-                              TextSpan(
-                                text: 'Privacy Policy',
-                                style: const TextStyle(
-                                  color: AppColors.primaryColor,
-                                  decoration: TextDecoration.underline,
-                                ),
-                                // Define an onTap handler to launch a URL
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-
-                                    PersistentNavBarNavigator.pushNewScreen(
-                                      context,
-                                      screen: const PrivacyPolicyPage(),
-                                      withNavBar: false,
-                                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                                    );
-
-                                  },
-                              ),
-                              const TextSpan(
-                                text: '.',
-                              ),
-                            ],
-                          ),
-                        ),
+                      const Expanded(
+                        child: TermsAndPrivacyLinks(),
                       ),
-
                     ],
                   ),
 
-                  const SizedBox(
-                      height: 20
-                  ),
+                  const SizedBox(height: 20),
 
                   //register button
                   SizedBox(
@@ -310,32 +237,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 60,
                     child: SimpleButton(
                       text: l10n.register,
-                      callback: () {
-                        if (_formKey.currentState!.validate()) {}
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+
+                          RegisterData registrationData = RegisterData(
+                            fullName: _fullNameController.text.trim(),
+                            email: _emailController.text,
+                            phone: _phoneNumberController.text.trim(),
+                            password: _passwordController.text.trim(),
+                            confirmPassword: _confirmPasswordController.text.trim(),
+                            isTermsAccepted: isTermsAndPrivacyChecked,
+                          );
+
+                          await authProvider.register(
+                            context,
+                            registrationData,
+                          );
+
+                        }
                       },
                     ),
                   ),
 
                   const SizedBox(
-                    height: 10,
+                    height: 8,
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(l10n.alreadyHaveAccount),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            l10n.login,
-                            style: const TextStyle(
-                                color: AppColors.primaryColor,
-                                decoration: TextDecoration.underline),
-                          )),
-                    ],
+                  AuthChoice(
+                    label: l10n.alreadyHaveAccount,
+                    actionButtonLabel: l10n.login,
+                    onActionButtonPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
+
                 ],
               ),
             ),
@@ -393,3 +328,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPasswordController.dispose();
   }
 }
+
+

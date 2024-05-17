@@ -1,12 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProjectItem extends StatefulWidget {
   const ProjectItem({
@@ -15,7 +15,7 @@ class ProjectItem extends StatefulWidget {
     super.key,
   });
 
-  final Property property;
+  final PropertyModel property;
   final VoidCallback onTap;
 
   @override
@@ -27,12 +27,17 @@ class _ProjectItemState extends State<ProjectItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: widget.onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        padding: const EdgeInsets.symmetric(vertical: 12),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+        ),
         decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(10),
@@ -92,13 +97,13 @@ class _ProjectItemState extends State<ProjectItem> {
                           margin: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 2.0),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? AppColors.whiteColor
-                                      : AppColors.blackColor)
-                                  .withOpacity(
-                                      _current == entry.key ? 0.9 : 0.4)),
+                            shape: BoxShape.circle,
+                            color: AppColors.whiteColor
+                                .withOpacity(_current == entry.key ? 1 : 0.0),
+                            border: Border.all(
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
                         ),
                       );
                     }).toList(),
@@ -114,12 +119,9 @@ class _ProjectItemState extends State<ProjectItem> {
                       color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Project',
-                      style: TextStyle(
-                          color: AppColors.blackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal),
+                      style: context.textTheme.bodyMedium,
                     ),
                   ),
                 ),
@@ -142,8 +144,7 @@ class _ProjectItemState extends State<ProjectItem> {
                           children: [
                             Text(
                               widget.property.propertyName,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
+                              style: context.textTheme.titleMedium,
                             ),
                             const SizedBox(height: 10),
                             Row(
@@ -153,12 +154,12 @@ class _ProjectItemState extends State<ProjectItem> {
                                   width: 24,
                                   height: 24,
                                 ),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 10),
                                 Text(
                                   widget.property.address,
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400),
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
                             ),
@@ -172,9 +173,7 @@ class _ProjectItemState extends State<ProjectItem> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            Images.ownerImage
-                          ),
+                          child: Image.asset(Images.ownerImage),
                         ),
                       ),
                     ],
@@ -182,97 +181,77 @@ class _ProjectItemState extends State<ProjectItem> {
                   const SizedBox(height: 32),
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: ProjectData(
-                          title: 'No of Units',
+                          title: l10n.noOfUnitsLabel,
                           value: '20',
+                          valueSize: 12,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 1,
-                        height: 40,
-                        color: AppColors.greyColor.withOpacity(0.4),
-                      ),
-                      const Expanded(
+                      const SizedBox(width: 8),
+                      Expanded(
                         child: ProjectData(
-                          title: 'Units Type',
+                          title: l10n.unitsTypeLabel,
                           value: 'Residential',
+                          valueSize: 12,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 1,
-                        height: 40,
-                        color: AppColors.greyColor.withOpacity(0.4),
-                      ),
-                      const Expanded(
+                      const SizedBox(width: 8),
+                      Expanded(
                         child: ProjectData(
-                          title: 'Area',
+                          title: l10n.areaLabel,
                           value: '90m2 to 180m2',
+                          valueSize: 12,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 1,
-                        height: 40,
-                        color: AppColors.greyColor.withOpacity(0.4),
-                      ),
-                      const Expanded(
+                      const SizedBox(width: 8),
+                      Expanded(
                         child: ProjectData(
-                          title: 'Rooms',
+                          title: l10n.roomsLabel,
                           value: '2 to 5',
+                          valueSize: 12,
                         ),
                       ),
                     ],
                   ),
-                  Divider(
-                    color: AppColors.greyColor.withOpacity(0.4),
-                    thickness: 1,
-                    height: 40,
-                  ),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         widget.property.price,
-                        style: const TextStyle(
+                        style: context.textTheme.titleMedium?.copyWith(
                           color: AppColors.primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
+                      Text(
                         'SAR',
-                        style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400),
+                        style: context.textTheme.bodyLarge?.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
                       ),
-                      const SizedBox(width: 40),
-                      const Text(
-                        'to',
-                        style: TextStyle(
+                      const SizedBox(width: 30),
+                      Text(
+                        l10n.toLabel,
+                        style: const TextStyle(
                             color: AppColors.greyColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w400),
                       ),
-                      const SizedBox(width: 40),
+                      const SizedBox(width: 30),
                       Text(
                         widget.property.price,
-                        style: const TextStyle(
-                            color: AppColors.primaryColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: context.textTheme.titleMedium?.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
+                      Text(
                         'SAR',
-                        style: TextStyle(
+                        style: context.textTheme.bodyLarge?.copyWith(
                           color: AppColors.primaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],

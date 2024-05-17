@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/features/agencies/model/agent.dart';
-import 'package:mafatih/features/agencies/report_ad_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class AgentItem extends StatelessWidget {
@@ -20,6 +20,10 @@ class AgentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -52,18 +56,12 @@ class AgentItem extends StatelessWidget {
                 children: [
                   Text(
                     agent.agentName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: context.textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Properties: ${agent.propertiesCount}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    '${l10n.propertiesLabel}: ${agent.propertiesCount}',
+                    style: context.textTheme.bodyMedium
                   ),
 
                 ],

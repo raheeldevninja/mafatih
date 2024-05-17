@@ -1,20 +1,26 @@
-import 'dart:typed_data';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/models/main_menu.dart';
+import 'package:mafatih/features/home/pages/chat/model/chat_message.dart';
+import 'package:mafatih/l10n/locale_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:html/dom.dart' as htmlDom;
 
 class Utils {
+
+
+
   static List<MainMenu> mainMenu = [
     MainMenu(
       title: 'For Sale',
       icon: Images.forSaleIcon,
+      isSelected: true
     ),
     MainMenu(
       title: 'For Rent',
@@ -25,26 +31,56 @@ class Utils {
       icon: Images.projectsIcon,
     ),
     MainMenu(
-      title: 'Request Your Property',
+      title: 'Daily Rent',
       icon: Images.dailyIcon,
-    ),
-    MainMenu(
-      title: 'Agents',
-      icon: Images.projectsIcon,
-    ),
-    MainMenu(
-      title: 'Advertise With Us',
-      icon: Images.projectsIcon,
-    ),
-    MainMenu(
-      title: 'Real Estate Services',
-      icon: Images.projectsIcon,
     ),
   ];
 
+  static List<ChatMessageModel> messages = [
+    ChatMessageModel(
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      isSender: true,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+
+    ChatMessageModel(
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+      isSender: true,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+
+    ChatMessageModel(
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      isSender: false,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+    ChatMessageModel(
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      isSender: true,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+    ChatMessageModel(
+      message: 'I am fine',
+      isSender: false,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+    ChatMessageModel(
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      isSender: false,
+      image: Images.userImageSvg,
+      time: DateTime.now(),
+    ),
+  ];
+
+
   //bottom navigation
   static PersistentTabController controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 2);
 
   static final pageController = PageController();
   static int currentPage = 0;
@@ -101,6 +137,26 @@ class Utils {
       },
     );
   }
+
+
+  static Future<void> chooseLanguage(BuildContext context, String code) async {
+    final localeProvider = context.read<LocaleProvider>();
+
+    localeProvider.changeLocale(Locale(code));
+    await localeProvider.saveChooseLanguageShown();
+  }
+
+  static String parseHtml(htmlDom.Document document) {
+    // Extract text content from the parsed HTML
+    String textContent = '';
+
+    if (document.body != null) {
+      textContent = document.body!.text;
+    }
+
+    return textContent;
+  }
+
 
   //month num to month name 3 chars
   static String monthNumToName(int monthNum) {

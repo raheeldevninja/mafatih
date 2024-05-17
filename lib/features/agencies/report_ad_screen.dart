@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReportAdScreen extends StatefulWidget {
   const ReportAdScreen({super.key});
@@ -22,37 +23,17 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Report Ad',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.reportAdTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,14 +48,14 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
               padding: const EdgeInsets.all(16),
               children: [
 
-                Widgets.labels('Subject'),
+                Widgets.labels(context, l10n.subjectLabel),
                 const SizedBox(
                   height: 10,
                 ),
                 AppTextField(
                   controller: _subjectController,
                   keyboardType: TextInputType.text,
-                  hintText: 'Enter your subject',
+                  hintText: l10n.subjectHint,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return '';
@@ -86,7 +67,7 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
                 const SizedBox(height: 20),
 
 
-                Widgets.labels('Property Type'),
+                Widgets.labels(context, l10n.propertyTypeLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -128,7 +109,7 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
                 const SizedBox(height: 20),
 
 
-                Widgets.labels('Priority'),
+                Widgets.labels(context, l10n.priorityLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -171,7 +152,7 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
 
                 const SizedBox(height: 20),
 
-                Widgets.labels('Message'),
+                Widgets.labels(context, l10n.messageLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -180,7 +161,7 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
                   controller: _messageController,
                   maxLines: 4,
                   keyboardType: TextInputType.text,
-                  hintText: 'Enter your message ...',
+                  hintText: l10n.writeYourMessageHint,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return '';
@@ -188,12 +169,14 @@ class _ReportAdScreenState extends State<ReportAdScreen> {
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 20),
+
                 SizedBox(
                   height: 50,
                   child: SimpleButton(
-                    text: 'Submit',
-                    callback: () {},
+                    text: l10n.submitBtnText,
+                    onPressed: () {},
                   ),
                 ),
                 const SizedBox(height: 20),

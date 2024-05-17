@@ -1,10 +1,17 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/shimmers/form_page_shimmer.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/features/auth/model/profile_data.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -19,6 +26,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _phoneNumberController = TextEditingController();
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
@@ -27,45 +35,43 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String selectedCountryCode = '+966';
 
   @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+  void initState() {
+    super.initState();
 
-    final width = MediaQuery.of(context).size.width;
+    _initUserDetails();
+  }
+
+  _initUserDetails() async {
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final user = authProvider.getUserData;
+
+    log('userData in edit profile: ${jsonEncode(user.toJson())}');
+
+    _phoneNumberController.text = user.phone ?? '';
+    _fullNameController.text = user.fullName ?? '';
+    _emailController.text = user.email ?? '';
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
     final height = MediaQuery.of(context).size.height;
+
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Edit Profile',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.editProfileTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
-      body: Column(
+      body: authProvider.isLoading ? const FormPageShimmer() :Column(
         children: [
           const Header(
             height: 20,
@@ -79,21 +85,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 shrinkWrap: true,
                 primary: true,
                 children: [
-                  Widgets.labels(l10n.phoneNoLabel),
+                  Widgets.labels(context, l10n.phoneNoLabel),
                   const SizedBox(
                     height: 10,
                   ),
 
                   AppTextField(
+                    isReadOnly: true,
                     controller: _phoneNumberController,
                     keyboardType: TextInputType.phone,
                     hintText: '',
                     isPhone: true,
                     countryPickerCallback: _showCountryCodeBottomSheet,
                     validator: (value) {
-                      if (value!.isEmpty) {
-                        return l10n.emptyPhoneValidation;
-                      }
 
                       return null;
                     },
@@ -103,7 +107,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.fullNameLabel),
+                  Widgets.labels(context, l10n.fullNameLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -111,7 +115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   AppTextField(
                     controller: _fullNameController,
                     keyboardType: TextInputType.text,
-                    hintText: l10n.optionalHint,
+                    hintText: l10n.fullNameHint,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return l10n.emptyFullNameValidation;
@@ -124,7 +128,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.emailLabel),
+                  Widgets.labels(context, l10n.emailLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -132,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   AppTextField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    hintText: l10n.optionalHint,
+                    hintText: l10n.emailHint,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return l10n.emptyEmailValidation;
@@ -150,7 +154,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.passwordLabel),
+                  Widgets.labels(context, l10n.passwordLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -167,9 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       });
                     },
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return l10n.emptyPasswordValidation;
-                      } else if (value.length < 6) {
+                      if (value != null  && value.isNotEmpty && value.length < 6) {
                         return l10n.passwordLengthValidation;
                       }
 
@@ -181,7 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.confirmPassword),
+                  Widgets.labels(context, l10n.confirmPassword),
                   const SizedBox(
                     height: 10,
                   ),
@@ -198,9 +200,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       });
                     },
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return l10n.emptyPasswordValidation;
-                      } else if (value.length < 6) {
+                     if (value != null && value.isNotEmpty && value.length < 6) {
                         return l10n.passwordLengthValidation;
                       } else if (value != _passwordController.text) {
                         return l10n.passwordDoNotMatch;
@@ -219,9 +219,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     width: double.infinity,
                     height: 60,
                     child: SimpleButton(
-                      text: 'Update Profile',
-                      callback: () {
-                        if (_formKey.currentState!.validate()) {}
+                      text: l10n.updateProfileBtnText,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+
+                          String fullName = _fullNameController.text.trim();
+                          String email = _emailController.text.trim();
+                          String password = _passwordController.text.trim();
+                          String confirmPassword = _confirmPasswordController.text.trim();
+
+                          ProfileData profileData = ProfileData(
+                            fullName: fullName,
+                            email: email,
+                            password: password.isEmpty ? null : password,
+                            confirmPassword: confirmPassword.isEmpty ? null : confirmPassword,
+                          );
+
+                          authProvider.updateProfile(
+                            context,
+                            profileData,
+                          );
+
+                        }
                       },
                     ),
                   ),

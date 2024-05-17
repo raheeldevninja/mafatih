@@ -6,7 +6,7 @@ class LocaleProvider extends ChangeNotifier {
   late Locale _appLocale;
 
   LocaleProvider() {
-    _appLocale = const Locale('en');
+    _appLocale = const Locale('ar');
     _loadSavedLocale();
   }
 

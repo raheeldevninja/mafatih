@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/features/home/property_details/widgets/feature_item.dart';
 import 'package:mafatih/features/home/property_details/widgets/feature_item_vertical.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PropertyFeaturesVertical extends StatelessWidget {
   const PropertyFeaturesVertical({
@@ -12,6 +11,9 @@ class PropertyFeaturesVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -25,7 +27,7 @@ class PropertyFeaturesVertical extends StatelessWidget {
           ///coverage and area
           FeatureItemVertical(
             icon: Images.wifiIcon,
-            title: 'Coverage',
+            title: l10n.coverageLabel,
             value: '5G Fiber',
           ),
           const SizedBox(height: 8),
@@ -33,7 +35,7 @@ class PropertyFeaturesVertical extends StatelessWidget {
 
           FeatureItemVertical(
             icon: Images.areaIcon,
-            title: 'Area',
+            title: l10n.areaLabel,
             value: '625',
           ),
 
@@ -42,7 +44,7 @@ class PropertyFeaturesVertical extends StatelessWidget {
           ///street direction and street width
           FeatureItemVertical(
             icon: Images.streetDirectionIcon,
-            title: 'Street Direction',
+            title: l10n.streetDirectionLabel,
             value: 'East',
           ),
 
@@ -50,7 +52,7 @@ class PropertyFeaturesVertical extends StatelessWidget {
 
           FeatureItemVertical(
             icon: Images.streetWidthIcon,
-            title: 'Street Width',
+            title: l10n.streetWidthLabel,
             value: '40 meter',
           ),
 
@@ -59,21 +61,21 @@ class PropertyFeaturesVertical extends StatelessWidget {
           ///real estate age and electricity
           FeatureItemVertical(
             icon: Images.buildingIcon,
-            title: 'Real estate age',
+            title: l10n.realEstateAgeLabel,
             value: '10',
           ),
           const SizedBox(height: 8),
           FeatureItemVertical(
             icon: Images.wireIcon,
-            title: 'Electricity',
+            title: l10n.electricityLabel,
             value: '40 meter',
           ),
 
           TextButton(
             onPressed: () {},
-            child: const Text(
-              'More Features',
-              style: TextStyle(
+            child: Text(
+              l10n.moreFeaturesBtnText,
+              style: const TextStyle(
                 fontSize: 14,
                 color: AppColors.primaryColor,
                 fontWeight: FontWeight.normal,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/my_account/notifications/model/notification_model.dart';
@@ -72,35 +75,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('Notifications'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.notifications,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -119,10 +101,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   //show all button
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'Show All',
-                      style: TextStyle(
-                        color: AppColors.blackColor,
+                    child: Text(
+                      l10n.showAllBtnText,
+                      style: context.textTheme.bodyMedium?.copyWith(
                         decoration: TextDecoration.underline,
                         decorationColor: AppColors.blackColor,
                       ),
@@ -132,10 +113,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   //mark all as read button
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'Mark All as Read',
-                      style: TextStyle(
-                        color: AppColors.blackColor,
+                    child: Text(
+                      l10n.markAllReadBtnText,
+                      style: context.textTheme.bodyMedium?.copyWith(
                         decoration: TextDecoration.underline,
                         decorationColor: AppColors.blackColor,
                       ),
@@ -152,15 +132,22 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               padding: const EdgeInsets.all(8),
               itemCount: notifications.length,
               itemBuilder: (context, index) {
-                return NotificationItem(
-                  onTap: () {
-                    setState(() {
-                      notifications[index] = notifications[index].copyWith(
-                        isRead: true,
-                      );
-                    });
-                  },
-                  notification: notifications[index],
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 1000),
+                  child: SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: NotificationItem(
+                      onTap: () {
+                        setState(() {
+                          notifications[index] = notifications[index].copyWith(
+                            isRead: true,
+                          );
+                        });
+                      },
+                      notification: notifications[index],
+                    ),
+                  ),
                 );
               },
             ),

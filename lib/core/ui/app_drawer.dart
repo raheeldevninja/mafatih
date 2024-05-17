@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/core/ui/icon_text_button.dart';
 import 'package:mafatih/core/ui/rounded_button.dart';
+import 'package:mafatih/core/util/shared_pref.dart';
+import 'package:mafatih/core/util/utils.dart';
 import 'package:mafatih/features/agencies/agencies_screen.dart';
+import 'package:mafatih/features/auth/login_screen.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
 import 'package:mafatih/features/contact_us/contact_us_screen.dart';
 import 'package:mafatih/features/my_account/my_account_screen.dart';
 import 'package:mafatih/features/settings/settings_screen.dart';
@@ -14,6 +18,7 @@ import 'package:mafatih/features/static_pages/payment_policy_page.dart';
 import 'package:mafatih/features/static_pages/privacy_policy_page.dart';
 import 'package:mafatih/features/static_pages/terms_of_use_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -24,6 +29,8 @@ class AppDrawer extends StatelessWidget {
 
     final languageCode = l10n.localeName;
     final isEnglishLang = languageCode == 'en';
+
+    final authProvider = context.watch<AuthProvider>();
 
     return SafeArea(
       child: Drawer(
@@ -66,60 +73,81 @@ class AppDrawer extends StatelessWidget {
                   bottom: -20,
                   left: 0,
                   right: 0,
-                  child: Container(
+                  child:
+
+                      //login / logout button
+                      Container(
                     height: 56,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: RoundedButton(
-                      backgroundColor: AppColors.secondaryButtonColor,
-                      callback: () {
+                      onPressed: () async {
                         Navigator.pop(context);
+
+                        if (authProvider.getIsLoggedIn) {
+
+                          await SharedPref.clear();
+
+                          authProvider.getTokenFromSharedPref();
+                          authProvider.getUserDataFromSharedPref();
+                          authProvider.getLoginStatusFromSharedPref();
+
+                        } else {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const LoginScreen(),
+                            withNavBar: false,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
+                        }
                       },
-                      text: 'Subscriber Panel',
+                      text: authProvider.getIsLoggedIn
+                          ? l10n.logoutBtnText
+                          : l10n.loginBtnText,
+                      icon: Images.logoutIconNav,
                     ),
                   ),
+
                 ),
               ],
             ),
             const SizedBox(height: 40),
             _buildNavDrawerItem(
-              l10n.myAccountNav,
-              Images.accountIconNav,
-              () {
-                Navigator.pop(context);
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyAccountScreen(),
-                  ),
-                );
-              },
-            ),
-            _buildNavDrawerItem(
-              l10n.agenciesNav,
-              Images.agentsIconNav,
-              () {
+              context,
+              text: l10n.myAccountNav,
+              icon: Images.accountIconNav,
+              onTap: () {
                 Navigator.pop(context);
 
                 PersistentNavBarNavigator.pushNewScreen(
                   context,
-                  screen: const AgentsScreen(),
+                  screen: const MyAccountScreen(),
+                  withNavBar: false,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+
+              },
+            ),
+            _buildNavDrawerItem(
+              context,
+              text: l10n.agenciesNav,
+              icon: Images.agentsIconNav,
+              onTap: () {
+                Navigator.pop(context);
+
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const AgenciesScreen(),
                   withNavBar: false,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
               },
             ),
             _buildNavDrawerItem(
-              'Advertise with us',
-              Images.addIconNav,
-              () {
-                Navigator.pop(context);
-              },
-            ),
-            _buildNavDrawerItem(
-              l10n.settingsNav,
-              Images.settingsIconNav,
-              () {
+              context,
+              text: l10n.settingsNav,
+              icon: Images.settingsIconNav,
+              onTap: () {
                 Navigator.pop(context);
 
                 PersistentNavBarNavigator.pushNewScreen(
@@ -131,33 +159,73 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             _buildNavDrawerItem(
-              'Contact us',
-              Images.contactUsIconNav,
-              () {
+              context,
+              text: l10n.contactUsNav,
+              icon: Images.contactUsIconNav,
+              onTap: () {
                 Navigator.pop(context);
 
                 PersistentNavBarNavigator.pushNewScreen(
                   context,
                   screen: const ContactUsScreen(),
                   withNavBar: false,
-                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                  pageTransitionAnimation: PageTransitionAnimation.slideUp,
                 );
               },
             ),
             const SizedBox(
               height: 40,
             ),
+
+            //subscriber panel button
             Container(
               height: 56,
               margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: IconTextButton(
-                text: 'Logout',
-                icon: Images.logoutIconNav,
-                callback: () {
+              child: RoundedButton(
+                backgroundColor: AppColors.secondaryButtonColor,
+                onPressed: () {
                   Navigator.pop(context);
                 },
+                text: l10n.subscriberPanelBtnText,
               ),
             ),
+
+
+            const SizedBox(
+              height: 8,
+            ),
+
+            //advertise with us button
+            InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: SvgPicture.asset(
+                        Images.addIconNav,
+                      ),
+                    ),
+
+                    const SizedBox(width: 12),
+
+                    Text(
+                      l10n.advertiseWithUsBtnText,
+                      style: context.textTheme.labelMedium,
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ),
+
+
             const SizedBox(
               height: 20,
             ),
@@ -166,40 +234,38 @@ class AppDrawer extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-
                       Navigator.pop(context);
 
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: const TermsOfUsePage(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
-                    child: const Text(
-                      'Terms of Use',
-                      style: TextStyle(color: AppColors.blackColor),
+                    child: Text(
+                      l10n.termsOfUseNav,
+                      style: context.textTheme.bodySmall,
                     ),
                   ),
                 ),
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-
                       Navigator.pop(context);
 
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: const PrivacyPolicyPage(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
-                    child: const Text(
-                      'Privacy Policy',
-                      style: TextStyle(color: AppColors.blackColor),
+                    child: Text(
+                      l10n.privacy_policy,
+                      style: context.textTheme.bodySmall,
                     ),
                   ),
                 ),
@@ -216,12 +282,13 @@ class AppDrawer extends StatelessWidget {
                         context,
                         screen: const PaymentPolicyPage(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
                     },
-                    child: const Text(
-                      'Payment Policy',
-                      style: TextStyle(color: AppColors.blackColor),
+                    child: Text(
+                      l10n.paymentPolicyNav,
+                      style: context.textTheme.bodySmall,
                     ),
                   ),
                 ),
@@ -236,9 +303,9 @@ class AppDrawer extends StatelessWidget {
                             PageTransitionAnimation.cupertino,
                       );
                     },
-                    child: const Text(
-                      'FAQs',
-                      style: TextStyle(color: AppColors.blackColor),
+                    child: Text(
+                      l10n.faq,
+                      style: context.textTheme.bodySmall,
                     ),
                   ),
                 ),
@@ -254,14 +321,15 @@ class AppDrawer extends StatelessWidget {
   }
 
   ListTile _buildNavDrawerItem(
-    String text,
-    String icon,
-    VoidCallback callback,
-  ) {
+    BuildContext context, {
+    required String text,
+    required String icon,
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       leading: Container(
-        width: 40,
-        height: 40,
+        width: 38,
+        height: 38,
         padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -270,8 +338,11 @@ class AppDrawer extends StatelessWidget {
           icon,
         ),
       ),
-      title: Text(text),
-      onTap: callback,
+      title: Text(
+        text,
+        style: context.textTheme.labelMedium,
+      ),
+      onTap: onTap,
     );
   }
 }

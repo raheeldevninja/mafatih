@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 
 class PropertyRequestData extends StatelessWidget {
   const PropertyRequestData({
@@ -24,17 +25,11 @@ class PropertyRequestData extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: context.textTheme.bodySmall,
             ),
             Text(
               value,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: context.textTheme.bodyMedium,
             ),
           ],
         ),

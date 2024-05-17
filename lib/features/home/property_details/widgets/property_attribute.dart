@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/extension/context.dart';
+import 'package:mafatih/core/models/property_model.dart';
 
 class PropertyAttribute extends StatelessWidget {
   const PropertyAttribute({
@@ -12,7 +13,7 @@ class PropertyAttribute extends StatelessWidget {
     required this.value,
   });
 
-  final Property property;
+  final PropertyModel property;
   final String icon;
   final String title;
   final String value;
@@ -43,21 +44,16 @@ class PropertyAttribute extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
-                    color: AppColors.blackColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style:
+                  context.textTheme.bodyMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: context.textTheme.bodySmall?.copyWith(
                     color: AppColors.greyColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

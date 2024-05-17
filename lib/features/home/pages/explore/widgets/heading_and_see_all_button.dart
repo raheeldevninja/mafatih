@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-
+import 'package:mafatih/core/extension/context.dart';
 
 class HeadingAndSeeAllButton extends StatelessWidget {
   const HeadingAndSeeAllButton({
@@ -15,12 +15,10 @@ class HeadingAndSeeAllButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
       child: Column(
         children: [
           Row(
@@ -28,17 +26,15 @@ class HeadingAndSeeAllButton extends StatelessWidget {
             children: [
               Text(
                 heading,
-                style: const TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.w500),
+                style: context.textTheme.titleMedium,
               ),
               TextButton(
                 onPressed: sellAllOnPressed,
                 child: Text(
                   l10n.seeAllBtnText,
-                  style: const TextStyle(
-                      color: AppColors.primaryColor,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.primaryColor),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ),
             ],
@@ -48,4 +44,3 @@ class HeadingAndSeeAllButton extends StatelessWidget {
     );
   }
 }
-

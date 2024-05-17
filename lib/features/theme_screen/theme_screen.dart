@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/theme_screen/model/theme_model.dart';
@@ -19,63 +20,49 @@ class _ThemeScreenState extends State<ThemeScreen> {
   @override
   void initState() {
     super.initState();
-    _getThemes();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+      final l10n = AppLocalizations.of(context)!;
+
+      _getThemes(l10n);
+
+      setState(() {
+
+      });
+    });
+
   }
 
-  _getThemes() {
+  _getThemes(AppLocalizations l10n) {
     themesList.add(ThemeModel(
-      themeName: 'Light',
+      themeName: l10n.lightLabel,
       themeIcon: Images.lightThemeIcon,
       isSelected: true,
     ));
     themesList.add(ThemeModel(
-      themeName: 'Dark',
+      themeName: l10n.darkLabel,
       themeIcon: Images.darkThemeIcon,
     ));
     themesList.add(ThemeModel(
-      themeName: 'Automatic',
+      themeName: l10n.automaticLabel,
       themeIcon: Images.automaticThemeIcon,
     ));
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Theme',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.themeTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         children: [

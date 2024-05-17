@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 
 class ProjectData extends StatelessWidget {
   const ProjectData({
@@ -28,7 +29,7 @@ class ProjectData extends StatelessWidget {
           style: TextStyle(
             color: AppColors.blackColor,
             fontSize: valueSize,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,

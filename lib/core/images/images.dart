@@ -11,6 +11,12 @@ class Images {
   static const String projectImageLand = 'assets/images/project_image_land.png';
   static const String bannerImage = 'assets/images/banner_image.png';
   static const String ayeenImage = 'assets/images/ayeen.png';
+  static const String valuatePropertyImage = 'assets/images/valuate_property_image.png';
+  static const String userImage = 'assets/images/user_image.png';
+  static const String userImageSvg = 'assets/images/user_image.svg';
+  static const String creditCardImage = 'assets/images/credit_card_image.svg';
+  static const String bankImage = 'assets/images/bank_image.svg';
+  static const String floorPlanImage = 'assets/images/floor_plan_image.png';
 
 
   //icons
@@ -73,6 +79,16 @@ class Images {
   static const String notificationsAccountIcon = 'assets/icons/notifications_account_icon.svg';
   static const String myAccountIcon = 'assets/icons/my_account_icon.svg';
   static const String rightArrowIcon = 'assets/icons/right_arrow_icon.svg';
+  static const String sendIcon = 'assets/icons/send_icon.svg';
+  static const String attachmentIcon = 'assets/icons/attachment_icon.svg';
+  static const String virtualTourIcon = 'assets/icons/virtual_tour_icon.svg';
+  static const String calendarIcon = 'assets/icons/calendar_icon.svg';
+  static const String mapIcon = 'assets/icons/map_icon.svg';
+  static const String switchButtonIcon = 'assets/icons/switch_button_icon.svg';
+  static const String downArrowIcon = 'assets/icons/down_arrow_icon.svg';
+  static const String deleteIcon = 'assets/icons/delete_icon.svg';
+  static const String favWhiteIcon = 'assets/icons/fav_white_icon.svg';
+  static const String featureWhiteIcon = 'assets/icons/feature_white_icon.svg';
 
 
 

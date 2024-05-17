@@ -4,10 +4,11 @@ import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/core/ui/dialgos.dart';
 import 'package:mafatih/core/util/utils.dart';
-import 'package:mafatih/features/home/pages/add/add_page.dart';
+import 'package:mafatih/features/agencies/agent_property_request_screen.dart';
 import 'package:mafatih/features/home/pages/chat/chat_page.dart';
 import 'package:mafatih/features/home/pages/explore/explore_page.dart';
 import 'package:mafatih/features/home/pages/listing/listing_page.dart';
+import 'package:mafatih/features/home/pages/listing/widgets/property_list_screen.dart';
 import 'package:mafatih/features/home/pages/services/services_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int lastPage = 0;
+  String mapListIcon = Images.listingIcon;
+  Widget listingMapPage = const ListingPage();
 
   @override
   void initState() {
@@ -30,22 +33,40 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return PersistentTabView(
       context,
       onItemSelected: (int pageNo) {
-
-        if(pageNo == 4) {
-
-          Dialogs.showServicesDialog(context);
+        if (pageNo == 4) {
+          Dialogs.showServicesDialog(context, l10n);
           Utils.controller.jumpToTab(lastPage);
 
           return;
+        }
+        if(pageNo == 2) {
+
+          if(lastPage == 2) {
+            if (listingMapPage is PropertyListScreen) {
+              listingMapPage = const ListingPage();
+            }
+            else if (listingMapPage is ListingPage) {
+              listingMapPage = const PropertyListScreen();
+            }
+
+            setState(() {
+              mapListIcon = mapListIcon == Images.listingIcon
+                  ? Images.mapIcon
+                  : Images.listingIcon;
+            });
+          }
+
+
         }
 
         setState(() {
           lastPage = pageNo;
         });
-
       },
 
       controller: Utils.controller,
@@ -58,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
       handleAndroidBackButtonPress: true,
       // Default is true.
       resizeToAvoidBottomInset: false,
-
       // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true,
       // Default is true.
@@ -71,27 +91,21 @@ class _HomeScreenState extends State<HomeScreen> {
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: null,
-
-      /*ItemAnimationProperties(
-        // Navigation Bar's items animation properties.
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
-      ),*/
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style15,
-
     );
   }
 
   List<Widget> _buildScreens() {
     return [
       const ExplorePage(),
-      const AddPage(),
-      const ListingPage(),
+      //const AddPropertyPage(),
+      const AgentPropertyRequestScreen(),
+      listingMapPage,
       const ChatPage(),
       const ServicesPage(),
     ];
@@ -102,9 +116,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return [
       _buildBottomNavBarItem(icon: Images.exploreIcon, title: l10n.exploreNav),
-      _buildBottomNavBarItem(icon: Images.addIcon, title: l10n.addNav),
+      _buildBottomNavBarItem(icon: Images.addIcon, title: l10n.requestNav),
       _buildBottomNavBarItem(
-          icon: Images.listingIcon, title: l10n.listingNav, isListing: true),
+          icon: mapListIcon, title: l10n.listingNav, isListing: true),
       _buildBottomNavBarItem(icon: Images.chatIcon, title: l10n.chatNav),
       _buildBottomNavBarItem(
           icon: Images.servicesIcon, title: l10n.servicesNav),

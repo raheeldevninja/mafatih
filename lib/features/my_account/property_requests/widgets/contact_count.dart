@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 
 class ContactCount extends StatelessWidget {
   const ContactCount({
@@ -32,10 +33,8 @@ class ContactCount extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: context.textTheme.titleMedium?.copyWith(
                 color: AppColors.primaryColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
               ),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -44,11 +43,7 @@ class ContactCount extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             title,
-            style: const TextStyle(
-              color: AppColors.blackColor,
-              fontWeight: FontWeight.normal,
-              fontSize: 16,
-            ),
+            style: context.textTheme.bodyMedium,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,

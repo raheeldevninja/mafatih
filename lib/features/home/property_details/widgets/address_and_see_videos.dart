@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
-
+import 'package:mafatih/core/models/property_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressAndSeeVideos extends StatelessWidget {
   const AddressAndSeeVideos({
@@ -11,10 +12,12 @@ class AddressAndSeeVideos extends StatelessWidget {
     required this.property,
   });
 
-  final Property property;
+  final PropertyModel property;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Row(
       children: [
         SvgPicture.asset(
@@ -24,13 +27,11 @@ class AddressAndSeeVideos extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-            child: Text(
-              property.address,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            )),
+          child: Text(
+            property.address,
+            style: context.textTheme.bodyMedium,
+          ),
+        ),
         SizedBox(
           width: 130,
           child: ElevatedButton(
@@ -53,12 +54,10 @@ class AddressAndSeeVideos extends StatelessWidget {
                   height: 14,
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'See Videos',
-                  style: TextStyle(
-                    fontSize: 14,
+                Text(
+                  l10n.seeVideosBtnText,
+                  style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.whiteColor,
-                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ],

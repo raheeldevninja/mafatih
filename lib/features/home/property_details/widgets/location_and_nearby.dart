@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocationAndNearby extends StatefulWidget {
   const LocationAndNearby({super.key});
@@ -25,12 +25,14 @@ class _LocationAndNearbyState extends State<LocationAndNearby> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        const MainHeading(heading: 'Location & Nearby'),
-
+        MainHeading(heading: l10n.locationNearbyLabel),
         const SizedBox(height: 16),
 
         ClipRRect(

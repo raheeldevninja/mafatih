@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 
 
 class ServicesItem extends StatelessWidget {
@@ -29,14 +30,12 @@ class ServicesItem extends StatelessWidget {
         child: Row(
           children: [
 
-            SvgPicture.asset(icon, width: 48, height: 48,),
+            SvgPicture.asset(icon, width: 36, height: 36),
             const SizedBox(width: 16),
             Text(
               title,
-              style: const TextStyle(
-                color: AppColors.blackColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
+              style: context.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             ),
 

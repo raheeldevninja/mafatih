@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/core/ui/main_heading.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
 import 'package:mafatih/features/my_account/complains/complains_screen.dart';
 import 'package:mafatih/features/my_account/edit_profile/edit_profile_screen.dart';
 import 'package:mafatih/features/my_account/favourite_properties/favourite_properties_screen.dart';
 import 'package:mafatih/features/my_account/notifications/notifications_screen.dart';
 import 'package:mafatih/features/my_account/view_records/view_records_screen.dart';
 import 'package:mafatih/features/notes/notes_screen.dart';
+import 'package:mafatih/features/payment/payment_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 import 'property_requests/property_requests_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
@@ -25,36 +29,17 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final authProvider = Provider.of<AuthProvider>(context);
+    final isUserLoggedIn = authProvider.isLoggedIn;
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('My Account'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.myAccountTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -70,44 +55,53 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       shape: BoxShape.circle,
                       color: AppColors.primaryColor.withOpacity(0.2),
                     ),
-                    child: SvgPicture.asset(
-                      Images.myAccountIcon
-                    )
+                    child: SvgPicture.asset(Images.myAccountIcon),
                   ),
                   const SizedBox(height: 10),
-                  const MainHeading(heading: 'Abed Kabalan'),
+
+                  Text(
+                    authProvider.getUserData.fullName ?? 'Abed Kabalan',
+                    style: context.textTheme.bodyLarge,
+                  ),
+
                   TextButton(
-                    onPressed: () {
-
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: const EditProfileScreen(),
-                        withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                      );
-
-                    },
+                    onPressed: isUserLoggedIn
+                        ? () {
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: const EditProfileScreen(),
+                              withNavBar: false,
+                              pageTransitionAnimation:
+                                  PageTransitionAnimation.cupertino,
+                            );
+                          }
+                        : null,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Edit Profile',
+                        Text(
+                          l10n.editProfileBtnText,
                           style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontSize: 16,
+                            fontSize: 14,
                             decoration: TextDecoration.underline,
-                            decorationColor: AppColors.primaryColor,
+                            decorationColor: isUserLoggedIn
+                                ? AppColors.primaryColor
+                                : AppColors.greyColor,
                           ),
                         ),
                         const SizedBox(width: 8),
-                        SvgPicture.asset(Images.rightArrowIcon)
+                        SvgPicture.asset(
+                          Images.rightArrowIcon,
+                          color: isUserLoggedIn
+                              ? AppColors.primaryColor
+                              : AppColors.greyColor,
+                        )
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-
             Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -116,132 +110,135 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               ),
               child: Column(
                 children: [
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.complainsAccountIcon,
-                    ),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    title: const Text('Complains'),
+                  _buildListTile(
+                    context,
+                    text: l10n.complainsMyAccount,
+                    icon: Images.complainsAccountIcon,
                     onTap: () {
-
-                      Navigator.push(
+                      PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const ComplainsScreen(),
-                        ),
+                        screen: const ComplainsScreen(),
+                        withNavBar: true,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.propertyRequestAccountIcon,
-                    ),
-                    title: const Text('Property Request'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
+                  _buildListTile(
+                    context,
+                    text: l10n.propertyRequestMyAccount,
+                    icon: Images.propertyRequestAccountIcon,
                     onTap: () {
-
-                      Navigator.push(
+                      PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const PropertyRequestsScreen(),
-                        ),
+                        screen: const PropertyRequestsScreen(),
+                        withNavBar: true,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.favouritePropertiesAccountIcon,
-                    ),
-                    title: const Text('Favorite Properties'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
+                  _buildListTile(
+                    context,
+                    text: l10n.favoritePropertiesMyAccount,
+                    icon: Images.favouritePropertiesAccountIcon,
                     onTap: () {
-
-                      Navigator.push(
+                      PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const FavouritePropertiesScreen(),
-                        ),
+                        screen: const FavouritePropertiesScreen(),
+                        withNavBar: true,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.bookingsAccountIcon,
-                    ),
-                    title: const Text('Bookings'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
-                    onTap: () {},
-                  ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.myNotesAccountIcon,
-                    ),
-                    title: const Text('My notes'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
+                  _buildListTile(
+                    context,
+                    text: l10n.bookingsMyAccount,
+                    icon: Images.bookingsAccountIcon,
                     onTap: () {
-
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const PaymentScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
+                  ),
+                  _buildListTile(
+                    context,
+                    text: l10n.myNotesMyAccount,
+                    icon: Images.myNotesAccountIcon,
+                    onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: const NotesScreen(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.viewRecordsAccountIcon,
-                    ),
-                    title: const Text('View Records'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
+                  _buildListTile(
+                    context,
+                    text: l10n.viewRecordsMyAccount,
+                    icon: Images.viewRecordsAccountIcon,
                     onTap: () {
-
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: const ViewRecordsScreen(),
                         withNavBar: false,
-                        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      Images.notificationsAccountIcon,
-                    ),
-                    title: const Text('Notifications'),
-                    trailing: const Icon(Icons.arrow_forward_ios, size:20),
+                  _buildListTile(
+                    context,
+                    text: l10n.notifications,
+                    icon: Images.notificationsAccountIcon,
                     onTap: () {
-
-                      Navigator.push(
+                      PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const NotificationsScreen(),
-                        ),
+                        screen: const NotificationsScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
                       );
-
                     },
                   ),
-
                 ],
               ),
             ),
-
             const SizedBox(height: 40),
-
           ],
         ),
       ),
+    );
+  }
+
+  _buildListTile(
+    BuildContext context, {
+    required String text,
+    required String icon,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: SvgPicture.asset(
+        width: 20,
+        height: 20,
+        icon,
+      ),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        size: 20,
+      ),
+      title: Text(
+        text,
+        style: context.textTheme.bodyMedium,
+      ),
+      onTap: onTap,
     );
   }
 }

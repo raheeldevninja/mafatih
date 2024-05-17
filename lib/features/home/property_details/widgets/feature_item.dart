@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 
 class FeatureItem extends StatelessWidget {
   const FeatureItem({
@@ -23,30 +24,22 @@ class FeatureItem extends StatelessWidget {
       children: [
         SvgPicture.asset(
           icon,
-          width: 24,
-          height: 24,
+          width: 20,
+          height: 20,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  color: AppColors.blackColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                ),
+                style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 4),
               Text(
                 value,
-                style: const TextStyle(
-                  color: AppColors.blackColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: context.textTheme.titleSmall
               ),
             ],
           ),

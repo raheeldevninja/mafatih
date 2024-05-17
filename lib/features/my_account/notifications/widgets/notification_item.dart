@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/features/my_account/notifications/model/notification_model.dart';
-
 
 class NotificationItem extends StatefulWidget {
   const NotificationItem({
@@ -36,10 +36,8 @@ class _NotificationItemState extends State<NotificationItem> {
             children: [
               Text(
                 widget.notification.title,
-                style: const TextStyle(
-                  color: AppColors.blackColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600
                 ),
               ),
 
@@ -47,11 +45,7 @@ class _NotificationItemState extends State<NotificationItem> {
 
               Text(
                 widget.notification.description,
-                style: const TextStyle(
-                  color: AppColors.blackColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: context.textTheme.bodySmall,
               ),
 
               const SizedBox(height: 10),
@@ -61,10 +55,7 @@ class _NotificationItemState extends State<NotificationItem> {
                 children: [
                   Text(
                     '${widget.notification.time}, ${widget.notification.date}',
-                    style: const TextStyle(
-                      color: AppColors.blackColor,
-                      fontSize: 12,
-                    ),
+                    style: context.textTheme.bodySmall,
                   ),
                 ],
               ),

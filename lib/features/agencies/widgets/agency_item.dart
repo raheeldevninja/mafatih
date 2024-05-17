@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mafatih/core/app/apis.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/features/agencies/model/agency.dart';
+import 'package:mafatih/features/agencies/model/agency_data.dart';
 import 'package:mafatih/features/my_account/property_requests/widgets/contact_count.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgencyItem extends StatelessWidget {
   const AgencyItem({
@@ -13,11 +15,14 @@ class AgencyItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final Agency agent;
+  final AgencyData agent;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -42,18 +47,17 @@ class AgencyItem extends StatelessWidget {
                       topRight: Radius.circular(16),
                     ),
                   ),
-                  child: Image.asset(
-                    agent.logo,
+                  child: Image.network(
+                    '${APIs.imageBaseURL}${agent.image!}',
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    agent.agentName,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                    agent.companyFullName!,
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
                     ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
@@ -70,11 +74,8 @@ class AgencyItem extends StatelessWidget {
 
             ///agent description
             Text(
-              agent.description,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-              ),
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              style: context.textTheme.bodyMedium,
             ),
 
             const SizedBox(height: 24),
@@ -85,16 +86,16 @@ class AgencyItem extends StatelessWidget {
                   child: ContactCount(
                     width: 120,
                     height: 64,
-                    title: 'Sale',
-                    value: agent.saleCount.toString(),
+                    title: l10n.saleLabel,
+                    value: '5600',
                   ),
                 ),
                 const SizedBox(width: 10),
                 ContactCount(
                   width: 120,
                   height: 64,
-                  title: 'Rent',
-                  value: agent.rentCount.toString(),
+                  title: l10n.regionLabel,
+                  value: '34',
                 ),
               ],
             ),

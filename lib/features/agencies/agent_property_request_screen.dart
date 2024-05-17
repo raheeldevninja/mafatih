@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
 import 'package:mafatih/core/ui/header.dart';
-import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:mafatih/features/agencies/model/neighborhood.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AgentPropertyRequestScreen extends StatefulWidget {
   const AgentPropertyRequestScreen({super.key});
@@ -39,37 +39,19 @@ class _AgentPropertyRequestScreenState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: AppColors.secondaryColor,
         surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Property Request',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
+        title: Text(
+          l10n.propertyRequestTitle,
+          style: context.textTheme.titleMedium,
         ),
         centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,14 +65,17 @@ class _AgentPropertyRequestScreenState
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                const MainHeading(
-                    heading: 'Share your Request with the Agents'),
+
+                Text(
+                  l10n.propertyRequestHeading,
+                  style: context.textTheme.titleMedium,
+                ),
 
                 Row(
                   children: [
                     // Radio button for "Buy"
                     Radio<String>(
-                      value: 'For Buy',
+                      value: l10n.forBuyRadioLabel,
                       groupValue: _selectedPropertyUsage,
                       activeColor: AppColors.primaryColor,
                       onChanged: (value) {
@@ -99,10 +84,10 @@ class _AgentPropertyRequestScreenState
                         });
                       },
                     ),
-                    const Text('For Buy'),
+                    Text(l10n.forBuyRadioLabel),
                     // Radio button for "Rent"
                     Radio<String>(
-                      value: 'For Rent',
+                      value: l10n.forRentRadioLabel,
                       groupValue: _selectedPropertyUsage,
                       activeColor: AppColors.primaryColor,
                       onChanged: (value) {
@@ -111,11 +96,15 @@ class _AgentPropertyRequestScreenState
                         });
                       },
                     ),
-                    const Text('For Rent'),
+                    Text(l10n.forRentRadioLabel),
                   ],
                 ),
 
-                Widgets.labels('Property Usage'),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                Widgets.labels(context, l10n.propertyUsageLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -158,7 +147,7 @@ class _AgentPropertyRequestScreenState
                   height: 20,
                 ),
 
-                Widgets.labels('Property Type'),
+                Widgets.labels(context, l10n.propertyTypeLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -206,7 +195,7 @@ class _AgentPropertyRequestScreenState
                     Expanded(
                       child: Column(
                         children: [
-                          Widgets.labels('Region'),
+                          Widgets.labels(context, l10n.regionLabel),
                           const SizedBox(
                             height: 10,
                           ),
@@ -257,7 +246,7 @@ class _AgentPropertyRequestScreenState
                     Expanded(
                       child: Column(
                         children: [
-                          Widgets.labels('City'),
+                          Widgets.labels(context, l10n.cityLabel),
                           const SizedBox(
                             height: 10,
                           ),
@@ -311,7 +300,7 @@ class _AgentPropertyRequestScreenState
                   height: 20,
                 ),
 
-                Widgets.labels('Select Neighbourhood'),
+                Widgets.labels(context, l10n.selectNeighbourhoodLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -334,7 +323,7 @@ class _AgentPropertyRequestScreenState
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: AppColors.secondaryColor,
-                    hintText: 'Enter Neighbourhood',
+                    hintText: l10n.selectNeighbourhoodHint,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -352,16 +341,16 @@ class _AgentPropertyRequestScreenState
                       borderRadius: BorderRadius.circular(16),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.grey.withOpacity(0.3), width: 1.0),
+                      borderSide: BorderSide(
+                          color: Colors.grey.withOpacity(0.3), width: 1.0),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: AppColors.lightGrey, width: 1.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.lightGrey, width: 1.0),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                   ),
-
                 ),
 
                 const SizedBox(height: 20),
@@ -422,7 +411,7 @@ class _AgentPropertyRequestScreenState
                         ],
                       ),
 
-                Widgets.labels('Property area (sqm)'),
+                Widgets.labels(context, l10n.propertyAreaSqmLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -433,7 +422,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _propertyAreaFromController,
                         keyboardType: TextInputType.text,
-                        hintText: 'From',
+                        hintText: l10n.fromHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -447,7 +436,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _propertyAreaToController,
                         keyboardType: TextInputType.text,
-                        hintText: 'To',
+                        hintText: l10n.toHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -461,7 +450,7 @@ class _AgentPropertyRequestScreenState
 
                 const SizedBox(height: 20),
 
-                Widgets.labels('No of rooms'),
+                Widgets.labels(context, l10n.numberOfRoomsLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -472,7 +461,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _noOfRoomsFromController,
                         keyboardType: TextInputType.text,
-                        hintText: 'From',
+                        hintText: l10n.fromHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -486,7 +475,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _noOfRoomsToController,
                         keyboardType: TextInputType.text,
-                        hintText: 'To',
+                        hintText: l10n.toHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -500,7 +489,7 @@ class _AgentPropertyRequestScreenState
 
                 const SizedBox(height: 20),
 
-                Widgets.labels('Price (Saudi Riyal)'),
+                Widgets.labels(context, l10n.priceSaudiRiyalLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -511,7 +500,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _priceFromController,
                         keyboardType: TextInputType.text,
-                        hintText: 'From',
+                        hintText: l10n.fromHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -525,7 +514,7 @@ class _AgentPropertyRequestScreenState
                       child: AppTextField(
                         controller: _priceToController,
                         keyboardType: TextInputType.text,
-                        hintText: 'To',
+                        hintText: l10n.toHint,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return '';
@@ -539,7 +528,7 @@ class _AgentPropertyRequestScreenState
 
                 const SizedBox(height: 20),
 
-                Widgets.labels('More Details'),
+                Widgets.labels(context, l10n.moreDetailsLabel),
                 const SizedBox(
                   height: 10,
                 ),
@@ -548,7 +537,7 @@ class _AgentPropertyRequestScreenState
                   controller: _moreDetailsController,
                   maxLines: 4,
                   keyboardType: TextInputType.text,
-                  hintText: 'Enter more details ...',
+                  hintText: l10n.moreDetailsHint,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return '';
@@ -586,41 +575,35 @@ class _AgentPropertyRequestScreenState
                     Expanded(
                       child: RichText(
                         text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
+                          style: context.textTheme.bodyLarge,
                           children: [
                             TextSpan(
-                              text: 'I agree to the ',
-
+                              text: l10n.iAgreeToThe,
+                              style: context.textTheme.bodyMedium,
                             ),
                             TextSpan(
-                              text: 'Terms of Use',
-                              style: TextStyle(
+                              text: l10n.termsOfUseLink,
+                              style: context.textTheme.bodyMedium?.copyWith(
                                 color: AppColors.primaryColor,
                                 decoration: TextDecoration.underline,
+                                decorationColor: AppColors.primaryColor,
                               ),
                               // Define an onTap handler to launch a URL
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-
-                                },
-                            ),
-                            const TextSpan(
-                              text: ' and ',
+                              recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
                             TextSpan(
-                              text: 'Privacy Policy',
-                              style: const TextStyle(
+                              text: l10n.and,
+                              style: context.textTheme.bodyMedium,
+                            ),
+                            TextSpan(
+                              text: l10n.privacyPolicyLink,
+                              style: context.textTheme.bodyMedium?.copyWith(
                                 color: AppColors.primaryColor,
                                 decoration: TextDecoration.underline,
+                                decorationColor: AppColors.primaryColor,
                               ),
                               // Define an onTap handler to launch a URL
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-
-                                },
+                              recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
                             TextSpan(
                               text: '.',
@@ -629,7 +612,6 @@ class _AgentPropertyRequestScreenState
                         ),
                       ),
                     ),
-
                   ],
                 ),
 
@@ -638,7 +620,8 @@ class _AgentPropertyRequestScreenState
                 SizedBox(
                     height: 50,
                     child: SimpleButton(
-                        text: 'Send Request to all agents', callback: () {})),
+                        text: l10n.sendRequestToAllAgentsBtnText,
+                        onPressed: () {})),
 
                 const SizedBox(height: 20),
               ],

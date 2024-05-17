@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:mafatih/features/home/property_details/widgets/feature_item.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PropertyFeatures extends StatelessWidget {
   const PropertyFeatures({
@@ -11,6 +11,9 @@ class PropertyFeatures extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -22,22 +25,22 @@ class PropertyFeatures extends StatelessWidget {
         children: [
 
           ///coverage and area
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: FeatureItem(
                   icon: Images.wifiIcon,
-                  title: 'Coverage',
+                  title: l10n.coverageLabel,
                   value: '5G Fiber',
                 ),
               ),
 
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
 
               Expanded(
                 child: FeatureItem(
                   icon: Images.areaIcon,
-                  title: 'Area',
+                  title: l10n.areaLabel,
                   value: '625',
                 ),
               ),
@@ -47,12 +50,12 @@ class PropertyFeatures extends StatelessWidget {
           const SizedBox(height: 24),
 
           ///street direction and street width
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: FeatureItem(
                   icon: Images.streetDirectionIcon,
-                  title: 'Street Direction',
+                  title: l10n.streetDirectionLabel,
                   value: 'East',
                 ),
               ),
@@ -62,7 +65,7 @@ class PropertyFeatures extends StatelessWidget {
               Expanded(
                 child: FeatureItem(
                   icon: Images.streetWidthIcon,
-                  title: 'Street Width',
+                  title: l10n.streetWidthLabel,
                   value: '40 meter',
                 ),
               ),
@@ -72,22 +75,22 @@ class PropertyFeatures extends StatelessWidget {
           const SizedBox(height: 24),
 
           ///real estate age and electricity
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: FeatureItem(
                   icon: Images.buildingIcon,
-                  title: 'Real estate age',
+                  title: l10n.realEstateAgeLabel,
                   value: '10',
                 ),
               ),
 
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
 
               Expanded(
                 child: FeatureItem(
                   icon: Images.wireIcon,
-                  title: 'Electricity',
+                  title: l10n.electricityLabel,
                   value: '40 meter',
                 ),
               ),
@@ -96,9 +99,9 @@ class PropertyFeatures extends StatelessWidget {
 
           TextButton(
             onPressed: () {},
-            child: const Text(
-              'More Features',
-              style: TextStyle(
+            child: Text(
+              l10n.moreFeaturesBtnText,
+              style: const TextStyle(
                 fontSize: 14,
                 color: AppColors.primaryColor,
                 fontWeight: FontWeight.normal,

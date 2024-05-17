@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 import 'package:mafatih/core/ui/app_drawer.dart';
 import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.dart';
 import 'package:mafatih/features/home/property_details/property_details_screen.dart';
 import 'package:mafatih/features/search/search_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'map_icon.dart';
+
 
 class PropertyListScreen extends StatefulWidget {
   const PropertyListScreen({super.key});
@@ -22,7 +23,7 @@ class PropertyListScreen extends StatefulWidget {
 class _PropertyListScreenState extends State<PropertyListScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Property> properties = [];
+  List<PropertyModel> properties = [];
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
 
   _initPropertiesList() {
     properties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -52,7 +53,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     );
 
     properties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -71,7 +72,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     );
 
     properties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -90,7 +91,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     );
 
     properties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -116,6 +117,8 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
     final l10n = AppLocalizations.of(context)!;
     final languageCode = AppLocalizations.of(context)!.localeName;
     final isEnglishLang = languageCode == 'en';
+
+    properties = [];
 
     return Scaffold(
       key: _scaffoldKey,
@@ -175,13 +178,18 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
           )
         ],
       ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            itemCount: properties.length,
-            padding: const EdgeInsets.all(8),
-            itemBuilder: (context, index) {
-              return InkWell(
+      body: properties.isEmpty ? Center(child: Text(l10n.noPropertiesLabel),) : ListView.builder(
+        shrinkWrap: true,
+        primary: true,
+        itemCount: properties.length,
+        padding: const EdgeInsets.all(8),
+        itemBuilder: (context, index) {
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(milliseconds: 1000),
+            child: SlideAnimation(
+              verticalOffset: 160.0,
+              child: InkWell(
                 onTap: () {
 
                   PersistentNavBarNavigator.pushNewScreen(
@@ -192,22 +200,11 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
                   );
 
                 },
-                child: PropertyListItem(property: properties[index]),
-              );
-            },
-          ),
-
-          //map view button
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: MapIcon(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.map)),
-          ),
-        ],
+                //child: PropertyListItem(property: properties[index]),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

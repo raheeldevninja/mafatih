@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 import 'package:mafatih/features/home/property_details/compare_properties_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PriceAndCompareProperty extends StatelessWidget {
   const PriceAndCompareProperty({
     required this.property,
     super.key});
 
-  final Property property;
+  final PropertyModel property;
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Row(
       children: [
         Row(
@@ -24,21 +28,20 @@ class PriceAndCompareProperty extends StatelessWidget {
             ///price
             Text(
               property.price,
-              style: const TextStyle(
+              style: context.textTheme.titleLarge?.copyWith(
                 color: AppColors.primaryColor,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
+                fontWeight: FontWeight.w600,
+                fontSize: 24,
+              )
             ),
 
             const SizedBox(width: 4),
 
-            const Text(
+            Text(
               'SAR',
-              style: TextStyle(
+              style: context.textTheme.bodyLarge?.copyWith(
                 color: AppColors.primaryColor,
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
@@ -70,12 +73,9 @@ class PriceAndCompareProperty extends StatelessWidget {
 
               const SizedBox(width: 8),
 
-              const Text(
-                'Compare',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.normal,
+              Text(
+                l10n.compareBtnText,
+                style: context.textTheme.bodyMedium?.copyWith(
                   decoration: TextDecoration.underline,
                   decorationColor: AppColors.blackColor,
                 ),

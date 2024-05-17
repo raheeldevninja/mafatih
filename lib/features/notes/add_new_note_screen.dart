@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
@@ -30,34 +31,11 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Add New Note',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.addNewNoteTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         children: [
@@ -79,7 +57,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                   ),
 
 
-                  Widgets.labels('Title'),
+                  Widgets.labels(context, l10n.titleLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -87,7 +65,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                   AppTextField(
                     controller: _titleController,
                     keyboardType: TextInputType.text,
-                    hintText: 'Enter your title',
+                    hintText: l10n.titleHint,
                     validator: (value) {
                       return null;
                     },
@@ -97,7 +75,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels('Description'),
+                  Widgets.labels(context, l10n.descriptionLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -105,7 +83,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                   AppTextField(
                     controller: _descriptionController,
                     keyboardType: TextInputType.text,
-                    hintText: 'Enter description ...',
+                    hintText: l10n.descriptionHint,
                     maxLines: 4,
                     validator: (value) {
                       return null;
@@ -121,8 +99,8 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     width: double.infinity,
                     height: 60,
                     child: SimpleButton(
-                      text: 'Submit',
-                      callback: () {
+                      text: l10n.submitBtnText,
+                      onPressed: () {
                         if (_formKey.currentState!.validate()) {}
                       },
                     ),

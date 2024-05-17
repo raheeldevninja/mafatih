@@ -1,20 +1,20 @@
-class BedRoom {
+class BedRoomModel {
   final String id;
   final String name;
   final bool isSelected;
 
-  BedRoom({
+  BedRoomModel({
     required this.id,
     required this.name,
     this.isSelected = false,
   });
 
-  BedRoom copyWith({
+  BedRoomModel copyWith({
     String? id,
     String? name,
     bool? isSelected,
   }) {
-    return BedRoom(
+    return BedRoomModel(
       id: id ?? this.id,
       name: name ?? this.name,
       isSelected: isSelected ?? this.isSelected,

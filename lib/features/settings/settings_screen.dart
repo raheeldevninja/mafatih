@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
-import 'package:mafatih/core/ui/main_heading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/features/feedback/feedback_screen.dart';
 import 'package:mafatih/features/language_screen/language_screen.dart';
+import 'package:mafatih/features/settings/widgets/setting_item.dart';
 import 'package:mafatih/features/static_pages/about_us_page.dart';
 import 'package:mafatih/features/theme_screen/theme_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -25,40 +26,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Settings',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.settings,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         children: [
@@ -73,9 +48,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               primary: true,
               children: [
 
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: MainHeading(heading: 'Preferences'),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(l10n.preferencesLabel,
+                  style: context.textTheme.titleMedium,
+                  ),
                 ),
 
                 Container(
@@ -85,106 +62,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ListTile(
-                        leading: Container(
-                            width: 40,
-                            height: 40,
-                            padding: const EdgeInsets.all(8),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            child: SvgPicture.asset(Images.themeSettingsIcon)
-                        ),
-                        title: const Text('Theme'),
+                      SettingItem(
+                        label: l10n.themeLabelSettings,
+                        icon: Images.themeSettingsIcon,
                         onTap: () {
-
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
                             screen: const ThemeScreen(),
                             withNavBar: false,
                             pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
-
                         },
                       ),
-                      ListTile(
-                        leading: Container(
-                          width: 40,
-                          height: 40,
-                          padding: const EdgeInsets.all(8),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                          child: SvgPicture.asset(Images.languageSettingsIcon)
-                        ),
-                        title: const Text('Language'),
-                        onTap: () {
 
+                      SettingItem(
+                        label: l10n.languageLabelSettings,
+                        icon: Images.languageSettingsIcon,
+                        onTap: () {
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
                             screen: const LanguageScreen(),
                             withNavBar: false,
                             pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
-
                         },
                       ),
-                      ListTile(
-                        leading: Container(
-                            width: 40,
-                            height: 40,
-                            padding: const EdgeInsets.all(8),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            child: SvgPicture.asset(Images.feedbackSettingsIcon)
-                        ),
-                        title: const Text('Feedback'),
-                        onTap: () {
 
+                      SettingItem(
+                        label: l10n.feedbackLabelSettings,
+                        icon: Images.feedbackSettingsIcon,
+                        onTap: () {
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
                             screen: const FeedbackScreen(),
                             withNavBar: false,
                             pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
-
                         },
                       ),
-                      ListTile(
-                        leading: Container(
-                            width: 40,
-                            height: 40,
-                            padding: const EdgeInsets.all(8),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            child: SvgPicture.asset(Images.aboutSettingsIcon)
-                        ),
-                        title: const Text('About'),
-                        onTap: () {
 
+                      SettingItem(
+                        label: l10n.aboutLabelSettings,
+                        icon: Images.aboutSettingsIcon,
+                        onTap: () {
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
                             screen: const AboutUsPage(),
                             withNavBar: false,
                             pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
-
-
                         },
                       ),
-                      ListTile(
-                        leading: Container(
-                            width: 40,
-                            height: 40,
-                            padding: const EdgeInsets.all(8),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                            child: SvgPicture.asset(Images.shareSettingsIcon)
-                        ),
-                        title: const Text('Share the app'),
+
+                      SettingItem(
+                        label: l10n.shareTheAppLabelSettings,
+                        icon: Images.shareSettingsIcon,
                         onTap: () {},
                       ),
 
@@ -207,3 +139,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
 }
+

@@ -9,8 +9,8 @@ import 'package:mafatih/features/home/property_details/widgets/about_project.dar
 import 'package:mafatih/features/home/property_details/widgets/location_and_nearby.dart';
 import 'package:mafatih/features/home/property_details/widgets/property_features_vertical.dart';
 import 'package:mafatih/features/search/search_screen.dart';
-import 'package:mafatih/features/search/widgets/property_attribute.dart';
-
+import 'package:mafatih/core/ui/property_attribute.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ComparePropertiesScreen extends StatefulWidget {
   const ComparePropertiesScreen({super.key});
@@ -23,6 +23,9 @@ class ComparePropertiesScreen extends StatefulWidget {
 class _ComparePropertiesScreenState extends State<ComparePropertiesScreen> {
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       appBar: AppBar(
@@ -47,7 +50,7 @@ class _ComparePropertiesScreenState extends State<ComparePropertiesScreen> {
           ),
         ),
         centerTitle: true,
-        title: const Text('Compare'),
+        title: Text(l10n.compareTitle),
         actions: [
           IconButton(
             onPressed: () {
@@ -228,38 +231,11 @@ class _ComparePropertiesScreenState extends State<ComparePropertiesScreen> {
                         ),
                         const SizedBox(height: 8),
                         const PropertyFeaturesVertical(),
-
-                        const SizedBox(height: 8),
-
-                        const Text('License ID', style: TextStyle(fontSize: 14, color: AppColors.blackColor)),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Text('123456'),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text('Ad License Number', style: TextStyle(fontSize: 14, color: AppColors.blackColor)),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Text('720008142002'),
-                        ),
-
                         const SizedBox(height: 16),
 
 
                         ///about
                         const AboutProject(),
-                        const SizedBox(height: 8),
-
                         const SizedBox(height: 8),
                         const LocationAndNearby(),
                         const SizedBox(height: 16),
@@ -351,30 +327,6 @@ class _ComparePropertiesScreenState extends State<ComparePropertiesScreen> {
                         ),
                         const SizedBox(height: 8),
                         const PropertyFeaturesVertical(),
-                        const SizedBox(height: 8),
-
-                        const Text('License ID', style: TextStyle(fontSize: 14, color: AppColors.blackColor)),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: const Text('123456'),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text('Ad License Number', style: TextStyle(fontSize: 14, color: AppColors.blackColor)),
-                        const SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-                          decoration: BoxDecoration(
-                            color: AppColors.greyColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Text('720008142002'),
-                        ),
-
                         const SizedBox(height: 16),
 
                         ///about

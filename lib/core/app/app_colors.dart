@@ -13,6 +13,10 @@ class AppColors {
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color blackColor = Color(0xFF000000);
   static const Color redColor = Color(0xFFFF0000);
+  static const Color yellowColor = Color(0xFFFFD700);
+  static const Color greenColor = Color(0xFF00B483);
+
+  static const Color soldLabelColor = Color(0xFFE85757);
 
   static const Color backBtnColor = Color(0xFF707070);
   static const Color selectedColor = Color(0xFF243941);
@@ -21,6 +25,11 @@ class AppColors {
   static const Color whatsappBtnColor = Color(0xFF17B805);
   static const Color messageBtnColor = Color(0xFFFBAC1A);
   static const Color inactiveTabColor = Color(0xFF000000);
+  static const Color selectedModelColor = Color(0xFF243941);
+
+  static const Color regularMarkerColor = Color(0xFF243941);
+  static const Color viewedMarkerColor = Color(0xFF3FCDD8);
+  static const Color featuredMarkerColor = Color(0xFFFBAC1A);
 
 
 

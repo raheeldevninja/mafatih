@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 
 class FavouritePropertyItem extends StatefulWidget {
   const FavouritePropertyItem({required this.property, super.key});
 
-  final Property property;
+  final PropertyModel property;
 
   @override
   State<FavouritePropertyItem> createState() => _FavouritePropertyItemState();
@@ -20,6 +20,9 @@ class _FavouritePropertyItemState extends State<FavouritePropertyItem> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       height: 224,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -235,8 +238,8 @@ class _FavouritePropertyItemState extends State<FavouritePropertyItem> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Ad Owner',
+                      Text(
+                        l10n.adOwnerLabel,
                         style:
                             TextStyle(color: AppColors.greyColor, fontSize: 12),
                       ),

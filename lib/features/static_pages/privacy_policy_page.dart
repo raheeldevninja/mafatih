@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mafatih/core/app/apis.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/static_pages/view_model/static_pages_provider.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/features/static_pages/model/faq_model.dart';
-
+import 'package:mafatih/core/ui/shimmers/form_page_shimmer.dart';
+import 'package:mafatih/core/util/utils.dart';
+import 'package:provider/provider.dart';
+import 'package:html/parser.dart' as htmlParser;
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({super.key});
@@ -13,12 +18,16 @@ class PrivacyPolicyPage extends StatefulWidget {
 }
 
 class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
-  List<FAQModel> faqs = [];
-
   @override
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final staticPagesProvider =
+          Provider.of<StaticPagesProvider>(context, listen: false);
+      await staticPagesProvider.getStaticPageContent(
+          context, APIs.privacyPolicy);
+    });
   }
 
   @override
@@ -28,53 +37,45 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
+    final staticPagesProvider = context.watch<StaticPagesProvider>();
+    String htmlString =
+        staticPagesProvider.staticPageResponse?.data?.content ?? '';
+
+    // Parse HTML
+    final document = htmlParser.parse(htmlString);
+    String parsedText = Utils.parseHtml(document);
+
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('Privacy Policy'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-              const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: staticPagesProvider.getLoading
+            ? ''
+            : staticPagesProvider.staticPageResponse?.data?.title ?? '',
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Header(
-              height: 20,
-              content: SizedBox(),
+      body: staticPagesProvider.getLoading
+          ? const FormPageShimmer()
+          : Column(
+              children: [
+                const Header(
+                  height: 20,
+                  content: SizedBox(),
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(parsedText),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus ut felis fermentum aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus ut felis fermentum aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus ut felis fermentum aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus ut felis fermentum aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus ut felis fermentum aliquet.'),
-            ),
-
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
     );
   }
 }
-
-
-

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 import 'package:mafatih/features/home/property_details/widgets/property_attribute.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PropertyAttributes extends StatelessWidget {
   const PropertyAttributes({
@@ -10,10 +10,13 @@ class PropertyAttributes extends StatelessWidget {
     required this.property,
   });
 
-  final Property property;
+  final PropertyModel property;
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+
     return Row(
       children: [
         ///area
@@ -21,7 +24,7 @@ class PropertyAttributes extends StatelessWidget {
           child: PropertyAttribute(
             property: property,
             icon: Images.areaIcon,
-            title: 'Area',
+            title: l10n.areaLabel,
             value: property.area,
           ),
         ),
@@ -33,7 +36,7 @@ class PropertyAttributes extends StatelessWidget {
           child: PropertyAttribute(
             property: property,
             icon: Images.bedIcon,
-            title: 'Bed',
+            title: l10n.bedLabel,
             value: property.beds,
           ),
         ),
@@ -45,7 +48,7 @@ class PropertyAttributes extends StatelessWidget {
           child: PropertyAttribute(
             property: property,
             icon: Images.bathIcon,
-            title: 'Bath',
+            title: l10n.bathLabel,
             value: '1',
           ),
         ),
@@ -57,7 +60,7 @@ class PropertyAttributes extends StatelessWidget {
           child: PropertyAttribute(
             property: property,
             icon: Images.ageIcon,
-            title: 'Age',
+            title: l10n.ageLabel,
             value: '17+',
           ),
         ),

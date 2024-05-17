@@ -1,34 +1,46 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
-import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
+import 'package:mafatih/core/ui/empty_widget.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/features/my_account/favourite_properties/widgets/favourite_property_item.dart';
-
+import 'package:mafatih/core/ui/shimmers/list_shimmer.dart';
+import 'package:mafatih/features/home/pages/explore/widgets/property_list_item.dart';
+import 'package:mafatih/features/my_account/favourite_properties/view_model/favourite_provider.dart';
+import 'package:provider/provider.dart';
 
 class FavouritePropertiesScreen extends StatefulWidget {
   const FavouritePropertiesScreen({super.key});
 
   @override
-  State<FavouritePropertiesScreen> createState() => _FavouritePropertiesScreenState();
+  State<FavouritePropertiesScreen> createState() =>
+      _FavouritePropertiesScreenState();
 }
 
 class _FavouritePropertiesScreenState extends State<FavouritePropertiesScreen> {
-
-  List<Property> favouriteProperties = [];
+  //List<PropertyModel> favouriteProperties = [];
 
   @override
   void initState() {
     super.initState();
 
-    _initFavouriteProperties();
+    //_initFavouriteProperties();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final favouriteProvider =
+          Provider.of<FavouriteProvider>(context, listen: false);
+      await favouriteProvider.getFavouriteProperties(context);
+    });
   }
 
+  /*
   _initFavouriteProperties() {
 
     favouriteProperties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -47,7 +59,7 @@ class _FavouritePropertiesScreenState extends State<FavouritePropertiesScreen> {
     );
 
     favouriteProperties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -66,7 +78,7 @@ class _FavouritePropertiesScreenState extends State<FavouritePropertiesScreen> {
     );
 
     favouriteProperties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -85,7 +97,7 @@ class _FavouritePropertiesScreenState extends State<FavouritePropertiesScreen> {
     );
 
     favouriteProperties.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -104,68 +116,76 @@ class _FavouritePropertiesScreenState extends State<FavouritePropertiesScreen> {
     );
 
   }
-
+  */
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final favouriteProvider = Provider.of<FavouriteProvider>(context);
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final favouriteProperties =
+        favouriteProvider.favouritePropertiesResponse?.properties ?? [];
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('Favourite Properties'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.favouritePropertiesTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Header(
-              height: 20,
-              content: SizedBox(),
-            ),
-
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8),
-              itemCount: favouriteProperties.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                  },
-                  child: FavouritePropertyItem(property: favouriteProperties[index]),
-                );
+      body: favouriteProvider.isLoading
+          ? const ListShimmer()
+          : RefreshIndicator(
+              onRefresh: () async {
+                await favouriteProvider.getFavouriteProperties(context);
               },
-            ),
+              child: Column(
+                children: [
+                  const Header(
+                    height: 20,
+                    content: SizedBox(),
+                  ),
+                  Expanded(
+                    child: favouriteProperties.isEmpty
+                        ? EmptyWidget(message: l10n.noPropertiesLabel)
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            primary: true,
+                            padding: const EdgeInsets.all(8),
+                            itemCount: favouriteProperties.length,
+                            itemBuilder: (context, index) {
 
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
+                              if(favouriteProperties[index]
+                                  .property == null) {
+                                return const SizedBox();
+                              }
+
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 1000),
+                                child: SlideAnimation(
+                                  verticalOffset: 50.0,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 8),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(10),
+                                      onTap: () async {},
+                                      child: PropertyListItem(
+                                          property: favouriteProperties[index]
+                                              .property!),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }

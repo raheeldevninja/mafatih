@@ -23,7 +23,6 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
   @override
   void initState() {
     super.initState();
-    print('hello');
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _getCurrentLocation();
@@ -57,7 +56,7 @@ class _ChooseFromMapScreenState extends State<ChooseFromMapScreen> {
                       margin: const EdgeInsets.all(20),
                       child: SimpleButton(
                           text: l10n.searchBtnText,
-                          callback: () {
+                          onPressed: () {
                             Navigator.pop(context);
                           })),
                 ),

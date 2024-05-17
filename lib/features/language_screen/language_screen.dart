@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/core/util/utils.dart';
 import 'package:mafatih/features/language_screen/model/language_model.dart';
-import 'package:mafatih/l10n/locale_provider.dart';
-import 'package:provider/provider.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
@@ -71,34 +71,11 @@ class _LanguageScreenState extends State<LanguageScreen> {
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        surfaceTintColor: Colors.transparent,
-        title: const Text(
-          'Language',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.language,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         children: [
@@ -135,9 +112,9 @@ class _LanguageScreenState extends State<LanguageScreen> {
 
                               if (languagesList[index].languageName ==
                                   'English') {
-                                _chooseLanguage(context, 'en');
+                                Utils.chooseLanguage(context, 'en');
                               } else {
-                                _chooseLanguage(context, 'ar');
+                                Utils.chooseLanguage(context, 'ar');
                               }
 
                               setState(() {});
@@ -174,12 +151,5 @@ class _LanguageScreenState extends State<LanguageScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _chooseLanguage(BuildContext context, String code) async {
-    final localeProvider = context.read<LocaleProvider>();
-
-    localeProvider.changeLocale(Locale(code));
-    await localeProvider.saveChooseLanguageShown();
   }
 }

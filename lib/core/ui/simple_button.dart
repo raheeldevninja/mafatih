@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
+
 
 class SimpleButton extends StatelessWidget {
   const SimpleButton({
     super.key,
     required this.text,
-    required this.callback,
+    required this.onPressed,
     this.backgroundColor = AppColors.primaryColor,
   });
 
   final String text;
-  final VoidCallback callback;
+  final VoidCallback onPressed;
   final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
 
     return ElevatedButton(
-      onPressed: callback,
-      style: ElevatedButton.styleFrom(
-        shadowColor: Colors.transparent,
-        backgroundColor: backgroundColor,
-        foregroundColor: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-      ),
+      onPressed: onPressed,
       child: FittedBox(
         child: Text(
           text,
-          style: const TextStyle(
-            fontSize: 18,
+          style: context.textTheme.bodyMedium?.copyWith(
             color: AppColors.whiteColor,
-            fontWeight: FontWeight.normal,
           ),
         ),
       ),

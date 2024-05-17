@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/auth_choice.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/shimmers/form_page_shimmer.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mafatih/core/util/shared_pref.dart';
 import 'package:mafatih/features/auth/forgot_password_screen.dart';
 import 'package:mafatih/features/auth/register_screen.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
 import 'package:mafatih/features/home/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,86 +26,73 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _phoneNumberController = TextEditingController(text: '12345678');
-  final _passwordController = TextEditingController(text: '12345678');
+  final _phoneNumberController = TextEditingController(text: '541191226');
+  final _passwordController = TextEditingController(text: 'Ab@123123');
 
   bool obscureText = true;
   String selectedCountryCode = '+966';
 
   @override
   Widget build(BuildContext context) {
+
     final l10n = AppLocalizations.of(context)!;
-
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     final canGoBack = Navigator.canPop(context);
 
-    print('language: ${l10n.localeName}');
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor,
-        title: Text(l10n.login,
-            style: const TextStyle(fontWeight: FontWeight.w500)),
-        centerTitle: true,
-        leading: canGoBack
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
-                  onTap: () {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: AppColors.backBtnColor,
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    child: const Icon(Icons.arrow_back,
-                        color: AppColors.secondaryColor),
-                  ),
-                ),
-              )
-            : null,
-
+      appBar: CustomAppBar(
+        title: l10n.login,
+        canGoBack: canGoBack,
+        onTapBackButton: () {
+          if (canGoBack) {
+            Navigator.pop(context);
+          }
+        },
         actions: [
           //skip button
           TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ),
-              );
+            onPressed: () async {
+
+              await SharedPref.setLoginSkipped(true);
+
+              if(context.mounted) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
+              }
+
             },
-            child: const Text(
-              'Skip',
-              style: TextStyle(color: AppColors.primaryColor),
+            child: Text(
+              l10n.skipBtnText,
             ),
           ),
         ],
       ),
-      body: ListView(
+      body: authProvider.isLoading ? const FormPageShimmer() :
+      ListView(
         children: [
-          Header(content: Text(l10n.loginSubTitle)),
+          Header(
+            content: Text(
+              l10n.loginSubTitle,
+              style: context.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  Widgets.labels(l10n.phoneNoLabel),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  Widgets.labels(context, l10n.phoneNoLabel),
+                  const SizedBox(height: 10),
 
-                  //rounded corner with border text form field
                   AppTextField(
                     controller: _phoneNumberController,
                     keyboardType: TextInputType.phone,
@@ -118,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
 
-                  Widgets.labels(l10n.passwordLabel),
+                  Widgets.labels(context, l10n.passwordLabel),
                   const SizedBox(
                     height: 10,
                   ),
@@ -155,9 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                     child: TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: AppColors.primaryColor,
-                      ),
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -168,59 +159,58 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(l10n.forgotPassword),
                     ),
                   ),
-
-                  SizedBox(
-                    height: height * 0.25,
-                  ),
-
-                  //login button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: SimpleButton(
-                      text: l10n.loginBtnText,
-                      callback: () {
-                        if (_formKey.currentState!.validate()) {
-                          ///Navigate to home screen
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(l10n.dontHaveAccount),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            l10n.signUpBtnText,
-                            style: const TextStyle(
-                                color: AppColors.primaryColor,
-                                decoration: TextDecoration.underline),
-                          )),
-                    ],
-                  ),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: authProvider.isLoading ? const SizedBox() : Container(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            //login button
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: SimpleButton(
+                text: l10n.loginBtnText,
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+
+                    await authProvider.login(
+                      context,
+                      _phoneNumberController.text,
+                      _passwordController.text,
+                    );
+
+                  }
+                },
+              ),
+            ),
+
+            const SizedBox(
+              height: 10,
+            ),
+
+            AuthChoice(
+              label: l10n.dontHaveAccount,
+              actionButtonLabel: l10n.signUpBtnText,
+              onActionButtonPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const RegisterScreen(),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -270,3 +260,4 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
   }
 }
+

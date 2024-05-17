@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/core/ui/main_heading.dart';
-import 'package:mafatih/features/agencies/agent_details_screen.dart';
+import 'package:mafatih/features/agencies/agency_details_screen.dart';
 import 'package:mafatih/features/agencies/model/agency.dart';
+import 'package:mafatih/features/agencies/view_model/agency_provider.dart';
 import 'package:mafatih/features/agencies/widgets/agency_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
-class AgentsScreen extends StatefulWidget {
-  const AgentsScreen({super.key});
+class AgenciesScreen extends StatefulWidget {
+  const AgenciesScreen({super.key});
 
   @override
-  State<AgentsScreen> createState() => _AgentsScreenState();
+  State<AgenciesScreen> createState() => _AgenciesScreenState();
 }
 
-class _AgentsScreenState extends State<AgentsScreen> {
+class _AgenciesScreenState extends State<AgenciesScreen> {
   List<Agency> agenciesList = [];
 
   @override
   void initState() {
     super.initState();
 
-    _initAgentsList();
+    //_initAgentsList();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final agencyProvider = Provider.of<AgencyProvider>(context, listen: false);
+      await agencyProvider.getAgencies(context, 1, 0);
+    });
+
   }
 
   _initAgentsList() {
@@ -62,34 +73,19 @@ class _AgentsScreenState extends State<AgentsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final l10n = AppLocalizations.of(context)!;
+    final agencyProvider = Provider.of<AgencyProvider>(context);
+    final agencies = agencyProvider.agenciesResponse?.agenciesAndPagination?.agenciesList;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.secondaryColor,
-        title: const Text('Agencies'),
-        centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(16),
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: AppColors.backBtnColor,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              child:
-                  const Icon(Icons.arrow_back, color: AppColors.secondaryColor),
-            ),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: l10n.agenciesTitle,
+        onTapBackButton: () {
+          Navigator.pop(context);
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,37 +98,33 @@ class _AgentsScreenState extends State<AgentsScreen> {
             child: ListView(
               shrinkWrap: true,
               padding: const EdgeInsets.all(16.0),
-              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const MainHeading(
-                    heading: 'Real Estate Agencies in Saudia Arabia'),
+                MainHeading(heading: l10n.agenciesHeading),
                 const SizedBox(height: 10),
-                const Text(
-                  '10 agencies available in Saudia Arabia',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                Text(
+                  l10n.agenciesSubHeading,
+                  style: context.textTheme.bodyLarge
                 ),
                 const SizedBox(height: 10),
                 ListView.builder(
                   shrinkWrap: true,
                   primary: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: agenciesList.length,
+                  itemCount: agencies!.length,
                   itemBuilder: (context, index) {
+
                     return AgencyItem(
                       onTap: () {
                         PersistentNavBarNavigator.pushNewScreen(
                           context,
                           screen:
-                              AgentDetailsScreen(agent: agenciesList[index]),
+                              AgencyDetailsScreen(agent: agencies![index]),
                           withNavBar: false,
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
                         );
                       },
-                      agent: agenciesList[index],
+                      agent: agencies[index],
                     );
                   },
                 ),

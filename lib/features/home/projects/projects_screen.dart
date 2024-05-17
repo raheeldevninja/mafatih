@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mafatih/core/app/app_colors.dart';
+import 'package:mafatih/core/extension/context.dart';
 import 'package:mafatih/core/images/images.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
+import 'package:mafatih/core/ui/bottom_sheets.dart';
 import 'package:mafatih/core/ui/header.dart';
 import 'package:mafatih/features/home/pages/explore/widgets/project_item.dart';
+import 'package:mafatih/features/home/projects/project_details_screen.dart';
+import 'package:mafatih/features/search/search_screen.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProjectsScreen extends StatefulWidget {
-  const ProjectsScreen({Key? key}) : super(key: key);
+  const ProjectsScreen({super.key});
 
   @override
   State<ProjectsScreen> createState() => _ProjectsScreenState();
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Property> projects = [];
+  List<PropertyModel> projects = [];
 
   @override
   void initState() {
@@ -26,7 +32,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   _initProjectsList() {
     projects.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -37,15 +43,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/60x60',
         images: [
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
 
     projects.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -56,15 +62,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/60x60',
         images: [
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
 
     projects.add(
-      Property(
+      PropertyModel(
         propertyName: 'Property Name',
         price: '44000',
         area: '90m2',
@@ -75,9 +81,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         addOwner: 'Adeen Real Estate',
         ownerImage: 'https://via.placeholder.com/60x60',
         images: [
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
-          'https://via.placeholder.com/1000x600',
+          Images.propertyImagePort,
+          Images.propertyImagePort,
+          Images.propertyImagePort,
         ],
       ),
     );
@@ -88,8 +94,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final languageCode = AppLocalizations.of(context)!.localeName;
-    final isEnglishLang = languageCode == 'en';
 
     return Scaffold(
       backgroundColor: AppColors.secondaryBgColor,
@@ -116,10 +120,18 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           ),
         ),
         centerTitle: true,
-        title: const Text('Projects'),
+        title: Text(l10n.projectsTitle),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.bottomToTop,
+                  child: const SearchScreen(),
+                ),
+              );
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
@@ -127,7 +139,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              BottomSheets.showFilterBottomSheet(context);
+            },
             icon: SvgPicture.asset(
               width: 20,
               height: 20,
@@ -150,19 +164,13 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Projects for Sale in all Saudi Arabia',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    l10n.projectsHeading,
+                    style: context.textTheme.titleMedium,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '56 results',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
+                    l10n.resultsLabel,
+                    style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 20),
                   ListView.builder(
@@ -171,9 +179,25 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: projects.length,
                     itemBuilder: (context, index) {
-                      return ProjectItem(
-                        property: projects[index],
-                        onTap: () {},
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 1000),
+                        child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: ProjectItem(
+                            property: projects[index],
+                            onTap: () {
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: ProjectDetailsScreen(
+                                    property: projects[index]),
+                                withNavBar: false,
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.cupertino,
+                              );
+                            },
+                          ),
+                        ),
                       );
                     },
                   ),

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/images/images.dart';
-import 'package:mafatih/core/models/property.dart';
+import 'package:mafatih/core/models/property_model.dart';
 
 
 class PropertyImagesSlider extends StatefulWidget {
@@ -12,7 +12,7 @@ class PropertyImagesSlider extends StatefulWidget {
     required this.property,
     super.key});
 
-  final Property property;
+  final PropertyModel property;
 
   @override
   State<PropertyImagesSlider> createState() => _PropertyImagesSliderState();
@@ -76,13 +76,13 @@ class _PropertyImagesSliderState extends State<PropertyImagesSlider> {
                   margin: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 2.0),
                   decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: (Theme.of(context).brightness ==
-                          Brightness.dark
-                          ? AppColors.whiteColor
-                          : AppColors.blackColor)
-                          .withOpacity(
-                          current == entry.key ? 0.9 : 0.4)),
+                    shape: BoxShape.circle,
+                    color: AppColors.whiteColor
+                        .withOpacity(current == entry.key ? 1 : 0.0),
+                    border: Border.all(
+                      color: AppColors.whiteColor,
+                    ),
+                  ),
                 ),
               );
             }).toList(),

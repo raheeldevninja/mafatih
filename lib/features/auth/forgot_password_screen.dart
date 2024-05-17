@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mafatih/core/app/app_colors.dart';
 import 'package:mafatih/core/ui/app_text_field.dart';
+import 'package:mafatih/core/ui/custom_app_bar.dart';
 import 'package:mafatih/core/ui/header.dart';
+import 'package:mafatih/core/ui/shimmers/form_page_shimmer.dart';
 import 'package:mafatih/core/ui/simple_button.dart';
 import 'package:mafatih/core/ui/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mafatih/core/util/utils.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:mafatih/features/auth/verify_otp_screen.dart';
+import 'package:mafatih/features/auth/view_model/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -26,42 +27,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final l10n = AppLocalizations.of(context)!;
-
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
-    print('language: ${l10n.localeName}');
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
         backgroundColor: AppColors.secondaryBgColor,
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: AppColors.secondaryColor,
-          surfaceTintColor: Colors.transparent,
-          title: Text(l10n.forgotPasswordHeading,
-              style: const TextStyle(fontWeight: FontWeight.w500)),
-          centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: AppColors.backBtnColor,
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                ),
-                child: const Icon(Icons.arrow_back,
-                    color: AppColors.secondaryColor),
-              ),
-            ),
-          ),
+        appBar: CustomAppBar(
+          title: l10n.forgotPasswordHeading,
+          onTapBackButton: () {
+            Navigator.pop(context);
+          },
         ),
-        body: ListView(
+        body: authProvider.isLoading ? const FormPageShimmer(shimmersCount: 3) : ListView(
           children: [
             Header(content: Text(l10n.verifyNumberLabel)),
             Padding(
@@ -70,7 +49,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Widgets.labels(l10n.phoneNoLabel),
+                    Widgets.labels(context, l10n.phoneNoLabel),
                     const SizedBox(
                       height: 10,
                     ),
@@ -103,17 +82,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             height: 60,
             child: SimpleButton(
               text: l10n.verifyBtnText,
-              callback: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  Utils.showCustomSnackBar(
-                      context, 'OTP sent', ContentType.success);
+                  /*Utils.showCustomSnackBar(
+                      context, 'OTP sent', ContentType.success);*/
 
-                  ///navigate to verify otp screen
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const VerifyOTPScreen(),
-                    ),
-                  );
+                  await authProvider.verifyPhone(context, _phoneNumberController.text.trim());
+
+
                 }
               },
             ),
