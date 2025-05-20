@@ -1,6 +1,11 @@
 # mafatih
-
 real estate app
+
+
+
+![navigation_drawer_arabic](https://github.com/user-attachments/assets/4944d243-37e2-4ef8-a2a8-9dbc70cc2694)
+![home_screen_arabic](https://github.com/user-attachments/assets/77f535a0-6b06-40e8-969d-1bbbcfe3ca05)
+![options_menu_arabic](https://github.com/user-attachments/assets/fa63c8fd-af3a-429b-8624-e8954d7fbc99)
 
 ![12](https://github.com/user-attachments/assets/b91c300e-b22b-4545-a474-bce9594ff86f)
 ![11](https://github.com/user-attachments/assets/4b7442fe-9bfb-48b5-9bbd-5d4b2bcfaa2b)
